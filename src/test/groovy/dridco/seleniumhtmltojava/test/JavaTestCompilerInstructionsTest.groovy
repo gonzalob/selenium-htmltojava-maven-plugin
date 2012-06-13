@@ -229,6 +229,11 @@ class JavaTestCompilerInstructionsTest {
     <td>an_element_id</td>
     <td></td>
 </tr>
+<tr>
+	<td>refreshAndWait</td>
+	<td></td>
+	<td></td>
+</tr>
 </tbody></table>
 	</body>
 </html>
@@ -415,5 +420,9 @@ class JavaTestCompilerInstructionsTest {
 
 	@Test void canParseWaitForElementPresent() {
 		assertThat compiled, containsString("{ int remainingAttempts = 60; while (remainingAttempts > 0) { if(selenium.isElementPresent(\"an_element_id\")) { break; } else { remainingAttempts--; try { Thread.sleep(500); } catch (InterruptedException e) { fail(e.getMessage()); } } } }")
+	}
+	
+	@Test void canParseRefreshAndWait() {
+		assertThat compiled, containsString('selenium.refresh(); selenium.waitForPageToLoad("30000");')
 	}
 }

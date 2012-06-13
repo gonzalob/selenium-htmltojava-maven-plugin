@@ -338,6 +338,17 @@ enum Commands {
 		}
 
 	},
+	refreshAndWait {
+
+		@Override
+		public String doBuild(String target, String value) {
+			warnIfUnusedTargetIsNotEmpty(target);
+			warnIfUnusedValueIsNotEmpty(value);
+			return format("%s.refresh(); %s.waitForPageToLoad(\"%d\");",
+					SELENIUM, SELENIUM, Globals.timeout);
+		}
+
+	},
 	__unknown__ {
 		@Override
 		public String doBuild(final String target, final String value) {
@@ -365,7 +376,7 @@ enum Commands {
 	 * every method in the {@link org.junit.Assert} and
 	 * {@link org.junit.matchers.JUnitMatchers} classes
 	 */
-	public abstract String doBuild(String value, String additional);
+	public abstract String doBuild(String target, String value);
 
 	protected final void warnIfUnusedTargetIsNotEmpty(final String value) {
 		warnIfUnusedIsNotEmpty(value, "target");
