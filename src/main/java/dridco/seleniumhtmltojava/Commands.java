@@ -344,8 +344,9 @@ enum Commands {
 		public String doBuild(String target, String value) {
 			warnIfUnusedTargetIsNotEmpty(target);
 			warnIfUnusedValueIsNotEmpty(value);
-			return format("%s.refresh(); %s.waitForPageToLoad(\"%d\");",
-					SELENIUM, SELENIUM, Globals.timeout);
+			return format("%s.refresh();", SELENIUM)
+					+ waitForPageToLoad.doBuild(
+							String.valueOf(Globals.timeout), value);
 		}
 
 	},

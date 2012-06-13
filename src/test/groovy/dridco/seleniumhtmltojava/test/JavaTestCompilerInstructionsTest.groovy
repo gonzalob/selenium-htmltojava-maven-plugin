@@ -423,6 +423,6 @@ class JavaTestCompilerInstructionsTest {
 	}
 	
 	@Test void canParseRefreshAndWait() {
-		assertThat compiled, containsString('selenium.refresh(); selenium.waitForPageToLoad("30000");')
+		assertThat compiled, containsString('selenium.refresh();selenium.waitForPageToLoad("30000");')
 	}
 }
