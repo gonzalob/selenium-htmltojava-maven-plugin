@@ -39,6 +39,7 @@ private java.util.Map<String, String> storage = new java.util.HashMap<String, St
 public _TheCasesTitleITCase() { selenium = new com.thoughtworks.selenium.DefaultSelenium("localhost", 4444, "*firefox", "http://sample-host/"); }
 @org.junit.Before public void prepareSeleniumSession() { selenium.start(); selenium.setSpeed("0"); selenium.setTimeout("30000"); }
 @org.junit.After public void closeSeleniumSession() { selenium.stop(); }
+public void waitForElementPresent(String element, int timeout) { final int millisBetweenAttempts = 500; int remainingAttempts = timeout / millisBetweenAttempts; while (remainingAttempts > 0) { if(selenium.isElementPresent(element)) { break; } else { remainingAttempts--; try { Thread.sleep(millisBetweenAttempts); } catch (InterruptedException e) { fail(e.getMessage()); } } } }
 @org.junit.Test
 public void testMethod() {}}"""
 
@@ -59,6 +60,7 @@ private java.util.Map<String, String> storage = new java.util.HashMap<String, St
 public _TheCasesTitleITCase() { selenium = new com.thoughtworks.selenium.DefaultSelenium("localhost", 4444, "*firefox", "http://sample-host/"); }
 @org.junit.Before public void prepareSeleniumSession() { selenium.start(); selenium.setSpeed("0"); selenium.setTimeout("30000"); }
 @org.junit.After public void closeSeleniumSession() { selenium.stop(); }
+public void waitForElementPresent(String element, int timeout) { final int millisBetweenAttempts = 500; int remainingAttempts = timeout / millisBetweenAttempts; while (remainingAttempts > 0) { if(selenium.isElementPresent(element)) { break; } else { remainingAttempts--; try { Thread.sleep(millisBetweenAttempts); } catch (InterruptedException e) { fail(e.getMessage()); } } } }
 @org.junit.Test
 public void testMethod() {}}"""
 

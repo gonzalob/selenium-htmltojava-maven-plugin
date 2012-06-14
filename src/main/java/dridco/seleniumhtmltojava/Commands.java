@@ -313,21 +313,14 @@ enum Commands {
 
 		@Override
 		public String doBuild(String target, String timeout) {
-			final Integer MILLIS_BETWEEN_ATTEMPTS = 500;
 			Integer actualTimeout;
 			if (StringUtils.isEmpty(timeout)) {
 				actualTimeout = Globals.timeout;
 			} else {
 				actualTimeout = Integer.valueOf(timeout);
 			}
-			final Integer maxAttempts = actualTimeout / MILLIS_BETWEEN_ATTEMPTS;
-			return format(
-					"{ int remainingAttempts = %d; "
-							+ "while (remainingAttempts > 0) { "
-							+ "if(%s.isElementPresent(\"%s\")) { break; } "
-							+ "else { remainingAttempts--; try { Thread.sleep(%d); } catch (InterruptedException e) { fail(e.getMessage()); } "
-							+ "} } }", //
-					maxAttempts, SELENIUM, target, MILLIS_BETWEEN_ATTEMPTS);
+			return format("waitForElementPresent(\"%s\", %d);", //
+					target, actualTimeout);
 		}
 
 	},

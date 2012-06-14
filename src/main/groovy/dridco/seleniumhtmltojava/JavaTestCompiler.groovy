@@ -61,6 +61,7 @@ private java.util.Map<String, String> ${TestVariables.STORAGE} = new java.util.H
 public ${resolvedName}() { ${TestVariables.SELENIUM} = ${seleniumImplementation} }
 @org.junit.Before public void prepareSeleniumSession() { ${TestVariables.SELENIUM}.start(); ${TestVariables.SELENIUM}.setSpeed("${Globals.speed}"); ${TestVariables.SELENIUM}.setTimeout("${Globals.timeout}"); }
 @org.junit.After public void closeSeleniumSession() { ${TestVariables.SELENIUM}.stop(); }
+public void waitForElementPresent(String element, int timeout) { final int millisBetweenAttempts = 500; int remainingAttempts = timeout / millisBetweenAttempts; while (remainingAttempts > 0) { if(${TestVariables.SELENIUM}.isElementPresent(element)) { break; } else { remainingAttempts--; try { Thread.sleep(millisBetweenAttempts); } catch (InterruptedException e) { fail(e.getMessage()); } } } }
 @org.junit.Test
 public void testMethod() {${commands}}}""".toString()
 	}

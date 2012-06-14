@@ -419,7 +419,7 @@ class JavaTestCompilerInstructionsTest {
 	}
 
 	@Test void canParseWaitForElementPresent() {
-		assertThat compiled, containsString("{ int remainingAttempts = 60; while (remainingAttempts > 0) { if(selenium.isElementPresent(\"an_element_id\")) { break; } else { remainingAttempts--; try { Thread.sleep(500); } catch (InterruptedException e) { fail(e.getMessage()); } } } }")
+		assertThat compiled, containsString("waitForElementPresent(\"an_element_id\", 30000);")
 	}
 	
 	@Test void canParseRefreshAndWait() {
