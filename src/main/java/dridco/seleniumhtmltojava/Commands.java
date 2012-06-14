@@ -285,9 +285,7 @@ enum Commands {
 		public String doBuild(final String target, final String value) {
 			warnIfUnusedValueIsNotEmpty(value);
 			LOG.warn("The use of pause is discouraged.");
-			return format(
-					"try { Thread.sleep(%d); } catch (InterruptedException e) { fail(e.getMessage()); };",
-					Integer.valueOf(target));
+			return format("waitForPageToLoad(%d);", Integer.valueOf(target));
 		}
 	},
 	storeHtmlSource {
@@ -361,7 +359,9 @@ enum Commands {
 	 * {@link dridco.seleniumhtmltojava.TestVariables#SELENIUM} and
 	 * {@link dridco.seleniumhtmltojava.TestVariables#STORAGE} variable, and
 	 * every method in the {@link org.junit.Assert} and
-	 * {@link org.junit.matchers.JUnitMatchers} classes
+	 * {@link org.junit.matchers.JUnitMatchers} classes. There's also every
+	 * method on the test template's source. See
+	 * {@link dridco.seleniumhtmltojava.JavaTestCompiler}
 	 */
 	public abstract String doBuild(String target, String value);
 

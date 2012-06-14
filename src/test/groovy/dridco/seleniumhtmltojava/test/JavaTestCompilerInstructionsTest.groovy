@@ -287,7 +287,7 @@ class JavaTestCompilerInstructionsTest {
 	}
 
 	@Test void canParsePause() {
-		assertThat compiled, containsString('try { Thread.sleep(2000); } catch (InterruptedException e) { fail(e.getMessage()); };')
+		assertThat compiled, containsString('waitForPageToLoad(2000);')
 	}
 
 	@Test void canParseStoreEval() {
