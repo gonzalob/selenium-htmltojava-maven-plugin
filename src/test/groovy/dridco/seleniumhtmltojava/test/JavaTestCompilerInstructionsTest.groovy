@@ -250,8 +250,8 @@ class JavaTestCompilerInstructionsTest {
 		assertThat compiled, containsString('selenium.open("http://carros.demotores.com.co/");')
 	}
 
-	@Test void canParseWaitForPageToLoadWithoutTimeoutByFailingTheTest() {
-		assertThat compiled, containsString('fail("Found waitForPageToLoad without timeout defined");')
+	@Test void canParseWaitForPageToLoadWithoutTimeout() {
+		assertThat compiled, containsString('selenium.waitForPageToLoad("");')
 	}
 	
 	@Test void canParseWaitForPageToLoadWithTimeout() {

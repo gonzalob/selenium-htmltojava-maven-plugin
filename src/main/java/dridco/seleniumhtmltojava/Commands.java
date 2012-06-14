@@ -22,14 +22,7 @@ enum Commands {
 		@Override
 		public String doBuild(final String target, final String value) {
 			warnIfUnusedValueIsNotEmpty(value);
-			String command;
-			if (isNotEmpty(target)) {
-				command = format("%s.waitForPageToLoad(\"%s\");", SELENIUM,
-						target);
-			} else {
-				command = "fail(\"Found waitForPageToLoad without timeout defined\");";
-			}
-			return command;
+			return format("%s.waitForPageToLoad(\"%s\");", SELENIUM, target);
 		}
 	},
 	clickAndWait {

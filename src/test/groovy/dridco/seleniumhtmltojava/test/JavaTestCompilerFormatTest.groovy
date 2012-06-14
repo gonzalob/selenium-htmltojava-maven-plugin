@@ -37,7 +37,7 @@ public class _TheCasesTitleITCase {
 private com.thoughtworks.selenium.Selenium selenium;
 private java.util.Map<String, String> storage = new java.util.HashMap<String, String>();
 public _TheCasesTitleITCase() { selenium = new com.thoughtworks.selenium.DefaultSelenium("localhost", 4444, "*firefox", "http://sample-host/"); }
-@org.junit.Before public void prepareSeleniumSession() { selenium.start(); selenium.setSpeed("0"); }
+@org.junit.Before public void prepareSeleniumSession() { selenium.start(); selenium.setSpeed("0"); selenium.setTimeout("30000"); }
 @org.junit.After public void closeSeleniumSession() { selenium.stop(); }
 @org.junit.Test
 public void testMethod() {}}"""
@@ -57,7 +57,7 @@ public class _TheCasesTitleITCase {
 private com.thoughtworks.selenium.Selenium selenium;
 private java.util.Map<String, String> storage = new java.util.HashMap<String, String>();
 public _TheCasesTitleITCase() { selenium = new com.thoughtworks.selenium.DefaultSelenium("localhost", 4444, "*firefox", "http://sample-host/"); }
-@org.junit.Before public void prepareSeleniumSession() { selenium.start(); selenium.setSpeed("0"); }
+@org.junit.Before public void prepareSeleniumSession() { selenium.start(); selenium.setSpeed("0"); selenium.setTimeout("30000"); }
 @org.junit.After public void closeSeleniumSession() { selenium.stop(); }
 @org.junit.Test
 public void testMethod() {}}"""
