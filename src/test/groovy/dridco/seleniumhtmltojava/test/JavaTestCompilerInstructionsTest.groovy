@@ -251,11 +251,11 @@ class JavaTestCompilerInstructionsTest {
 	}
 
 	@Test void canParseWaitForPageToLoadWithoutTimeout() {
-		assertThat compiled, containsString('selenium.waitForPageToLoad("");')
+		assertThat compiled, containsString('waitForPageToLoad("");')
 	}
 	
 	@Test void canParseWaitForPageToLoadWithTimeout() {
-		assertThat compiled, containsString('selenium.waitForPageToLoad("30000");')
+		assertThat compiled, containsString('waitForPageToLoad("30000");')
 	}
 
 	@Test void canParseDeleteAllVisibleCookies() {
@@ -287,7 +287,7 @@ class JavaTestCompilerInstructionsTest {
 	}
 
 	@Test void canParsePause() {
-		assertThat compiled, containsString('waitForPageToLoad(2000);')
+		assertThat compiled, containsString('pause(2000);')
 	}
 
 	@Test void canParseStoreEval() {

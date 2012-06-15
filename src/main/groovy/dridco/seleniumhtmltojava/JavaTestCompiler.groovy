@@ -56,13 +56,15 @@ package ${resolvedPackage};
 import static org.junit.Assert.*;
 import static org.junit.matchers.JUnitMatchers.*;
 public class ${resolvedName} {
-private com.thoughtworks.selenium.Selenium ${TestVariables.SELENIUM};
-private java.util.Map<String, String> ${TestVariables.STORAGE} = new java.util.HashMap<String, String>();
+private final java.util.logging.Logger logger = java.util.logging.Logger.getLogger("${resolvedName}");
+private final com.thoughtworks.selenium.Selenium ${TestVariables.SELENIUM};
+private final java.util.Map<String, String> ${TestVariables.STORAGE} = new java.util.HashMap<String, String>();
 public ${resolvedName}() { ${TestVariables.SELENIUM} = ${seleniumImplementation} }
 @org.junit.Before public void prepareSeleniumSession() { ${TestVariables.SELENIUM}.start(); ${TestVariables.SELENIUM}.setSpeed("${Globals.speed}"); ${TestVariables.SELENIUM}.setTimeout("${Globals.timeout}"); }
 @org.junit.After public void closeSeleniumSession() { ${TestVariables.SELENIUM}.stop(); }
 public void waitForElementPresent(String element, int timeout) { final int millisBetweenAttempts = 500; int remainingAttempts = timeout / millisBetweenAttempts; while (remainingAttempts > 0) { if(${TestVariables.SELENIUM}.isElementPresent(element)) { break; } else { remainingAttempts--; try { Thread.sleep(millisBetweenAttempts); } catch (InterruptedException e) { fail(e.getMessage()); } } } }
-public void waitForPageToLoad(int millis) { try { Thread.sleep(millis); } catch (InterruptedException e) { fail(e.getMessage()); } }
+public void pause(int millis) { try { Thread.sleep(millis); } catch (InterruptedException e) { fail(e.getMessage()); } }
+public void waitForPageToLoad(int millis) { int actualTimeout; if(${Globals.extendedTimeout} > 0) { actualTimeout = ${Globals.extendedTimeout}; } else { actualTimeout = millis; } long start = System.currentTimeMillis(); selenium.waitForPageToLoad("" + actualTimeout); long duration = System.currentTimeMillis() - start; if(duration > millis) { logger.warning(java.text.MessageFormat.format("Defined timeout insufficient. Declared: %d, Forced: %d, Actual: %d", millis, ${Globals.extendedTimeout}, duration)); } }
 @org.junit.Test
 public void testMethod() {${commands}}}""".toString()
 	}

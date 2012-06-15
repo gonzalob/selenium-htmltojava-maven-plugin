@@ -39,7 +39,7 @@ public class GenerateIntegrationTestSourcesMojo extends AbstractMojo {
 	 */
 	private String javaTestsLocation;
 	/**
-	 * @parameter default-value="true"
+	 * @parameter expression="htmltojava.skip" default-value="true"
 	 */
 	private Boolean skip;
 	/**
@@ -48,16 +48,16 @@ public class GenerateIntegrationTestSourcesMojo extends AbstractMojo {
 	 */
 	private MavenProject project;
 	/**
-	 * @parameter default-value="localhost"
+	 * @parameter expression="htmltojava.host" default-value="localhost"
 	 */
 	private String seleniumServerHost;
 	/**
-	 * @parameter default-value="4444"
+	 * @parameter expression="htmltojava.port" default-value="4444"
 	 * @required
 	 */
 	private Integer seleniumServerPort;
 	/**
-	 * @parameter default-value="firefox"
+	 * @parameter expression="htmltojava.browser" default-value="firefox"
 	 */
 	private String seleniumServerBrowser;
 	/**
@@ -89,6 +89,10 @@ public class GenerateIntegrationTestSourcesMojo extends AbstractMojo {
 	 * @parameter default-value="0"
 	 */
 	private Integer speed;
+	/**
+	 * @parameter expression="htmltojava.forced-timeout" default-value="-1"
+	 */
+	private Integer extendedTimeout;
 
 	private JavaTestCompiler compiler;
 
@@ -111,6 +115,7 @@ public class GenerateIntegrationTestSourcesMojo extends AbstractMojo {
 	private void initializeGlobals() {
 		Globals.timeout = timeoutForPageLoad;
 		Globals.speed = speed;
+		Globals.extendedTimeout = extendedTimeout;
 	}
 
 	private void reportMetrics() {

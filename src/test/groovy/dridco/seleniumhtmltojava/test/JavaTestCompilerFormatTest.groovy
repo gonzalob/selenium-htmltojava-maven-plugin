@@ -2,6 +2,8 @@ package dridco.seleniumhtmltojava.test
 
 import static org.junit.Assert.assertEquals
 
+import java.util.logging.Logger;
+
 import org.junit.Test
 
 import dridco.seleniumhtmltojava.JavaTestCompiler
@@ -34,13 +36,15 @@ package _integrationtests;
 import static org.junit.Assert.*;
 import static org.junit.matchers.JUnitMatchers.*;
 public class _TheCasesTitleITCase {
-private com.thoughtworks.selenium.Selenium selenium;
-private java.util.Map<String, String> storage = new java.util.HashMap<String, String>();
+private final java.util.logging.Logger logger = java.util.logging.Logger.getLogger("_TheCasesTitleITCase");
+private final com.thoughtworks.selenium.Selenium selenium;
+private final java.util.Map<String, String> storage = new java.util.HashMap<String, String>();
 public _TheCasesTitleITCase() { selenium = new com.thoughtworks.selenium.DefaultSelenium("localhost", 4444, "*firefox", "http://sample-host/"); }
 @org.junit.Before public void prepareSeleniumSession() { selenium.start(); selenium.setSpeed("0"); selenium.setTimeout("30000"); }
 @org.junit.After public void closeSeleniumSession() { selenium.stop(); }
 public void waitForElementPresent(String element, int timeout) { final int millisBetweenAttempts = 500; int remainingAttempts = timeout / millisBetweenAttempts; while (remainingAttempts > 0) { if(selenium.isElementPresent(element)) { break; } else { remainingAttempts--; try { Thread.sleep(millisBetweenAttempts); } catch (InterruptedException e) { fail(e.getMessage()); } } } }
-public void waitForPageToLoad(int millis) { try { Thread.sleep(millis); } catch (InterruptedException e) { fail(e.getMessage()); } }
+public void pause(int millis) { try { Thread.sleep(millis); } catch (InterruptedException e) { fail(e.getMessage()); } }
+public void waitForPageToLoad(int millis) { int actualTimeout; if(-1 > 0) { actualTimeout = -1; } else { actualTimeout = millis; } long start = System.currentTimeMillis(); selenium.waitForPageToLoad("" + actualTimeout); long duration = System.currentTimeMillis() - start; if(duration > millis) { logger.warning(java.text.MessageFormat.format("Defined timeout insufficient. Declared: %d, Forced: %d, Actual: %d", millis, -1, duration)); } }
 @org.junit.Test
 public void testMethod() {}}"""
 
@@ -56,13 +60,15 @@ package _demotoressamples;
 import static org.junit.Assert.*;
 import static org.junit.matchers.JUnitMatchers.*;
 public class _TheCasesTitleITCase {
-private com.thoughtworks.selenium.Selenium selenium;
-private java.util.Map<String, String> storage = new java.util.HashMap<String, String>();
+private final java.util.logging.Logger logger = java.util.logging.Logger.getLogger("_TheCasesTitleITCase");
+private final com.thoughtworks.selenium.Selenium selenium;
+private final java.util.Map<String, String> storage = new java.util.HashMap<String, String>();
 public _TheCasesTitleITCase() { selenium = new com.thoughtworks.selenium.DefaultSelenium("localhost", 4444, "*firefox", "http://sample-host/"); }
 @org.junit.Before public void prepareSeleniumSession() { selenium.start(); selenium.setSpeed("0"); selenium.setTimeout("30000"); }
 @org.junit.After public void closeSeleniumSession() { selenium.stop(); }
 public void waitForElementPresent(String element, int timeout) { final int millisBetweenAttempts = 500; int remainingAttempts = timeout / millisBetweenAttempts; while (remainingAttempts > 0) { if(selenium.isElementPresent(element)) { break; } else { remainingAttempts--; try { Thread.sleep(millisBetweenAttempts); } catch (InterruptedException e) { fail(e.getMessage()); } } } }
-public void waitForPageToLoad(int millis) { try { Thread.sleep(millis); } catch (InterruptedException e) { fail(e.getMessage()); } }
+public void pause(int millis) { try { Thread.sleep(millis); } catch (InterruptedException e) { fail(e.getMessage()); } }
+public void waitForPageToLoad(int millis) { int actualTimeout; if(-1 > 0) { actualTimeout = -1; } else { actualTimeout = millis; } long start = System.currentTimeMillis(); selenium.waitForPageToLoad("" + actualTimeout); long duration = System.currentTimeMillis() - start; if(duration > millis) { logger.warning(java.text.MessageFormat.format("Defined timeout insufficient. Declared: %d, Forced: %d, Actual: %d", millis, -1, duration)); } }
 @org.junit.Test
 public void testMethod() {}}"""
 

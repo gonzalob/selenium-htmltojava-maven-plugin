@@ -6,4 +6,6 @@ public class Globals {
 	
 	public static Integer speed = 0;
 
+	public static Integer extendedTimeout = -1;
+	
 }

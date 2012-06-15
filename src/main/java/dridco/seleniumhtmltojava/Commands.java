@@ -285,7 +285,7 @@ enum Commands {
 		public String doBuild(final String target, final String value) {
 			warnIfUnusedValueIsNotEmpty(value);
 			LOG.warn("The use of pause is discouraged.");
-			return format("waitForPageToLoad(%d);", Integer.valueOf(target));
+			return format("pause(%d);", Integer.valueOf(target));
 		}
 	},
 	storeHtmlSource {
