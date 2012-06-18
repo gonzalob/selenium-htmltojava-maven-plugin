@@ -307,7 +307,7 @@ class JavaTestCompilerInstructionsTest {
 	}
 
 	@Test void canParseClickAndWait() {
-		assertThat compiled, containsString('selenium.click("link=Some link");selenium.waitForPageToLoad("30000");')
+		assertThat compiled, containsString('selenium.click("link=Some link");waitForPageToLoad("30000");')
 	}
 
 	@Test void canParseVerifyText() {
@@ -419,10 +419,10 @@ class JavaTestCompilerInstructionsTest {
 	}
 
 	@Test void canParseWaitForElementPresent() {
-		assertThat compiled, containsString("waitForElementPresent(\"an_element_id\", 30000);")
+		assertThat compiled, containsString("waitForElementPresent(\"an_element_id\", \"30000\");")
 	}
 	
 	@Test void canParseRefreshAndWait() {
-		assertThat compiled, containsString('selenium.refresh();selenium.waitForPageToLoad("30000");')
+		assertThat compiled, containsString('selenium.refresh();waitForPageToLoad("30000");')
 	}
 }

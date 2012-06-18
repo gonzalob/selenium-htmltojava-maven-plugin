@@ -22,7 +22,7 @@ enum Commands {
 		@Override
 		public String doBuild(final String target, final String value) {
 			warnIfUnusedValueIsNotEmpty(value);
-			return format("%s.waitForPageToLoad(\"%s\");", SELENIUM, target);
+			return format("waitForPageToLoad(\"%s\");", target);
 		}
 	},
 	clickAndWait {
@@ -311,13 +311,13 @@ enum Commands {
 
 		@Override
 		public String doBuild(String target, String timeout) {
-			Integer actualTimeout;
+			String actualTimeout;
 			if (StringUtils.isEmpty(timeout)) {
-				actualTimeout = Globals.timeout;
+				actualTimeout = Globals.timeout.toString();
 			} else {
-				actualTimeout = Integer.valueOf(timeout);
+				actualTimeout = timeout;
 			}
-			return format("waitForElementPresent(\"%s\", %d);", //
+			return format("waitForElementPresent(\"%s\", \"%s\");", //
 					target, actualTimeout);
 		}
 
