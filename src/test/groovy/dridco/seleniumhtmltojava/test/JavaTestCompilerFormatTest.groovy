@@ -44,7 +44,7 @@ public _TheCasesTitleITCase() { selenium = new com.thoughtworks.selenium.Default
 @org.junit.After public void closeSeleniumSession() { selenium.stop(); }
 public void waitForElementPresent(String element, String timeout) { int millis = Integer.valueOf(timeout); final int millisBetweenAttempts = 500; int remainingAttempts = millis / millisBetweenAttempts; while (remainingAttempts > 0) { if(selenium.isElementPresent(element)) { break; } else { remainingAttempts--; try { Thread.sleep(millisBetweenAttempts); } catch (InterruptedException e) { fail(e.getMessage()); } } } }
 public void pause(int millis) { try { Thread.sleep(millis); } catch (InterruptedException e) { fail(e.getMessage()); } }
-public void waitForPageToLoad(String timeout) { int millis = Integer.valueOf(timeout); int actualTimeout; if(-1 > 0) { actualTimeout = -1; } else { actualTimeout = millis; } long start = System.currentTimeMillis(); selenium.waitForPageToLoad("" + actualTimeout); long duration = System.currentTimeMillis() - start; if(duration > millis) { logger.warning(java.text.MessageFormat.format("Defined timeout insufficient. Declared: %d, Forced: %d, Actual: %d", millis, -1, duration)); } }
+public void waitForPageToLoad(String timeout) { int millis = Integer.valueOf(timeout); int actualTimeout; if(-1 > 0) { actualTimeout = -1; } else { actualTimeout = millis; } long start = System.currentTimeMillis(); selenium.waitForPageToLoad("" + actualTimeout); long duration = System.currentTimeMillis() - start; if(duration > millis) { logger.warning(java.text.MessageFormat.format("Defined timeout insufficient. Declared: {0}, Forced: {1}, Actual: {2}", millis, -1, duration)); } }
 @org.junit.Test
 public void testMethod() {}}"""
 
@@ -68,7 +68,7 @@ public _TheCasesTitleITCase() { selenium = new com.thoughtworks.selenium.Default
 @org.junit.After public void closeSeleniumSession() { selenium.stop(); }
 public void waitForElementPresent(String element, String timeout) { int millis = Integer.valueOf(timeout); final int millisBetweenAttempts = 500; int remainingAttempts = millis / millisBetweenAttempts; while (remainingAttempts > 0) { if(selenium.isElementPresent(element)) { break; } else { remainingAttempts--; try { Thread.sleep(millisBetweenAttempts); } catch (InterruptedException e) { fail(e.getMessage()); } } } }
 public void pause(int millis) { try { Thread.sleep(millis); } catch (InterruptedException e) { fail(e.getMessage()); } }
-public void waitForPageToLoad(String timeout) { int millis = Integer.valueOf(timeout); int actualTimeout; if(-1 > 0) { actualTimeout = -1; } else { actualTimeout = millis; } long start = System.currentTimeMillis(); selenium.waitForPageToLoad("" + actualTimeout); long duration = System.currentTimeMillis() - start; if(duration > millis) { logger.warning(java.text.MessageFormat.format("Defined timeout insufficient. Declared: %d, Forced: %d, Actual: %d", millis, -1, duration)); } }
+public void waitForPageToLoad(String timeout) { int millis = Integer.valueOf(timeout); int actualTimeout; if(-1 > 0) { actualTimeout = -1; } else { actualTimeout = millis; } long start = System.currentTimeMillis(); selenium.waitForPageToLoad("" + actualTimeout); long duration = System.currentTimeMillis() - start; if(duration > millis) { logger.warning(java.text.MessageFormat.format("Defined timeout insufficient. Declared: {0}, Forced: {1}, Actual: {2}", millis, -1, duration)); } }
 @org.junit.Test
 public void testMethod() {}}"""
 
