@@ -7,6 +7,7 @@
 	<packaging>maven-plugin</packaging>
 	<name>Selenium IDE to jUnit</name>
 	<description>Generates jUnit tests from Selenium IDE scripts</description>
+	<url>http://blog.gonz0.com.ar/selenium-html-to-java-maven-plugin</url>
 	<licenses>
 		<license>
 			<name>GNU GENERAL PUBLIC LICENSE</name>
