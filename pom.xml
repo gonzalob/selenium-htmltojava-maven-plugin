@@ -190,7 +190,7 @@
 	</issueManagement>
 	<scm>
 		<connection>scm:git:git://github.com/gonzalob/selenium-htmltojava-maven-plugin.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com:gonzalob/selenium-htmltojava-maven-plugin.git</developerConnection>
+		<developerConnection>scm:git:ssh://git@github.com/gonzalob/selenium-htmltojava-maven-plugin.git</developerConnection>
 		<url>https://github.com/gonzalob/selenium-htmltojava-maven-plugin</url>
 	</scm>
 	<!-- these repositories are not public -->
