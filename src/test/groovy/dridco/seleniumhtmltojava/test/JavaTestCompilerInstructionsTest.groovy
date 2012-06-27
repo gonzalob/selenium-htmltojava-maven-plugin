@@ -411,7 +411,7 @@ class JavaTestCompilerInstructionsTest {
 	}
 
 	@Test void canParseStoreHtmlSource() {
-		assertThat compiled, containsString("storage.put(\"aVariable\", selenium.getHtmlSource());")
+		assertThat compiled, containsString("storage.put(\"aVariable\", escapeJavaScript(selenium.getHtmlSource()));")
 	}
 
 	@Test void canParseClickAt() {

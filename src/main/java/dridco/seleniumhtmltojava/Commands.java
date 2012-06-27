@@ -293,7 +293,7 @@ enum Commands {
 		@Override
 		public String doBuild(String target, String value) {
 			warnIfUnusedValueIsNotEmpty(value);
-			return format("%s.put(\"%s\", %s.getHtmlSource());", STORAGE,
+			return format("%s.put(\"%s\", escapeJavaScript(%s.getHtmlSource()));", STORAGE,
 					target, SELENIUM);
 		}
 

@@ -35,6 +35,7 @@ class JavaTestCompilerFormatTest {
 package _integrationtests;
 import static org.junit.Assert.*;
 import static org.junit.matchers.JUnitMatchers.*;
+import static org.apache.commons.lang.StringEscapeUtils.escapeJavaScript;
 public class _TheCasesTitleITCase {
 private final java.util.logging.Logger logger = java.util.logging.Logger.getLogger("_TheCasesTitleITCase");
 private final com.thoughtworks.selenium.Selenium selenium;
@@ -59,6 +60,7 @@ public void testMethod() {}}"""
 package _demotoressamples;
 import static org.junit.Assert.*;
 import static org.junit.matchers.JUnitMatchers.*;
+import static org.apache.commons.lang.StringEscapeUtils.escapeJavaScript;
 public class _TheCasesTitleITCase {
 private final java.util.logging.Logger logger = java.util.logging.Logger.getLogger("_TheCasesTitleITCase");
 private final com.thoughtworks.selenium.Selenium selenium;
