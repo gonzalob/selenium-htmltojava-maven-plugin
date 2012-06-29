@@ -339,7 +339,16 @@ enum Commands {
 		}
 
 	},
+	waitForTextPresent() {
 
+		@Override
+		public String doBuild(String target, String timeout) {
+			warnIfUnusedValueIsNotEmpty(timeout);
+			return format("waitForTextPresent(\"%s\", \"%s\");", //
+					target, resolveTimeout(timeout));
+		}
+		
+	},
 	__unknown__ {
 		@Override
 		public String doBuild(final String target, final String value) {

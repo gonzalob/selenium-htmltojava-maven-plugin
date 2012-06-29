@@ -34,39 +34,55 @@ public enum Functions {
 	waitForElementPresent {
 		@Override
 		public String render() {
-			return waitForSomething(new WaitCallback() {
+			return waitForSomething(new WaitCallback(this) {
 
 				public String waitCondition() {
 					return SELENIUM + ".isElementPresent(element)";
 				}
 
-				public String methodName() {
-					return "waitForElementPresent";
+			});
+		}
+	},
+	waitForTextPresent {
+		@Override
+		public String render() {
+			return waitForSomething(new WaitCallback(this) {
+				
+				public String waitCondition() {
+					return SELENIUM + ".isTextPresent(element)";
 				}
+				
 			});
 		}
 	},
 	waitForEditable {
 		@Override
 		public String render() {
-			return waitForSomething(new WaitCallback() {
+			return waitForSomething(new WaitCallback(this) {
 
 				public String waitCondition() {
 					return SELENIUM + ".isEditable(element)";
 				}
 
-				public String methodName() {
-					return "waitForEditable";
-				}
 			});
 		}
 	};
 
 	public abstract String render();
 
-	private interface WaitCallback {
-		String methodName();
-		String waitCondition();
+	private abstract class WaitCallback {
+
+		private final Functions function;
+
+		public WaitCallback(Functions function) {
+			this.function = function;
+		}
+
+		private String methodName() {
+			return function.name();
+		}
+
+		abstract String waitCondition();
 	}
 
 	protected String waitForSomething(WaitCallback callback) {
