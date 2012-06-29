@@ -63,10 +63,15 @@ private final java.util.Map<String, String> ${TestVariables.STORAGE} = new java.
 public ${resolvedName}() { ${TestVariables.SELENIUM} = ${seleniumImplementation} }
 @org.junit.Before public void prepareSeleniumSession() { ${TestVariables.SELENIUM}.start(); ${TestVariables.SELENIUM}.setSpeed("${Globals.speed}"); ${TestVariables.SELENIUM}.setTimeout("${Globals.timeout}"); }
 @org.junit.After public void closeSeleniumSession() { ${TestVariables.SELENIUM}.stop(); }
-public void waitForElementPresent(String element, String timeout) { int millis = Integer.valueOf(timeout); final int millisBetweenAttempts = 500; int remainingAttempts = millis / millisBetweenAttempts; while (remainingAttempts > 0) { if(${TestVariables.SELENIUM}.isElementPresent(element)) { break; } else { remainingAttempts--; try { Thread.sleep(millisBetweenAttempts); } catch (InterruptedException e) { fail(e.getMessage()); } } } }
-public void pause(int millis) { try { Thread.sleep(millis); } catch (InterruptedException e) { fail(e.getMessage()); } }
-public void waitForPageToLoad(String timeout) { int millis = Integer.valueOf(timeout); int actualTimeout; if(${Globals.forcedTimeout} > 0) { actualTimeout = ${Globals.forcedTimeout}; } else { actualTimeout = millis; } long start = System.currentTimeMillis(); selenium.waitForPageToLoad("" + actualTimeout); long duration = System.currentTimeMillis() - start; if(duration > millis) { logger.warning(java.text.MessageFormat.format("Defined timeout insufficient. Declared: {0}, Forced: {1}, Actual: {2}", millis, ${Globals.forcedTimeout}, duration)); } }
-@org.junit.Test
-public void testMethod() {${commands}}}""".toString()
+${functions()}
+@org.junit.Test public void testMethod() {${commands}}}""".toString()
+	}
+
+	private String functions() {
+		StringBuilder functions = new StringBuilder();
+		for (Functions function : Functions.values()) {
+			functions.append function.render() ;
+		}
+		return functions;
 	}
 }
