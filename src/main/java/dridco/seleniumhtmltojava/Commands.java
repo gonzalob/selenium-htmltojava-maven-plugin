@@ -293,8 +293,9 @@ enum Commands {
 		@Override
 		public String doBuild(String target, String value) {
 			warnIfUnusedValueIsNotEmpty(value);
-			return format("%s.put(\"%s\", escapeJavaScript(%s.getHtmlSource()));", STORAGE,
-					target, SELENIUM);
+			return format(
+					"%s.put(\"%s\", escapeJavaScript(%s.getHtmlSource()));",
+					STORAGE, target, SELENIUM);
 		}
 
 	},
@@ -334,6 +335,16 @@ enum Commands {
 		}
 
 	},
+	waitForEditable() {
+
+		@Override
+		public String doBuild(String target, String value) {
+			warnIfUnusedValueIsNotEmpty(value);
+			return format("waitForEditable(%s);", target);
+		}
+
+	},
+
 	__unknown__ {
 		@Override
 		public String doBuild(final String target, final String value) {
