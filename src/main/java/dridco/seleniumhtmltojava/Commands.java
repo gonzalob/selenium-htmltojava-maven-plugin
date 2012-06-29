@@ -340,7 +340,7 @@ enum Commands {
 		@Override
 		public String doBuild(String target, String value) {
 			warnIfUnusedValueIsNotEmpty(value);
-			return format("waitForEditable(%s);", target);
+			return format("waitForEditable(\"%s\");", target);
 		}
 
 	},
