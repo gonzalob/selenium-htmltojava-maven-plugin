@@ -312,14 +312,8 @@ enum Commands {
 
 		@Override
 		public String doBuild(String target, String timeout) {
-			String actualTimeout;
-			if (StringUtils.isEmpty(timeout)) {
-				actualTimeout = Globals.timeout.toString();
-			} else {
-				actualTimeout = timeout;
-			}
 			return format("waitForElementPresent(\"%s\", \"%s\");", //
-					target, actualTimeout);
+					target, resolveTimeout(timeout));
 		}
 
 	},
@@ -338,9 +332,10 @@ enum Commands {
 	waitForEditable() {
 
 		@Override
-		public String doBuild(String target, String value) {
-			warnIfUnusedValueIsNotEmpty(value);
-			return format("waitForEditable(\"%s\");", target);
+		public String doBuild(String target, String timeout) {
+			warnIfUnusedValueIsNotEmpty(timeout);
+			return format("waitForEditable(\"%s\", \"%s\");", //
+					target, resolveTimeout(timeout));
 		}
 
 	},
@@ -371,8 +366,8 @@ enum Commands {
 	 * {@link dridco.seleniumhtmltojava.TestVariables#STORAGE} variable, and
 	 * every method in the {@link org.junit.Assert} and
 	 * {@link org.junit.matchers.JUnitMatchers} classes. There's also every
-	 * method on the test template's source. See
-	 * {@link dridco.seleniumhtmltojava.JavaTestCompiler}
+	 * function defined in the {@link dridco.seleniumhtmltojava.Functions}
+	 * enumeration
 	 */
 	public abstract String doBuild(String target, String value);
 
@@ -395,6 +390,17 @@ enum Commands {
 
 	protected final String message(String target, String value) {
 		return format("%s(\\\"%s\\\", \\\"%s\\\")", name(), target, value);
+	}
+
+	protected String resolveTimeout(String defined) {
+		String actualTimeout;
+		if (StringUtils.isEmpty(defined)) {
+			actualTimeout = Globals.timeout.toString();
+		} else {
+			actualTimeout = defined;
+		}
+		return actualTimeout;
+
 	}
 
 }

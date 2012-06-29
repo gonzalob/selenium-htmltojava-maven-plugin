@@ -19,6 +19,6 @@ class WaitForEditableTest extends AbstractCommandTest {
 
 	@Override
 	def protected expectedResult() {
-		"""waitForEditable("//input[@id='sample']");"""
+		"""waitForEditable("//input[@id='sample']", "30000");"""
 	}
 }
