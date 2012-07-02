@@ -1,6 +1,12 @@
 package dridco.seleniumhtmltojava;
 
 import static dridco.seleniumhtmltojava.TestVariables.SELENIUM;
+import static java.lang.String.format;
+import static java.util.Arrays.asList;
+import static org.apache.commons.collections15.CollectionUtils.collect;
+import static org.apache.commons.lang.StringUtils.join;
+
+import org.apache.commons.collections15.Transformer;
 
 /**
  * An enumeration of functions available for commands to invoke
@@ -10,34 +16,43 @@ public enum Functions {
 	pause {
 		@Override
 		public String render() {
-			return "private void pause(int millis) {"
-					+ "try { Thread.sleep(millis); }"
-					+ "catch (InterruptedException e) { fail(e.getMessage()); }"
-					+ "}";
+			return functionDeclaration(new Parameter[] { new Parameter("millis", "int") }, new FunctionBody() {
+
+				public String render() {
+					return "try { Thread.sleep(millis); }"
+							+ "catch (InterruptedException e) { fail(e.getMessage()); }";
+				}
+			});
 		}
 	},
 	waitForPageToLoad {
 		@Override
 		public String render() {
-			return "private void waitForPageToLoad(String timeout) {"
-					+ "int millis = Integer.valueOf(timeout);"
-					+ "int actualTimeout;"
-					+ "if(" + Globals.forcedTimeout + " > 0) { actualTimeout = " + Globals.forcedTimeout + "; }"
-					+ "else { actualTimeout = millis; }"
-					+ "long start = System.currentTimeMillis();"
-					+ "selenium.waitForPageToLoad(\"\" + actualTimeout);"
-					+ "long duration = System.currentTimeMillis() - start;"
-					+ "if(duration > millis) { logger.warning(java.text.MessageFormat.format(\"Defined timeout insufficient. Declared: {0}, Forced: {1}, Actual: {2}\", millis, " + Globals.forcedTimeout + ", duration)); }" 
-					+ "}";
+			return functionDeclaration(new Parameter[] {
+					new Parameter("timeout", "String") }, new FunctionBody() {
+
+				public String render() {
+					return "int millis = Integer.valueOf(timeout);"
+							+ "int actualTimeout;"
+							+ "if(" + Globals.forcedTimeout + " > 0) { actualTimeout = " + Globals.forcedTimeout + "; }"
+							+ "else { actualTimeout = millis; }"
+							+ "long start = System.currentTimeMillis();"
+							+ "selenium.waitForPageToLoad(\"\" + actualTimeout);"
+							+ "long duration = System.currentTimeMillis() - start;"
+							+ "if(duration > millis) { logger.warning(java.text.MessageFormat.format(\"Defined timeout insufficient. Declared: {0}, Forced: {1}, Actual: {2}\", millis, " + Globals.forcedTimeout + ", duration)); }";
+				}
+			});
 		}
 	},
 	waitForElementPresent {
 		@Override
 		public String render() {
-			return waitForSomething(new WaitCallback(this) {
+			return waitForSomething(new WaitCallback() {
 
-				public String waitCondition() {
-					return SELENIUM + ".isElementPresent(element)";
+				public String waitCondition(final String targetArgumentName,
+						final String valueArgumentName) {
+					return SELENIUM + ".isElementPresent(" + targetArgumentName
+							+ ")";
 				}
 
 			});
@@ -46,24 +61,46 @@ public enum Functions {
 	waitForTextPresent {
 		@Override
 		public String render() {
-			return waitForSomething(new WaitCallback(this) {
-				
-				public String waitCondition() {
-					return SELENIUM + ".isTextPresent(element)";
+			return waitForSomething(new WaitCallback() {
+
+				public String waitCondition(final String targetArgumentName,
+						final String valueArgumentName) {
+					return SELENIUM + ".isTextPresent(" + targetArgumentName
+							+ ")";
 				}
-				
+
 			});
 		}
 	},
 	waitForEditable {
 		@Override
 		public String render() {
-			return waitForSomething(new WaitCallback(this) {
+			return waitForSomething(new WaitCallback() {
 
-				public String waitCondition() {
-					return SELENIUM + ".isEditable(element)";
+				public String waitCondition(final String targetArgumentName,
+						final String valueArgumentName) {
+					return SELENIUM + ".isEditable(" + targetArgumentName + ")";
 				}
 
+			});
+		}
+	},
+	waitForNotValue {
+
+		@Override
+		public String render() {
+			return functionDeclaration(new Parameter[] {
+					new Parameter("target", "String"),
+					new Parameter("value", "String") }, new FunctionBody() {
+
+				public String render() {
+					return "final int millisBetweenAttempts = 500;"
+							+ "int remainingAttempts = " + Globals.timeout + " / millisBetweenAttempts;"
+							+ "while (remainingAttempts > 0) {"
+							+ "if(! value.equals(" + SELENIUM + ".getValue(target))) { break; }"
+							+ "else { remainingAttempts--; try { Thread.sleep(millisBetweenAttempts); } catch (InterruptedException e) { fail(e.getMessage()); } }"
+							+ "}";
+				}
 			});
 		}
 	};
@@ -72,28 +109,70 @@ public enum Functions {
 
 	private abstract class WaitCallback {
 
-		private final Functions function;
+		abstract String waitCondition( //
+				String targetArgumentName, String valueArgumentName);
 
-		public WaitCallback(Functions function) {
-			this.function = function;
-		}
-
-		private String methodName() {
-			return function.name();
-		}
-
-		abstract String waitCondition();
 	}
 
-	protected String waitForSomething(WaitCallback callback) {
-		return "private void " + callback.methodName() + "(String element, String timeout) {"
-				+ "int millis = Integer.valueOf(timeout);"
-				+ "final int millisBetweenAttempts = 500;"
-				+ "int remainingAttempts = millis / millisBetweenAttempts;"
-				+ "while (remainingAttempts > 0) {"
-				+ "if(" + callback.waitCondition() + ") { break; }"
-				+ "else { remainingAttempts--; try { Thread.sleep(millisBetweenAttempts); } catch (InterruptedException e) { fail(e.getMessage()); } }"
-				+ "}}";
+	protected String waitForSomething(final WaitCallback callback) {
+		final String targetArgumentName = "element";
+		final String valueArgumentName = "timeout";
+		return functionDeclaration(new Parameter[] {
+				new Parameter(targetArgumentName, "String"),
+				new Parameter(valueArgumentName, "String") }, new FunctionBody() {
+
+					public String render() {
+						return format(
+								"int millis = Integer.valueOf(timeout);"
+										+ "final int millisBetweenAttempts = 500;"
+										+ "int remainingAttempts = millis / millisBetweenAttempts;"
+										+ "while (remainingAttempts > 0) {"
+										+ "if(%s) { break; }"
+										+ "else { remainingAttempts--; try { Thread.sleep(millisBetweenAttempts); } catch (InterruptedException e) { fail(e.getMessage()); } }"
+										+ "}", //
+								callback.waitCondition(targetArgumentName,
+										valueArgumentName));
+					}
+				});
+	}
+
+	protected String functionDeclaration(Parameter[] parameters,
+			FunctionBody body) {
+		Transformer<Parameter, String> parametersForDeclaration = new Transformer<Parameter, String>() {
+
+			public String transform(Parameter input) {
+				return input.renderForDeclaration();
+			}
+		};
+		String parameterSeparator = ",";
+		String parametersDeclaration = //
+		join(collect(asList(parameters), parametersForDeclaration),
+				parameterSeparator);
+		String functionBody = body.render();
+		return format("private void %s(%s) {%s}", //
+				name(), parametersDeclaration, functionBody);
+	}
+
+	private class Parameter {
+
+		public Parameter(String name, String type) {
+			this.name = name;
+			this.type = type;
+		}
+
+		private String name;
+		private String type;
+
+		String renderForDeclaration() {
+			return format("%s %s", type, name);
+		}
+
+	}
+
+	private interface FunctionBody {
+
+		String render();
+
 	}
 
 }

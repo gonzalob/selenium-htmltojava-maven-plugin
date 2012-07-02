@@ -347,7 +347,15 @@ enum Commands {
 			return format("waitForTextPresent(\"%s\", \"%s\");", //
 					target, resolveTimeout(timeout));
 		}
-		
+
+	},
+	waitForNotValue() {
+
+		@Override
+		public String doBuild(String target, String value) {
+			return format("waitForNotValue(\"%s\", \"%s\");", target, value);
+		}
+
 	},
 	__unknown__ {
 		@Override
