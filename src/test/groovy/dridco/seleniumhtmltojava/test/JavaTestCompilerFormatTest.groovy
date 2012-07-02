@@ -2,8 +2,6 @@ package dridco.seleniumhtmltojava.test
 
 import static org.junit.Assert.assertEquals
 
-import java.util.logging.Logger;
-
 import org.junit.Test
 
 import dridco.seleniumhtmltojava.JavaTestCompiler
