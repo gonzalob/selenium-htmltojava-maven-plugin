@@ -26,6 +26,7 @@ public class FunctionsTest {
 
 	@Test
 	public void parsesForcedTimeout() {
+		Integer currentForcedTimeoutValue = Globals.forcedTimeout;
 		Globals.forcedTimeout = 30000;
 		Assert.assertEquals(
 				"private void waitForPageToLoad(String timeout) {"
@@ -38,7 +39,7 @@ public class FunctionsTest {
 						+ "long duration = System.currentTimeMillis() - start;"
 						+ "if(duration > millis) { logger.warning(java.text.MessageFormat.format(\"Defined timeout insufficient. Declared: {0}, Forced: {1}, Actual: {2}\", millis, 30000, duration)); }"
 						+ "}", Functions.waitForPageToLoad.render());
-
+		Globals.forcedTimeout = currentForcedTimeoutValue;
 	}
 
 }
