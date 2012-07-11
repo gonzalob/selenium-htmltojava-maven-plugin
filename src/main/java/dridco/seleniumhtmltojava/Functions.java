@@ -35,17 +35,12 @@ public enum Functions {
 				public String render() {
 					return "int millis = Integer.valueOf(timeout);"
 							+ "int actualTimeout;"
-							+ "if("
-							+ Globals.forcedTimeout
-							+ " > 0) { actualTimeout = "
-							+ Globals.forcedTimeout
-							+ "; }"
+							+ "if("	+ Globals.forcedTimeout() + " > 0) { actualTimeout = "	+ Globals.forcedTimeout() + "; }"
 							+ "else { actualTimeout = millis; }"
 							+ "long start = System.currentTimeMillis();"
 							+ "selenium.waitForPageToLoad(\"\" + actualTimeout);"
 							+ "long duration = System.currentTimeMillis() - start;"
-							+ "if(duration > millis) { logger.warning(java.text.MessageFormat.format(\"Defined timeout insufficient. Declared: {0}, Forced: {1}, Actual: {2}\", millis, "
-							+ Globals.forcedTimeout + ", duration)); }";
+							+ "if(duration > millis) { logger.warning(java.text.MessageFormat.format(\"Defined timeout insufficient. Declared: {0}, Forced: {1}, Actual: {2}\", millis, " + Globals.forcedTimeout() + ", duration)); }";
 				}
 			});
 		}
@@ -101,13 +96,9 @@ public enum Functions {
 
 				public String render() {
 					return "final int millisBetweenAttempts = 500;"
-							+ "int remainingAttempts = "
-							+ Globals.timeout
-							+ " / millisBetweenAttempts;"
+							+ "int remainingAttempts = " + Globals.timeout() + " / millisBetweenAttempts;"
 							+ "while (remainingAttempts > 0) {"
-							+ "if(! value.equals("
-							+ SELENIUM
-							+ ".getValue(target))) { break; }"
+							+ "if(! value.equals(" + SELENIUM + ".getValue(target))) { break; }"
 							+ "else { remainingAttempts--; try { Thread.sleep(millisBetweenAttempts); } catch (InterruptedException e) { fail(e.getMessage()); } }"
 							+ "}";
 				}

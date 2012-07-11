@@ -31,7 +31,7 @@ enum Commands {
 			warnIfUnusedValueIsNotEmpty(value);
 			return click.doBuild(target, value)
 					+ waitForPageToLoad.doBuild(
-							String.valueOf(Globals.timeout), value);
+							String.valueOf(Globals.timeout()), value);
 		}
 	},
 	verifyText {
@@ -329,7 +329,7 @@ enum Commands {
 			warnIfUnusedValueIsNotEmpty(value);
 			return format("%s.refresh();", SELENIUM)
 					+ waitForPageToLoad.doBuild(
-							String.valueOf(Globals.timeout), value);
+							String.valueOf(Globals.timeout()), value);
 		}
 
 	},
@@ -416,7 +416,7 @@ enum Commands {
 	protected String resolveTimeout(String defined) {
 		String actualTimeout;
 		if (StringUtils.isEmpty(defined)) {
-			actualTimeout = Globals.timeout.toString();
+			actualTimeout = Globals.timeout().toString();
 		} else {
 			actualTimeout = defined;
 		}

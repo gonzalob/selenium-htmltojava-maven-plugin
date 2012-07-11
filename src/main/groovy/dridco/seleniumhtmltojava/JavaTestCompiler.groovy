@@ -61,7 +61,7 @@ private final java.util.logging.Logger logger = java.util.logging.Logger.getLogg
 private final com.thoughtworks.selenium.Selenium ${TestVariables.SELENIUM};
 private final java.util.Map<String, String> ${TestVariables.STORAGE} = new java.util.HashMap<String, String>();
 public ${resolvedName}() { ${TestVariables.SELENIUM} = ${seleniumImplementation} }
-@org.junit.Before public void prepareSeleniumSession() { ${TestVariables.SELENIUM}.start(); ${TestVariables.SELENIUM}.setSpeed("${Globals.speed}"); ${TestVariables.SELENIUM}.setTimeout("${Globals.timeout}"); }
+@org.junit.Before public void prepareSeleniumSession() { ${TestVariables.SELENIUM}.start(); ${TestVariables.SELENIUM}.setSpeed("${Globals.speed()}"); ${TestVariables.SELENIUM}.setTimeout("${Globals.timeout()}"); }
 @org.junit.After public void closeSeleniumSession() { ${TestVariables.SELENIUM}.stop(); }
 ${functions()}
 @org.junit.Test public void testMethod() {${commands}}}""".toString()

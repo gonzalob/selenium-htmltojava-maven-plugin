@@ -113,9 +113,7 @@ public class GenerateIntegrationTestSourcesMojo extends AbstractMojo {
 	}
 
 	private void initializeGlobals() {
-		Globals.timeout = timeoutForPageLoad;
-		Globals.speed = speed;
-		Globals.forcedTimeout = forcedTimeout;
+		Globals.define(timeoutForPageLoad, speed, forcedTimeout);
 	}
 
 	private void reportMetrics() {
@@ -179,8 +177,9 @@ public class GenerateIntegrationTestSourcesMojo extends AbstractMojo {
 					.normalize() + ".java";
 			File targetPath = new File(javaTestsLocation + pkg);
 			File targetFile = new File(targetPath, targetName);
-			if(! targetPath.mkdirs()) {
-				throw new MojoExecutionException("Could not create required directories");
+			if (!targetPath.mkdirs()) {
+				throw new MojoExecutionException(
+						"Could not create required directories");
 			}
 			IOUtils.write(java, new FileOutputStream(targetFile),
 					javaTestsEnconding);
