@@ -6,6 +6,7 @@ import static java.lang.String.format;
 import static org.apache.commons.lang.StringUtils.isNotEmpty;
 import static org.apache.commons.logging.LogFactory.getLog;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 
@@ -44,8 +45,8 @@ enum Commands {
 				built = format(
 						"assertEquals(\"%s\", \"%s\", %s.getText(\"%s\"));",
 						message(target, value),
-						value.substring(exactMatchPrefix.length()), SELENIUM,
-						target);
+						escape(value.substring(exactMatchPrefix.length())),
+						SELENIUM, target);
 			} else if (value.startsWith(regularExpressionPrefix)) {
 				built = format(
 						"assertThat(\"%s\", %s.getText(\"%s\"), containsString(\"%s\"));",
@@ -54,9 +55,13 @@ enum Commands {
 			} else {
 				built = format(
 						"assertThat(\"%s\", %s.getText(\"%s\"), containsString(\"%s\"));",
-						message(target, value), SELENIUM, target, value);
+						message(target, value), SELENIUM, target, escape(value));
 			}
 			return built;
+		}
+
+		private String escape(String s) {
+			return s.replaceAll("<br */?>", "\n");
 		}
 	},
 	verifyValue {
