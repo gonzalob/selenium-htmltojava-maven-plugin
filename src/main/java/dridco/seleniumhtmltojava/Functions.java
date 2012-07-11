@@ -16,7 +16,8 @@ public enum Functions {
 	pause {
 		@Override
 		public String render() {
-			return functionDeclaration(new Parameter[] { new Parameter("millis", "int") }, new FunctionBody() {
+			return functionDeclaration(new Parameter[] { new Parameter(
+					"millis", Integer.class) }, new FunctionBody() {
 
 				public String render() {
 					return "try { Thread.sleep(millis); }"
@@ -28,18 +29,23 @@ public enum Functions {
 	waitForPageToLoad {
 		@Override
 		public String render() {
-			return functionDeclaration(new Parameter[] {
-					new Parameter("timeout", "String") }, new FunctionBody() {
+			return functionDeclaration(new Parameter[] { new Parameter(
+					"timeout", String.class) }, new FunctionBody() {
 
 				public String render() {
 					return "int millis = Integer.valueOf(timeout);"
 							+ "int actualTimeout;"
-							+ "if(" + Globals.forcedTimeout + " > 0) { actualTimeout = " + Globals.forcedTimeout + "; }"
+							+ "if("
+							+ Globals.forcedTimeout
+							+ " > 0) { actualTimeout = "
+							+ Globals.forcedTimeout
+							+ "; }"
 							+ "else { actualTimeout = millis; }"
 							+ "long start = System.currentTimeMillis();"
 							+ "selenium.waitForPageToLoad(\"\" + actualTimeout);"
 							+ "long duration = System.currentTimeMillis() - start;"
-							+ "if(duration > millis) { logger.warning(java.text.MessageFormat.format(\"Defined timeout insufficient. Declared: {0}, Forced: {1}, Actual: {2}\", millis, " + Globals.forcedTimeout + ", duration)); }";
+							+ "if(duration > millis) { logger.warning(java.text.MessageFormat.format(\"Defined timeout insufficient. Declared: {0}, Forced: {1}, Actual: {2}\", millis, "
+							+ Globals.forcedTimeout + ", duration)); }";
 				}
 			});
 		}
@@ -90,14 +96,18 @@ public enum Functions {
 		@Override
 		public String render() {
 			return functionDeclaration(new Parameter[] {
-					new Parameter("target", "String"),
-					new Parameter("value", "String") }, new FunctionBody() {
+					new Parameter("target", String.class),
+					new Parameter("value", String.class) }, new FunctionBody() {
 
 				public String render() {
 					return "final int millisBetweenAttempts = 500;"
-							+ "int remainingAttempts = " + Globals.timeout + " / millisBetweenAttempts;"
+							+ "int remainingAttempts = "
+							+ Globals.timeout
+							+ " / millisBetweenAttempts;"
 							+ "while (remainingAttempts > 0) {"
-							+ "if(! value.equals(" + SELENIUM + ".getValue(target))) { break; }"
+							+ "if(! value.equals("
+							+ SELENIUM
+							+ ".getValue(target))) { break; }"
 							+ "else { remainingAttempts--; try { Thread.sleep(millisBetweenAttempts); } catch (InterruptedException e) { fail(e.getMessage()); } }"
 							+ "}";
 				}
@@ -118,8 +128,9 @@ public enum Functions {
 		final String targetArgumentName = "element";
 		final String valueArgumentName = "timeout";
 		return functionDeclaration(new Parameter[] {
-				new Parameter(targetArgumentName, "String"),
-				new Parameter(valueArgumentName, "String") }, new FunctionBody() {
+				new Parameter(targetArgumentName, String.class),
+				new Parameter(valueArgumentName, String.class) },
+				new FunctionBody() {
 
 					public String render() {
 						return format(
@@ -153,18 +164,18 @@ public enum Functions {
 				name(), parametersDeclaration, functionBody);
 	}
 
-	private class Parameter {
+	private static class Parameter {
 
-		public Parameter(String name, String type) {
+		public Parameter(String name, Class<?> type) {
 			this.name = name;
 			this.type = type;
 		}
 
 		private String name;
-		private String type;
+		private Class<?> type;
 
 		String renderForDeclaration() {
-			return format("%s %s", type, name);
+			return format("%s %s", type.getName(), name);
 		}
 
 	}

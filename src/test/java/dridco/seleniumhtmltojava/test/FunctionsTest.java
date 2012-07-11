@@ -11,7 +11,7 @@ public class FunctionsTest {
 	@Test
 	public void rendersDefaultTimeout() {
 		Assert.assertEquals(
-				"private void waitForPageToLoad(String timeout) {"
+				"private void waitForPageToLoad(java.lang.String timeout) {"
 						+ "int millis = Integer.valueOf(timeout);"
 						+ "int actualTimeout;"
 						+ "if(-1 > 0) { actualTimeout = -1; }"
@@ -29,7 +29,7 @@ public class FunctionsTest {
 		Integer currentForcedTimeoutValue = Globals.forcedTimeout;
 		Globals.forcedTimeout = 30000;
 		Assert.assertEquals(
-				"private void waitForPageToLoad(String timeout) {"
+				"private void waitForPageToLoad(java.lang.String timeout) {"
 						+ "int millis = Integer.valueOf(timeout);"
 						+ "int actualTimeout;"
 						+ "if(30000 > 0) { actualTimeout = 30000; }"
