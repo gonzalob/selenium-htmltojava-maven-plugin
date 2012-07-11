@@ -1,6 +1,8 @@
 # Change log for selenium-htmltojava-maven-plugin #
 
 * v1.0.1
+ - Cleaned up code violations detected by [Sonar](http://www.sonarsource.org/)
+ - Added support for multiline text verifications
  - Added support for waitForNotValue
  - Added support for waitForEditable
  - Added javascript escaping of html source
