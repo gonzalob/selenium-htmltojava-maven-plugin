@@ -6,7 +6,6 @@ import static java.lang.String.format;
 import static org.apache.commons.lang.StringUtils.isNotEmpty;
 import static org.apache.commons.logging.LogFactory.getLog;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 
@@ -69,7 +68,7 @@ enum Commands {
 		public String doBuild(final String target, final String value) {
 			return format(
 					"assertThat(\"%s\", %s.getValue(\"%s\"), containsString(\"%s\"));",
-					message(target, value), SELENIUM, target, value, target);
+					message(target, value), SELENIUM, target, value);
 		}
 	},
 	verifyTitle {
