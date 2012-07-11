@@ -180,7 +180,7 @@ public enum Functions {
 
 	}
 
-	private interface FunctionBody {
+	private static interface FunctionBody {
 
 		String render();
 

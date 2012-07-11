@@ -179,7 +179,9 @@ public class GenerateIntegrationTestSourcesMojo extends AbstractMojo {
 					.normalize() + ".java";
 			File targetPath = new File(javaTestsLocation + pkg);
 			File targetFile = new File(targetPath, targetName);
-			targetPath.mkdirs();
+			if(! targetPath.mkdirs()) {
+				throw new MojoExecutionException("Could not create required directories");
+			}
 			IOUtils.write(java, new FileOutputStream(targetFile),
 					javaTestsEnconding);
 			compiledTests++;
