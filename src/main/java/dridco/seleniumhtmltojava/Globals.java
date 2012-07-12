@@ -1,6 +1,6 @@
 package dridco.seleniumhtmltojava;
 
-public class Globals {
+public final class Globals {
 
 	/**
 	 * Disable forcing timeouts by default
