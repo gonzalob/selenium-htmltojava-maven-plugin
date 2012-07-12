@@ -1,6 +1,5 @@
 package dridco.seleniumhtmltojava;
 
-import static dridco.seleniumhtmltojava.TestVariables.SELENIUM;
 import static java.lang.String.format;
 import static java.util.Arrays.asList;
 import static org.apache.commons.collections15.CollectionUtils.collect;
@@ -16,111 +15,58 @@ public enum Functions {
 	pause {
 		@Override
 		public String render() {
-			return functionDeclaration(new Parameter[] { new Parameter(
-					"millis", Integer.class) }, new FunctionBody() {
-
-				public String render() {
-					return "try { Thread.sleep(millis); }"
-							+ "catch (InterruptedException e) { fail(e.getMessage()); }";
-				}
-			});
+			return functionDeclaration(
+					new FunctionParameter[] { //
+					new FunctionParameter("millis", Integer.class) },
+					new PauseFunctionBody());
 		}
 	},
 	waitForPageToLoad {
 		@Override
 		public String render() {
-			return functionDeclaration(new Parameter[] { new Parameter(
-					"timeout", String.class) }, new FunctionBody() {
-
-				public String render() {
-					return "int millis = Integer.valueOf(timeout);"
-							+ "int actualTimeout;"
-							+ "if("	+ Globals.forcedTimeout() + " > 0) { actualTimeout = "	+ Globals.forcedTimeout() + "; }"
-							+ "else { actualTimeout = millis; }"
-							+ "long start = System.currentTimeMillis();"
-							+ "selenium.waitForPageToLoad(\"\" + actualTimeout);"
-							+ "long duration = System.currentTimeMillis() - start;"
-							+ "if(duration > millis) { logger.warning(java.text.MessageFormat.format(\"Defined timeout insufficient. Declared: {0}, Forced: {1}, Actual: {2}\", millis, " + Globals.forcedTimeout() + ", duration)); }";
-				}
-			});
+			return functionDeclaration(
+					new FunctionParameter[] { //
+					new FunctionParameter("timeout", String.class) },
+					new WaitForPageToLoadFunctionBody());
 		}
 	},
 	waitForElementPresent {
 		@Override
 		public String render() {
-			return waitForSomething(new WaitCallback() {
-
-				public String waitCondition(final String targetArgumentName,
-						final String valueArgumentName) {
-					return SELENIUM + ".isElementPresent(" + targetArgumentName
-							+ ")";
-				}
-
-			});
+			return waitForSomething(new WaitForElementPresentFunctionCallback());
 		}
 	},
 	waitForTextPresent {
 		@Override
 		public String render() {
-			return waitForSomething(new WaitCallback() {
-
-				public String waitCondition(final String targetArgumentName,
-						final String valueArgumentName) {
-					return SELENIUM + ".isTextPresent(" + targetArgumentName
-							+ ")";
-				}
-
-			});
+			return waitForSomething(new WaitForTextPresentFunctionCallback());
 		}
 	},
 	waitForEditable {
 		@Override
 		public String render() {
-			return waitForSomething(new WaitCallback() {
-
-				public String waitCondition(final String targetArgumentName,
-						final String valueArgumentName) {
-					return SELENIUM + ".isEditable(" + targetArgumentName + ")";
-				}
-
-			});
+			return waitForSomething(new WaitForEditableFunctionCallback());
 		}
 	},
 	waitForNotValue {
 
 		@Override
 		public String render() {
-			return functionDeclaration(new Parameter[] {
-					new Parameter("target", String.class),
-					new Parameter("value", String.class) }, new FunctionBody() {
-
-				public String render() {
-					return "final int millisBetweenAttempts = 500;"
-							+ "int remainingAttempts = " + Globals.timeout() + " / millisBetweenAttempts;"
-							+ "while (remainingAttempts > 0) {"
-							+ "if(! value.equals(" + SELENIUM + ".getValue(target))) { break; }"
-							+ "else { remainingAttempts--; try { Thread.sleep(millisBetweenAttempts); } catch (InterruptedException e) { fail(e.getMessage()); } }"
-							+ "}";
-				}
-			});
+			return functionDeclaration(new FunctionParameter[] {
+					new FunctionParameter("target", String.class),
+					new FunctionParameter("value", String.class) },
+					new WaitForNotValueFunctionBody());
 		}
 	};
 
 	public abstract String render();
 
-	private abstract class WaitCallback {
-
-		abstract String waitCondition( //
-				String targetArgumentName, String valueArgumentName);
-
-	}
-
-	protected String waitForSomething(final WaitCallback callback) {
+	protected String waitForSomething(final WaitForFunctionCallback callback) {
 		final String targetArgumentName = "element";
 		final String valueArgumentName = "timeout";
-		return functionDeclaration(new Parameter[] {
-				new Parameter(targetArgumentName, String.class),
-				new Parameter(valueArgumentName, String.class) },
+		return functionDeclaration(new FunctionParameter[] {
+				new FunctionParameter(targetArgumentName, String.class),
+				new FunctionParameter(valueArgumentName, String.class) },
 				new FunctionBody() {
 
 					public String render() {
@@ -138,11 +84,11 @@ public enum Functions {
 				});
 	}
 
-	protected String functionDeclaration(Parameter[] parameters,
+	protected String functionDeclaration(FunctionParameter[] parameters,
 			FunctionBody body) {
-		Transformer<Parameter, String> parametersForDeclaration = new Transformer<Parameter, String>() {
+		Transformer<FunctionParameter, String> parametersForDeclaration = new Transformer<FunctionParameter, String>() {
 
-			public String transform(Parameter input) {
+			public String transform(FunctionParameter input) {
 				return input.renderForDeclaration();
 			}
 		};
@@ -153,28 +99,6 @@ public enum Functions {
 		String functionBody = body.render();
 		return format("private void %s(%s) {%s}", //
 				name(), parametersDeclaration, functionBody);
-	}
-
-	private static class Parameter {
-
-		public Parameter(String name, Class<?> type) {
-			this.name = name;
-			this.type = type;
-		}
-
-		private String name;
-		private Class<?> type;
-
-		String renderForDeclaration() {
-			return format("%s %s", type.getName(), name);
-		}
-
-	}
-
-	private static interface FunctionBody {
-
-		String render();
-
 	}
 
 }
