@@ -15,6 +15,6 @@ class StoreValueTest extends AbstractCommandTest {
 
 	@Override
 	def protected expectedResult() {
-		'storage.put("theName", selenium.getValue("id=foo"));'
+		'storage.put("theName", escapeJavaScript(selenium.getValue("id=foo")));'
 	}
 }

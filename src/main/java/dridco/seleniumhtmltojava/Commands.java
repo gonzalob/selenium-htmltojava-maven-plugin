@@ -107,7 +107,7 @@ enum Commands {
 	storeValue {
 		@Override
 		public String doBuild(final String target, final String value) {
-			return format("%s.put(\"%s\", %s.getValue(\"%s\"));", STORAGE,
+			return format("%s.put(\"%s\", escapeJavaScript(%s.getValue(\"%s\")));", STORAGE,
 					value, SELENIUM, target);
 		}
 	},
