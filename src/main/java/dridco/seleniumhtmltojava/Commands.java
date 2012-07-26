@@ -200,7 +200,7 @@ enum Commands {
 		public String doBuild(String target, String value) {
 			warnIfUnusedValueIsNotEmpty(value);
 			return format(
-					"assertEquals(\"%s\", \"%s\", %s.getConfirmation());",
+					"assertEquals(\"%s\", unescapeJava(\"%s\"), %s.getConfirmation());",
 					message(target, value), target, SELENIUM);
 		}
 	},

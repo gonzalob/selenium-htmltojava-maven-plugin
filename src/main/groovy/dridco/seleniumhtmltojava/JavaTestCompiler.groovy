@@ -37,7 +37,12 @@ public class JavaTestCompiler {
 		def commands = new StringBuilder()
 		steps.each {
 			def commandName = it.td[0].text()
-			def value = it.td[1].text()
+			def value = ""
+			it.td[1].each {
+				if(it instanceof Node) {
+					value += " \\n " // so far, i've only encountered br's when not strings. KISS
+				} else value += it
+			}
 			def additional = it.td[2].text()
 			def command
 			try {
@@ -55,7 +60,7 @@ public class JavaTestCompiler {
 package ${resolvedPackage};
 import static org.junit.Assert.*;
 import static org.junit.matchers.JUnitMatchers.*;
-import static org.apache.commons.lang.StringEscapeUtils.escapeJavaScript;
+import static org.apache.commons.lang.StringEscapeUtils.*;
 public class ${resolvedName} {
 private final java.util.logging.Logger logger = java.util.logging.Logger.getLogger("${resolvedName}");
 private final com.thoughtworks.selenium.Selenium ${TestVariables.SELENIUM};

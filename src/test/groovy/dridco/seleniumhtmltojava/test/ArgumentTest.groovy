@@ -11,7 +11,7 @@ class ArgumentTest {
 		Argument tested = new Argument("id=\"foo\"")
 		assertEquals "id=\\\"foo\\\"", tested.parse()
 	}
-
+	
 	@Test void canParseStoredVars() {
 		def tested = new Argument("storedVars['name'].replace(/\\./g,'');").parse()
 		assertEquals "\\\"\" + storage.get(\"name\") + \"\\\".replace(/\\\\./g,'');", tested
