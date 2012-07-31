@@ -11,6 +11,15 @@ import org.apache.commons.logging.Log;
 
 enum Commands {
 
+	fireEvent {
+
+		@Override
+		public String doBuild(final String locator, final String eventName) {
+			return format("%s.fireEvent(\"%s\", \"%s\");", SELENIUM, locator,
+					eventName);
+		}
+
+	},
 	open {
 		@Override
 		public String doBuild(final String target, final String value) {
@@ -59,7 +68,7 @@ enum Commands {
 			return built;
 		}
 
-		private String escape(String s) {
+		private String escape(final String s) {
 			return s.replaceAll("<br */?>", "\n");
 		}
 	},
@@ -107,8 +116,9 @@ enum Commands {
 	storeValue {
 		@Override
 		public String doBuild(final String target, final String value) {
-			return format("%s.put(\"%s\", escapeJavaScript(%s.getValue(\"%s\")));", STORAGE,
-					value, SELENIUM, target);
+			return format(
+					"%s.put(\"%s\", escapeJavaScript(%s.getValue(\"%s\")));",
+					STORAGE, value, SELENIUM, target);
 		}
 	},
 	typeKeys {
@@ -166,38 +176,38 @@ enum Commands {
 	},
 	removeSelection {
 		@Override
-		public String doBuild(String target, String value) {
+		public String doBuild(final String target, final String value) {
 			return format("%s.removeSelection(\"%s\", \"%s\");", SELENIUM,
 					target, value);
 		}
 	},
 	assertTitle {
 		@Override
-		public String doBuild(String target, String value) {
+		public String doBuild(final String target, final String value) {
 			return verifyTitle.doBuild(target, value);
 		}
 	},
 	assertTextPresent {
 		@Override
-		public String doBuild(String target, String value) {
+		public String doBuild(final String target, final String value) {
 			return verifyTextPresent.doBuild(target, value);
 		}
 	},
 	assertText {
 		@Override
-		public String doBuild(String target, String value) {
+		public String doBuild(final String target, final String value) {
 			return verifyText.doBuild(target, value);
 		}
 	},
 	assertElementPresent {
 		@Override
-		public String doBuild(String target, String value) {
+		public String doBuild(final String target, final String value) {
 			return verifyElementPresent.doBuild(target, value);
 		}
 	},
 	assertConfirmation {
 		@Override
-		public String doBuild(String target, String value) {
+		public String doBuild(final String target, final String value) {
 			warnIfUnusedValueIsNotEmpty(value);
 			return format(
 					"assertEquals(\"%s\", unescapeJava(\"%s\"), %s.getConfirmation());",
@@ -295,7 +305,7 @@ enum Commands {
 	storeHtmlSource {
 
 		@Override
-		public String doBuild(String target, String value) {
+		public String doBuild(final String target, final String value) {
 			warnIfUnusedValueIsNotEmpty(value);
 			return format(
 					"%s.put(\"%s\", escapeJavaScript(%s.getHtmlSource()));",
@@ -306,7 +316,7 @@ enum Commands {
 	clickAt {
 
 		@Override
-		public String doBuild(String target, String value) {
+		public String doBuild(final String target, final String value) {
 			return format("%s.clickAt(\"%s\", \"%s\");", SELENIUM, target,
 					value);
 		}
@@ -315,7 +325,7 @@ enum Commands {
 	waitForElementPresent {
 
 		@Override
-		public String doBuild(String target, String timeout) {
+		public String doBuild(final String target, final String timeout) {
 			return format("waitForElementPresent(\"%s\", \"%s\");", //
 					target, resolveTimeout(timeout));
 		}
@@ -324,7 +334,7 @@ enum Commands {
 	refreshAndWait {
 
 		@Override
-		public String doBuild(String target, String value) {
+		public String doBuild(final String target, final String value) {
 			warnIfUnusedTargetIsNotEmpty(target);
 			warnIfUnusedValueIsNotEmpty(value);
 			return format("%s.refresh();", SELENIUM)
@@ -336,7 +346,7 @@ enum Commands {
 	waitForEditable() {
 
 		@Override
-		public String doBuild(String target, String timeout) {
+		public String doBuild(final String target, final String timeout) {
 			warnIfUnusedValueIsNotEmpty(timeout);
 			return format("waitForEditable(\"%s\", \"%s\");", //
 					target, resolveTimeout(timeout));
@@ -346,7 +356,7 @@ enum Commands {
 	waitForTextPresent() {
 
 		@Override
-		public String doBuild(String target, String timeout) {
+		public String doBuild(final String target, final String timeout) {
 			warnIfUnusedValueIsNotEmpty(timeout);
 			return format("waitForTextPresent(\"%s\", \"%s\");", //
 					target, resolveTimeout(timeout));
@@ -356,7 +366,7 @@ enum Commands {
 	waitForNotValue() {
 
 		@Override
-		public String doBuild(String target, String value) {
+		public String doBuild(final String target, final String value) {
 			return format("waitForNotValue(\"%s\", \"%s\");", target, value);
 		}
 
@@ -384,8 +394,9 @@ enum Commands {
 	 * Each implementation should be printing Java lines of code, considering
 	 * the existence of the
 	 * {@link dridco.seleniumhtmltojava.TestVariables#SELENIUM} and
-	 * {@link dridco.seleniumhtmltojava.TestVariables#STORAGE} variable, and
-	 * every method in the {@link org.junit.Assert} and
+	 * {@link dridco.seleniumhtmltojava.TestVariables#STORAGE} variables, and
+	 * every method in the {@link org.junit.Assert},
+	 * {@link org.apache.commons.lang.StringEscapeUtils} and
 	 * {@link org.junit.matchers.JUnitMatchers} classes. There's also every
 	 * function defined in the {@link dridco.seleniumhtmltojava.Functions}
 	 * enumeration
@@ -409,11 +420,11 @@ enum Commands {
 		}
 	}
 
-	protected final String message(String target, String value) {
+	protected final String message(final String target, final String value) {
 		return format("%s(\\\"%s\\\", \\\"%s\\\")", name(), target, value);
 	}
 
-	protected String resolveTimeout(String defined) {
+	protected String resolveTimeout(final String defined) {
 		String actualTimeout;
 		if (StringUtils.isEmpty(defined)) {
 			actualTimeout = Globals.timeout().toString();
