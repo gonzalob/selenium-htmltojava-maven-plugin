@@ -34,6 +34,25 @@ enum Commands {
 			return format("waitForPageToLoad(\"%s\");", target);
 		}
 	},
+	uncheck {
+
+		@Override
+		public String doBuild(String locator, String unused) {
+			warnIfUnusedValueIsNotEmpty(unused);
+			return format("%s.uncheck(\"%s\");", SELENIUM, locator);
+		}
+
+	},
+	verifyChecked {
+
+		@Override
+		public String doBuild(String locator, String unused) {
+			warnIfUnusedValueIsNotEmpty(unused);
+			return format("assertTrue(\"%s\", %s.isChecked(\"%s\"));",
+					message(locator, unused), SELENIUM, locator);
+		}
+
+	},
 	clickAndWait {
 		@Override
 		public String doBuild(final String target, final String value) {
