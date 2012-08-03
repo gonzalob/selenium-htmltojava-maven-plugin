@@ -1,6 +1,7 @@
 # Change log for selenium-htmltojava-maven-plugin #
 
 * current development version
+ - Added support for verifyNotChecked
  - Added support for uncheck
  - Added support for verifyChecked
  - Added support for fireEvent

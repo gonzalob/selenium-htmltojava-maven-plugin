@@ -12,13 +12,11 @@ import org.apache.commons.logging.Log;
 enum Commands {
 
 	fireEvent {
-
 		@Override
 		public String doBuild(final String locator, final String eventName) {
 			return format("%s.fireEvent(\"%s\", \"%s\");", SELENIUM, locator,
 					eventName);
 		}
-
 	},
 	open {
 		@Override
@@ -26,6 +24,15 @@ enum Commands {
 			warnIfUnusedValueIsNotEmpty(value);
 			return format("%s.open(\"%s\");", SELENIUM, target);
 		}
+	},
+	verifyNotChecked {
+		@Override
+		public String doBuild(String locator, String unused) {
+			warnIfUnusedValueIsNotEmpty(unused);
+			return format("assertFalse(\"%s\", %s.isChecked(\"%s\"));",
+					message(locator, unused), SELENIUM, locator);
+		}
+
 	},
 	waitForPageToLoad {
 		@Override
@@ -35,7 +42,6 @@ enum Commands {
 		}
 	},
 	uncheck {
-
 		@Override
 		public String doBuild(String locator, String unused) {
 			warnIfUnusedValueIsNotEmpty(unused);
@@ -44,7 +50,6 @@ enum Commands {
 
 	},
 	verifyChecked {
-
 		@Override
 		public String doBuild(String locator, String unused) {
 			warnIfUnusedValueIsNotEmpty(unused);
@@ -265,7 +270,6 @@ enum Commands {
 		}
 	},
 	deleteAllVisibleCookies {
-
 		@Override
 		public String doBuild(final String target, final String value) {
 			warnIfUnusedTargetIsNotEmpty(target);
@@ -333,7 +337,6 @@ enum Commands {
 
 	},
 	clickAt {
-
 		@Override
 		public String doBuild(final String target, final String value) {
 			return format("%s.clickAt(\"%s\", \"%s\");", SELENIUM, target,
@@ -342,7 +345,6 @@ enum Commands {
 
 	},
 	waitForElementPresent {
-
 		@Override
 		public String doBuild(final String target, final String timeout) {
 			return format("waitForElementPresent(\"%s\", \"%s\");", //
@@ -351,7 +353,6 @@ enum Commands {
 
 	},
 	refreshAndWait {
-
 		@Override
 		public String doBuild(final String target, final String value) {
 			warnIfUnusedTargetIsNotEmpty(target);
@@ -363,7 +364,6 @@ enum Commands {
 
 	},
 	waitForEditable() {
-
 		@Override
 		public String doBuild(final String target, final String timeout) {
 			warnIfUnusedValueIsNotEmpty(timeout);
@@ -373,7 +373,6 @@ enum Commands {
 
 	},
 	waitForTextPresent() {
-
 		@Override
 		public String doBuild(final String target, final String timeout) {
 			warnIfUnusedValueIsNotEmpty(timeout);
@@ -383,7 +382,6 @@ enum Commands {
 
 	},
 	waitForNotValue() {
-
 		@Override
 		public String doBuild(final String target, final String value) {
 			return format("waitForNotValue(\"%s\", \"%s\");", target, value);
