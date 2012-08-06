@@ -61,6 +61,7 @@ package ${resolvedPackage};
 import static org.junit.Assert.*;
 import static org.junit.matchers.JUnitMatchers.*;
 import static org.apache.commons.lang.StringEscapeUtils.*;
+// generated with https://github.com/gonzalob/selenium-htmltojava-maven-plugin
 public class ${resolvedName} {
 private final java.util.logging.Logger logger = java.util.logging.Logger.getLogger("${resolvedName}");
 private final com.thoughtworks.selenium.Selenium ${TestVariables.SELENIUM};
