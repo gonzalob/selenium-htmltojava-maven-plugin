@@ -72,6 +72,7 @@ public enum Functions {
 					public String render() {
 						return format(
 								"int millis = Integer.valueOf(timeout);"
+										+ "if(" + Globals.forcedTimeout() + " > millis) { millis = " + Globals.forcedTimeout() + "; }"
 										+ "final int millisBetweenAttempts = 500;"
 										+ "int remainingAttempts = millis / millisBetweenAttempts;"
 										+ "while (remainingAttempts > 0) {"
