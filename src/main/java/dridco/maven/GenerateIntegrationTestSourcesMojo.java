@@ -93,6 +93,10 @@ public class GenerateIntegrationTestSourcesMojo extends AbstractMojo {
 	 * @parameter expression="${htmltojava.forced_timeout}" default-value="-1"
 	 */
 	private Integer forcedTimeout;
+	/**
+	 * @parameter expression="${htmltojava.test_timeout}" default-value="0"
+	 */
+	private Integer testTimeout;
 
 	private JavaTestCompiler compiler;
 
@@ -113,7 +117,7 @@ public class GenerateIntegrationTestSourcesMojo extends AbstractMojo {
 	}
 
 	private void initializeGlobals() {
-		Globals.define(timeoutForPageLoad, speed, forcedTimeout);
+		Globals.define(timeoutForPageLoad, speed, forcedTimeout, testTimeout);
 	}
 
 	private void reportMetrics() {

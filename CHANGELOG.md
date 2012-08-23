@@ -1,6 +1,7 @@
 # Change log for selenium-htmltojava-maven-plugin #
 
 * current development version
+ - Support global test timeouts
  - Added support for verifyNotChecked
  - Added support for uncheck
  - Added support for verifyChecked

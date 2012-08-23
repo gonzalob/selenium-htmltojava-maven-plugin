@@ -2,27 +2,26 @@ package dridco.seleniumhtmltojava;
 
 public final class Globals {
 
-	/**
-	 * Disable forcing timeouts by default
-	 */
-	public static final Integer DEFAULT_FORCED_TIMEOUT = -1;
+	public static final Integer NO_FORCED_TIMEOUT = -1;
 
-	/**
-	 * Default to full speed for test executions (no delay)
-	 */
-	public static final Integer DEFAULT_DELAY = 0;
+	public static final Integer NO_DELAY_BETWEEN_INSTRUCTIONS = 0;
 
 	public static final Integer DEFAULT_TIMEOUT = 30000;
+
+	public static final Integer NO_TEST_TIMEOUT = 0;
 
 	private static Globals instance;
 
 	public static void define(Integer timeout, Integer speed,
-			Integer forcedTimeout) {
-		instance = new Globals(timeout, speed, forcedTimeout);
+			Integer forcedTimeout, Integer testTimeout) {
+		instance = new Globals(timeout, speed, forcedTimeout, testTimeout);
 	}
 
 	static {
-		define(DEFAULT_TIMEOUT, DEFAULT_DELAY, DEFAULT_FORCED_TIMEOUT);
+		define(DEFAULT_TIMEOUT, //
+				NO_DELAY_BETWEEN_INSTRUCTIONS, //
+				NO_FORCED_TIMEOUT, //
+				NO_TEST_TIMEOUT);
 	}
 
 	private final Integer timeout;
@@ -31,10 +30,14 @@ public final class Globals {
 
 	private final Integer forcedTimeout;
 
-	private Globals(Integer timeout, Integer speed, Integer forcedTimeout) {
+	private final Integer testTimeout;
+
+	private Globals(Integer timeout, Integer speed, Integer forcedTimeout,
+			Integer testTimeout) {
 		this.timeout = timeout;
 		this.speed = speed;
 		this.forcedTimeout = forcedTimeout;
+		this.testTimeout = testTimeout;
 	}
 
 	public static Integer timeout() {
@@ -47,6 +50,10 @@ public final class Globals {
 
 	public static Integer forcedTimeout() {
 		return instance.forcedTimeout;
+	}
+
+	public static Integer testTimeout() {
+		return instance.testTimeout;
 	}
 
 }

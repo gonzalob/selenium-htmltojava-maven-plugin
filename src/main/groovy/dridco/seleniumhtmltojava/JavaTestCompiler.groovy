@@ -70,7 +70,7 @@ public ${resolvedName}() { ${TestVariables.SELENIUM} = ${seleniumImplementation}
 @org.junit.Before public void prepareSeleniumSession() { ${TestVariables.SELENIUM}.start(); ${TestVariables.SELENIUM}.setSpeed("${Globals.speed()}"); ${TestVariables.SELENIUM}.setTimeout("${Globals.timeout()}"); }
 @org.junit.After public void closeSeleniumSession() { ${TestVariables.SELENIUM}.stop(); }
 ${functions()}
-@org.junit.Test public void testMethod() {${commands}}}""".toString()
+@org.junit.Test(timeout = ${Globals.testTimeout()}L) public void testMethod() {${commands}}}""".toString()
 	}
 
 	private String functions() {

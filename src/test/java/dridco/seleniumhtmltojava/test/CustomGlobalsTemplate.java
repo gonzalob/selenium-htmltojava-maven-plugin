@@ -7,20 +7,23 @@ class CustomGlobalsTemplate {
 	private Integer timeout;
 	private Integer speed;
 	private Integer forcedTimeout;
+	private Integer testTimeout;
 
 	public CustomGlobalsTemplate() {
 		timeout = Globals.timeout();
 		speed = Globals.speed();
 		forcedTimeout = Globals.forcedTimeout();
+		testTimeout = Globals.testTimeout();
 	}
 
 	public void execute(CustomGlobalsCallback callback) {
 		Integer currentTimeout = Globals.timeout();
 		Integer currentSpeed = Globals.speed();
 		Integer currentForcedTimeout = Globals.forcedTimeout();
-		Globals.define(timeout, speed, forcedTimeout);
+		Integer currentTestTimeout = Globals.testTimeout();
+		Globals.define(timeout, speed, forcedTimeout, testTimeout);
 		callback.execute();
-		Globals.define(currentTimeout, currentSpeed, currentForcedTimeout);
+		Globals.define(currentTimeout, currentSpeed, currentForcedTimeout, currentTestTimeout);
 
 	}
 
