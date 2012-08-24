@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.dridco.maven-plugins</groupId>
 	<artifactId>selenium-htmltojava-maven-plugin</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.2-SNAPSHOT</version>
 	<packaging>maven-plugin</packaging>
 	<name>Selenium IDE to jUnit</name>
 	<description>Generates jUnit tests from Selenium IDE scripts</description>
