@@ -388,6 +388,13 @@ enum Commands {
 		}
 
 	},
+	check() {
+		@Override
+		public String doBuild(String locator, String unused) {
+			warnIfUnusedValueIsNotEmpty(unused);
+			return format("%s.check(\"%s\");", SELENIUM, locator);
+		}
+	},
 	__unknown__ {
 		@Override
 		public String doBuild(final String target, final String value) {
