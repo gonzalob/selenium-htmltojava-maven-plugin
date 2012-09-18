@@ -66,10 +66,14 @@ public class ${resolvedName} {
 private final java.util.logging.Logger logger = java.util.logging.Logger.getLogger("${resolvedName}");
 private final com.thoughtworks.selenium.Selenium ${TestVariables.SELENIUM};
 private final java.util.Map<String, String> ${TestVariables.STORAGE} = new java.util.HashMap<String, String>();
-public ${resolvedName}() { ${TestVariables.SELENIUM} = ${seleniumImplementation} }
+private final boolean verbose;
+public ${resolvedName}() { ${TestVariables.SELENIUM} = ${seleniumImplementation} verbose = ${Globals.verbose()}; }
 @org.junit.Before public void prepareSeleniumSession() { ${TestVariables.SELENIUM}.start(); ${TestVariables.SELENIUM}.setSpeed("${Globals.speed()}"); ${TestVariables.SELENIUM}.setTimeout("${Globals.timeout()}"); }
 @org.junit.After public void closeSeleniumSession() { ${TestVariables.SELENIUM}.stop(); }
+@org.junit.Before public void logStart() { log("started"); }
+@org.junit.After public void logEnd() { log("ended"); }
 ${functions()}
+private void log(String event) { if(verbose) { logger.info("Test " + getClass().getName() + " " + event + " at " + new java.util.Date()); } }
 @org.junit.Test(timeout = ${Globals.testTimeout()}L) public void testMethod() {${commands}}}""".toString()
 	}
 

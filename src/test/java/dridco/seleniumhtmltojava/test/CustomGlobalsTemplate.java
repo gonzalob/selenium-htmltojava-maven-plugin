@@ -8,12 +8,14 @@ class CustomGlobalsTemplate {
 	private Integer speed;
 	private Integer forcedTimeout;
 	private Integer testTimeout;
+	private Boolean verbosity;
 
 	public CustomGlobalsTemplate() {
 		timeout = Globals.timeout();
 		speed = Globals.speed();
 		forcedTimeout = Globals.forcedTimeout();
 		testTimeout = Globals.testTimeout();
+		verbosity = Globals.verbose();
 	}
 
 	public void execute(CustomGlobalsCallback callback) {
@@ -21,9 +23,10 @@ class CustomGlobalsTemplate {
 		Integer currentSpeed = Globals.speed();
 		Integer currentForcedTimeout = Globals.forcedTimeout();
 		Integer currentTestTimeout = Globals.testTimeout();
-		Globals.define(timeout, speed, forcedTimeout, testTimeout);
+		Boolean currentVerbosity = Globals.verbose();
+		Globals.define(timeout, speed, forcedTimeout, testTimeout, verbosity);
 		callback.execute();
-		Globals.define(currentTimeout, currentSpeed, currentForcedTimeout, currentTestTimeout);
+		Globals.define(currentTimeout, currentSpeed, currentForcedTimeout, currentTestTimeout, currentVerbosity);
 
 	}
 

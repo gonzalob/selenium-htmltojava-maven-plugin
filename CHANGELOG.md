@@ -2,6 +2,7 @@
 
 * current development version
  - Added support for check
+ - Added logging statements for startup and ending of tests through the "verbose" parameter
 * v1.0.1
  - Support global test timeouts
  - Added support for verifyNotChecked

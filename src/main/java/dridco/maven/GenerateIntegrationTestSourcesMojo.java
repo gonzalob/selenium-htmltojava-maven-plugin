@@ -97,7 +97,11 @@ public class GenerateIntegrationTestSourcesMojo extends AbstractMojo {
 	 * @parameter expression="${htmltojava.test_timeout}" default-value="0"
 	 */
 	private Integer testTimeout;
-
+	/**
+	 * @parameter expression="${htmltojava.verbose}" default-value="false"
+	 */
+	private Boolean verbose;
+	
 	private JavaTestCompiler compiler;
 
 	// these variables make the execution of this plugin non-threadsafe
@@ -117,7 +121,7 @@ public class GenerateIntegrationTestSourcesMojo extends AbstractMojo {
 	}
 
 	private void initializeGlobals() {
-		Globals.define(timeoutForPageLoad, speed, forcedTimeout, testTimeout);
+		Globals.define(timeoutForPageLoad, speed, forcedTimeout, testTimeout, verbose);
 	}
 
 	private void reportMetrics() {
