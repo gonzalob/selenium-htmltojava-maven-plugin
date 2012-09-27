@@ -75,10 +75,12 @@ public enum Functions {
 										+ "if(" + Globals.forcedTimeout() + " > millis) { millis = " + Globals.forcedTimeout() + "; }"
 										+ "final int millisBetweenAttempts = 500;"
 										+ "int remainingAttempts = millis / millisBetweenAttempts;"
+										+ "boolean success = false;"
 										+ "while (remainingAttempts > 0) {"
-										+ "if(%s) { break; }"
+										+ "if(%s) { success = true; break; }"
 										+ "else { remainingAttempts--; try { Thread.sleep(millisBetweenAttempts); } catch (InterruptedException e) { fail(e.getMessage()); } }"
-										+ "}", //
+										+ "}"
+										+ "assertTrue(success);", //
 								callback.waitCondition(targetArgumentName, valueArgumentName));
 					}
 				});
