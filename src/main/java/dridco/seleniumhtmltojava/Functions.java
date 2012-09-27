@@ -79,27 +79,24 @@ public enum Functions {
 										+ "if(%s) { break; }"
 										+ "else { remainingAttempts--; try { Thread.sleep(millisBetweenAttempts); } catch (InterruptedException e) { fail(e.getMessage()); } }"
 										+ "}", //
-								callback.waitCondition(targetArgumentName,
-										valueArgumentName));
+								callback.waitCondition(targetArgumentName, valueArgumentName));
 					}
 				});
 	}
 
 	protected String functionDeclaration(FunctionParameter[] parameters,
 			FunctionBody body) {
-		Transformer<FunctionParameter, String> parametersForDeclaration = new Transformer<FunctionParameter, String>() {
-
-			public String transform(FunctionParameter input) {
-				return input.renderForDeclaration();
-			}
-		};
+		Transformer<FunctionParameter, String> parametersForDeclaration = new ParametersForDeclaration();
 		String parameterSeparator = ",";
-		String parametersDeclaration = //
-		join(collect(asList(parameters), parametersForDeclaration),
-				parameterSeparator);
+		String parametersDeclaration = join(collect(asList(parameters), parametersForDeclaration), parameterSeparator);
 		String functionBody = body.render();
-		return format("private void %s(%s) {%s}", //
-				name(), parametersDeclaration, functionBody);
+		return format("private void %s(%s) {%s}", name(), parametersDeclaration, functionBody);
+	}
+
+	private static final class ParametersForDeclaration implements Transformer<FunctionParameter, String> {
+		
+		public String transform(FunctionParameter input) { return input.renderForDeclaration(); }
+		
 	}
 
 }
