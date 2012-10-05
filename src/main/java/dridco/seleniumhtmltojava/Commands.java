@@ -130,7 +130,23 @@ enum Commands {
 		}
 
 		private String translate(String pattern) {
-			return pattern.replace("glob:", EMPTY).replaceAll("\\*", ".*");
+			return escapeDollarSigns(escapePipes(prependDotsToAsterisks(removeGlobPrefix(pattern))));
+		}
+
+		private String removeGlobPrefix(String s) {
+			return s.replace("glob:", EMPTY);
+		}
+		
+		private String prependDotsToAsterisks(String s) {
+			return s.replaceAll("\\*", ".*");
+		}
+		
+		private String escapePipes(String s) {
+			return s.replaceAll("\\|", "\\\\|");
+		}
+		
+		private String escapeDollarSigns(String s) {
+			return s.replaceAll("$", "\\$");
 		}
 	},
 	verifyElementNotPresent {
