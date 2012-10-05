@@ -1,6 +1,8 @@
 # Change log for selenium-htmltojava-maven-plugin #
 
 * current development version
+* v1.0.2
+ - Added support for asterisks in glob expressions
  - Added support for check
  - Added logging statements for startup and ending of tests through the "verbose" parameter
 * v1.0.1

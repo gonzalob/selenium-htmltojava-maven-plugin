@@ -3,6 +3,7 @@ package dridco.seleniumhtmltojava;
 import static dridco.seleniumhtmltojava.TestVariables.SELENIUM;
 import static dridco.seleniumhtmltojava.TestVariables.STORAGE;
 import static java.lang.String.format;
+import static org.apache.commons.lang.StringUtils.EMPTY;
 import static org.apache.commons.lang.StringUtils.isNotEmpty;
 import static org.apache.commons.logging.LogFactory.getLog;
 
@@ -123,10 +124,13 @@ enum Commands {
 	},
 	verifyEval {
 		@Override
-		public String doBuild(final String target, final String value) {
-			return "assertEquals(\"" + message(target, value) + "\", "
-					+ SELENIUM + ".getEval(\"" + target + "\"), \"" + value
-					+ "\");";
+		public String doBuild(final String script, final String pattern) {
+			String translatedPattern = translate(pattern);
+			return format("assertTrue(\"%s\", %s.getEval(\"%s\").matches(\"%s\"));", message(script, pattern), SELENIUM, script, translatedPattern);
+		}
+
+		private String translate(String pattern) {
+			return pattern.replace("glob:", EMPTY).replaceAll("\\*", ".*");
 		}
 	},
 	verifyElementNotPresent {
