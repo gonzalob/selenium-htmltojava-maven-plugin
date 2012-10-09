@@ -126,27 +126,27 @@ enum Commands {
 		@Override
 		public String doBuild(final String script, final String pattern) {
 			String translatedPattern = translate(pattern);
-			return format("assertTrue(\"%s\", %s.getEval(\"%s\").matches(\"%s\"));", message(script, pattern), SELENIUM, script, translatedPattern);
+			return format("assertTrue(\"%s\", %s.getEval(\"%s\").matches((\"%s\")%s));", message(script, pattern), SELENIUM, script, translatedPattern, runtimeTransformations());
+		}
+
+		private String runtimeTransformations() {
+			return escapeDots() + escapePipes();
+		}
+
+		private String escapePipes() {
+			return ".replaceAll(\"\\\\|\", \"\\\\\\\\|\")";
+		}
+
+		private String escapeDots() {
+			return ".replaceAll(\"\\\\*\", \".*\")";
 		}
 
 		private String translate(String pattern) {
-			return escapeDollarSigns(escapePipes(prependDotsToAsterisks(removeGlobPrefix(pattern))));
+			return removeGlobPrefix(pattern);
 		}
 
 		private String removeGlobPrefix(String s) {
 			return s.replace("glob:", EMPTY);
-		}
-		
-		private String prependDotsToAsterisks(String s) {
-			return s.replaceAll("\\*", ".*");
-		}
-		
-		private String escapePipes(String s) {
-			return s.replaceAll("\\|", "\\\\|");
-		}
-		
-		private String escapeDollarSigns(String s) {
-			return s.replaceAll("$", "\\$");
 		}
 	},
 	verifyElementNotPresent {
