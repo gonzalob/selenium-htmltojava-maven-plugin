@@ -16,6 +16,6 @@ class VerifyEvalGlobAsteriskTest extends AbstractCommandTest {
 
 	@Override
 	def expectedResult() {
-		"assertTrue(\"verifyEval(\\\"'a' + 'b';\\\", \\\"glob:\" + storage.get(\"one\") + \"*two\\\")\", selenium.getEval(\"'a' + 'b';\").matches(\"^\\\\Q\" + \"\" + storage.get(\"one\") + \"*two\" + \"\\\\E\$\".replaceAll(\"*\", \"\\\\E.*\\\\Q\").replaceAll(\"?\", \"\\\\E.\\\\Q\")));"
+		"assertTrue(\"verifyEval(\\\"'a' + 'b';\\\", \\\"glob:\" + storage.get(\"one\") + \"*two\\\")\", selenium.getEval(\"'a' + 'b';\").matches((\"^\\\\Q\" + \"\" + storage.get(\"one\") + \"*two\" + \"\\\\E\$\").replaceAll(\"*\", \"\\\\E.*\\\\Q\").replaceAll(\"?\", \"\\\\E.\\\\Q\")));"
 	}
 }
