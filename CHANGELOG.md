@@ -1,6 +1,7 @@
 # Change log for selenium-htmltojava-maven-plugin #
 
 * current development version
+ - Some more work on verifyEval and regular expressions.
 * v1.0.2b
  - Fixed an error involving verifyEval. It should be now 'useable'.
 * v1.0.2

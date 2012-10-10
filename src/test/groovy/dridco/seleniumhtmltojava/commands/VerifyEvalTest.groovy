@@ -15,6 +15,6 @@ class VerifyEvalTest extends AbstractCommandTest {
 
 	@Override
 	def protected expectedResult() {
-		"assertTrue(\"verifyEval(\\\"\'\" + storage.get(\"something\") + \"\'.replace(\'foo\','').trim()\\\", \\\"\" + storage.get(\"other thing\") + \"\\\")\", selenium.getEval(\"\'\" + storage.get(\"something\") + \"\'.replace(\'foo\','').trim()\").matches((\"\" + storage.get(\"other thing\") + \"\").replaceAll(\"\\\\*\", \".*\").replaceAll(\"\\\\|\", \"\\\\\\\\|\")));"
+		"assertTrue(\"verifyEval(\\\"\'\" + storage.get(\"something\") + \"\'.replace(\'foo\','').trim()\\\", \\\"\" + storage.get(\"other thing\") + \"\\\")\", selenium.getEval(\"\'\" + storage.get(\"something\") + \"\'.replace(\'foo\','').trim()\").matches(java.util.regex.Pattern.quote(\"\" + storage.get(\"other thing\") + \"\")));"
 	}
 }

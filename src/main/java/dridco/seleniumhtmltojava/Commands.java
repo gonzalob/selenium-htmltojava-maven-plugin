@@ -3,7 +3,6 @@ package dridco.seleniumhtmltojava;
 import static dridco.seleniumhtmltojava.TestVariables.SELENIUM;
 import static dridco.seleniumhtmltojava.TestVariables.STORAGE;
 import static java.lang.String.format;
-import static org.apache.commons.lang.StringUtils.EMPTY;
 import static org.apache.commons.lang.StringUtils.isNotEmpty;
 import static org.apache.commons.logging.LogFactory.getLog;
 
@@ -123,30 +122,20 @@ enum Commands {
 		}
 	},
 	verifyEval {
+		private static final String GLOB_PREFIX = "glob:";
+
 		@Override
 		public String doBuild(final String script, final String pattern) {
-			String translatedPattern = translate(pattern);
-			return format("assertTrue(\"%s\", %s.getEval(\"%s\").matches((\"%s\")%s));", message(script, pattern), SELENIUM, script, translatedPattern, runtimeTransformations());
-		}
-
-		private String runtimeTransformations() {
-			return escapeDots() + escapePipes();
-		}
-
-		private String escapePipes() {
-			return ".replaceAll(\"\\\\|\", \"\\\\\\\\|\")";
-		}
-
-		private String escapeDots() {
-			return ".replaceAll(\"\\\\*\", \".*\")";
-		}
-
-		private String translate(String pattern) {
-			return removeGlobPrefix(pattern);
-		}
-
-		private String removeGlobPrefix(String s) {
-			return s.replace("glob:", EMPTY);
+			Transformations transformations;
+			if (pattern.startsWith(GLOB_PREFIX)) {
+				transformations = new GlobTransformations(pattern);
+			} else {
+				transformations = new QuoteTransformation(pattern);
+			}
+			return format(
+					"assertTrue(\"%s\", %s.getEval(\"%s\").matches(%s));",
+					message(script, pattern), SELENIUM, script,
+					transformations.javaCalls());
 		}
 	},
 	verifyElementNotPresent {
