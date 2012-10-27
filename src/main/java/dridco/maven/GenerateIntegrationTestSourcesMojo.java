@@ -53,7 +53,6 @@ public class GenerateIntegrationTestSourcesMojo extends AbstractMojo {
 	private String seleniumServerHost;
 	/**
 	 * @parameter expression="${htmltojava.port}" default-value="4444"
-	 * @required
 	 */
 	private Integer seleniumServerPort;
 	/**
