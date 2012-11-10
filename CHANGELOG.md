@@ -1,6 +1,7 @@
 # Change log for selenium-htmltojava-maven-plugin #
 
 * current development version
+ - Dropped support for Java 1.5
 * v1.0.3
  - Some more work on verifyEval and regular expressions.
 * v1.0.2b

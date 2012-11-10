@@ -80,10 +80,10 @@ private void log(String event) { if(verbose) { logger.info("Test " + getClass().
 	}
 
 	private String functions() {
-		StringBuilder functions = new StringBuilder();
+		StringBuilder functions = new StringBuilder()
 		for (Functions function : Functions.values()) {
-			functions.append function.render() ;
+			functions.append function.render() 
 		}
-		return functions;
+		return functions
 	}
 }
