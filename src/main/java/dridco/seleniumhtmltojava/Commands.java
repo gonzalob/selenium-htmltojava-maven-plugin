@@ -61,10 +61,7 @@ enum Commands {
 	clickAndWait {
 		@Override
 		public String doBuild(final String target, final String value) {
-			warnIfUnusedValueIsNotEmpty(value);
-			return click.doBuild(target, value)
-					+ waitForPageToLoad.doBuild(
-							String.valueOf(Globals.timeout()), value);
+			return click.doBuild(target, value) + waitForPageToLoad.doBuild(String.valueOf(Globals.timeout()), value);
 		}
 	},
 	verifyText {
@@ -361,14 +358,18 @@ enum Commands {
 		}
 
 	},
+	refresh {
+		@Override
+		public String doBuild(String target, String value) {
+			warnIfUnusedTargetIsNotEmpty(target);
+			warnIfUnusedValueIsNotEmpty(value);
+			return format("%s.refresh();", SELENIUM);
+		}
+	},
 	refreshAndWait {
 		@Override
 		public String doBuild(final String target, final String value) {
-			warnIfUnusedTargetIsNotEmpty(target);
-			warnIfUnusedValueIsNotEmpty(value);
-			return format("%s.refresh();", SELENIUM)
-					+ waitForPageToLoad.doBuild(
-							String.valueOf(Globals.timeout()), value);
+			return refresh.doBuild(target, value) + waitForPageToLoad.doBuild(String.valueOf(Globals.timeout()), value);
 		}
 
 	},

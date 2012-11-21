@@ -2,6 +2,7 @@
 
 * current development version
  - Dropped support for Java 1.5
+ - Added support for refresh
 * v1.0.3
  - Some more work on verifyEval and regular expressions.
 * v1.0.2b
