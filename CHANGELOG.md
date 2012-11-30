@@ -1,6 +1,7 @@
 # Change log for selenium-htmltojava-maven-plugin #
 
 * current development version
+ - Support the verifySelectedLabel command, with exact match only.
  - Dropped support for Java 1.5
  - Added support for refresh
 * v1.0.3

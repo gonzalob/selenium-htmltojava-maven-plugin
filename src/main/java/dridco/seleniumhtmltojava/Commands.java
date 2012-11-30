@@ -143,6 +143,14 @@ enum Commands {
 					message(target, value), SELENIUM, target);
 		}
 	},
+	verifySelectedLabel {
+
+		@Override
+		public String doBuild(String locator, String pattern) {
+			LOG.warn("VerifySelectedLabel supports only exact matching");
+			return format("assertEquals(\"%s\", %s.getSelectedLabel(\"%s\"));", pattern, SELENIUM, locator);
+		}
+	},
 	storeValue {
 		@Override
 		public String doBuild(final String target, final String value) {

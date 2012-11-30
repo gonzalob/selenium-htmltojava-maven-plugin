@@ -9,7 +9,7 @@ class DeleteAllVisibleCookiesTest extends AbstractCommandTest {
 <tr>
 		<td>deleteAllVisibleCookies</td>
 		<td></td>
-		<td>path=/sample,domain=localhost</td>
+		<td></td>
 </tr>
 """
 	}
