@@ -22,7 +22,7 @@ enum Commands {
 		@Override
 		public String doBuild(final String target, final String value) {
 			warnIfUnusedValueIsNotEmpty(value);
-			return format("%s.open(\"%s\");", SELENIUM, target);
+			return format("open(\"%s\");", target);
 		}
 	},
 	verifyNotChecked {

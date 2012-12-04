@@ -1,13 +1,14 @@
 # Change log for selenium-htmltojava-maven-plugin #
 
 * current development version
- - Support the verifySelectedLabel command, with exact match only.
+ - Temporary override timeout before open when a forced timeout is specified
+ - Support the verifySelectedLabel command, with exact match only
  - Dropped support for Java 1.5
  - Added support for refresh
 * v1.0.3
  - Some more work on verifyEval and regular expressions.
 * v1.0.2b
- - Fixed an error involving verifyEval. It should be now 'useable'.
+ - Fixed an error involving verifyEval. It should be now 'useable'
 * v1.0.2
  - Added support for asterisks in glob expressions
  - Added support for check

@@ -2,8 +2,10 @@ package dridco.seleniumhtmltojava;
 
 class WaitForPageToLoadFunctionBody implements FunctionBody {
 
+	static final String TIMEOUT_PARAMETER_NAME = "timeout";
+	
 	public String render() {
-		return "int millis = Integer.valueOf(timeout);"
+		return "int millis = Integer.valueOf(" + TIMEOUT_PARAMETER_NAME  + ");"
 				+ "int actualTimeout;"
 				+ "if(" + Globals.forcedTimeout() + " > 0) { actualTimeout = " + Globals.forcedTimeout() + "; }"
 				+ "else { actualTimeout = millis; }"

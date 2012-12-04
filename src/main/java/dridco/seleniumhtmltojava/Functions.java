@@ -17,7 +17,7 @@ public enum Functions {
 		public String render() {
 			return functionDeclaration(
 					new FunctionParameter[] { //
-					new FunctionParameter("millis", Integer.class) },
+					new FunctionParameter(PauseFunctionBody.TIMEOUT_PARAMETER_NAME, Integer.class) },
 					new PauseFunctionBody());
 		}
 	},
@@ -26,7 +26,7 @@ public enum Functions {
 		public String render() {
 			return functionDeclaration(
 					new FunctionParameter[] { //
-					new FunctionParameter("timeout", String.class) },
+					new FunctionParameter(WaitForPageToLoadFunctionBody.TIMEOUT_PARAMETER_NAME, String.class) },
 					new WaitForPageToLoadFunctionBody());
 		}
 	},
@@ -53,9 +53,18 @@ public enum Functions {
 		@Override
 		public String render() {
 			return functionDeclaration(new FunctionParameter[] {
-					new FunctionParameter("target", String.class),
-					new FunctionParameter("value", String.class) },
+					new FunctionParameter(WaitForNotValueFunctionBody.TARGET_PARAMETER_NAME, String.class),
+					new FunctionParameter(WaitForNotValueFunctionBody.VALUE_PARAMETER_NAME, String.class) },
 					new WaitForNotValueFunctionBody());
+		}
+	},
+	open {
+
+		@Override
+		public String render() {
+			return functionDeclaration(new FunctionParameter[] {
+					new FunctionParameter(OpenFunctionBody.URL_PARAMETER, String.class) },
+					new OpenFunctionBody());
 		}
 	};
 
