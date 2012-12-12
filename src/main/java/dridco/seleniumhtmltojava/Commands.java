@@ -47,7 +47,20 @@ enum Commands {
 			warnIfUnusedValueIsNotEmpty(unused);
 			return format("%s.uncheck(\"%s\");", SELENIUM, locator);
 		}
-
+	},
+	verifyVisible {
+		@Override
+		public String doBuild(String locator, String unused) {
+			warnIfUnusedValueIsNotEmpty(unused);
+			return format("assertTrue(\"%s\", %s.isVisible(\"%s\"));", message(locator, unused), SELENIUM, locator);
+		}
+	},
+	verifyNotVisible {
+		@Override
+		public String doBuild(String locator, String unused) {
+			warnIfUnusedValueIsNotEmpty(unused);
+			return format("assertFalse(\"%s\", %s.isVisible(\"%s\"));", message(locator, unused), SELENIUM, locator);
+		}
 	},
 	verifyChecked {
 		@Override
@@ -56,7 +69,6 @@ enum Commands {
 			return format("assertTrue(\"%s\", %s.isChecked(\"%s\"));",
 					message(locator, unused), SELENIUM, locator);
 		}
-
 	},
 	clickAndWait {
 		@Override
