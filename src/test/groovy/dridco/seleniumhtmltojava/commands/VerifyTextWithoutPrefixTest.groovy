@@ -3,17 +3,17 @@ package dridco.seleniumhtmltojava.commands
 class VerifyTextWithoutPrefixTest extends AbstractVerifyTextTest {
 
 	@Override
-	def protected target() {
+	def target() {
 		"//div[@id='foo']/h1[1]"
 	}
 
 	@Override
-	def protected text() {
+	def text() {
 		"Verifying \${Some} \${Text}"
 	}
 
 	@Override
-	def protected expectedResult() {
+	def expectedResult() {
 		"assertThat(\"verifyText(\\\"//div[@id='foo']/h1[1]\\\", \\\"Verifying \" + storage.get(\"Some\") + \" \" + storage.get(\"Text\") + \"\\\")\", selenium.getText(\"//div[@id=\'foo\']/h1[1]\"), containsString(\"Verifying \" + storage.get(\"Some\") + \" \" + storage.get(\"Text\") + \"\"));"
 	}
 }

@@ -3,7 +3,7 @@ package dridco.seleniumhtmltojava.commands
 class StoreValueTest extends AbstractCommandTest {
 
 	@Override
-	def protected htmlInstructions() {
+	def htmlInstructions() {
 		"""
 <tr>
         <td>storeValue</td>
@@ -14,7 +14,7 @@ class StoreValueTest extends AbstractCommandTest {
 	}
 
 	@Override
-	def protected expectedResult() {
+	def expectedResult() {
 		'storage.put("theName", escapeJavaScript(selenium.getValue("id=foo")));'
 	}
 }

@@ -15,7 +15,7 @@ class WaitForPageToLoadTest {
 	abstract class AbstractWaitForPageToLoadCommand extends AbstractCommandTest {
 
 		@Override
-		def protected htmlInstructions() {
+		def htmlInstructions() {
 			"""
 			<tr>
 			<td>waitForPageToLoad</td>
@@ -25,18 +25,18 @@ class WaitForPageToLoadTest {
 			"""
 		}
 
-		def protected abstract timeout()
+		def abstract timeout()
 	}
 
 	class WithTimeout extends AbstractWaitForPageToLoadCommand {
 
 		@Override
-		def protected expectedResult() {
+		def expectedResult() {
 			'waitForPageToLoad("30000");'
 		}
 
 		@Override
-		def protected timeout() {
+		def timeout() {
 			"30000"
 		}
 	}
@@ -44,12 +44,12 @@ class WaitForPageToLoadTest {
 	class WithoutTimeout extends AbstractWaitForPageToLoadCommand {
 
 		@Override
-		def protected expectedResult() {
+		def expectedResult() {
 			'waitForPageToLoad("");'
 		}
 
 		@Override
-		def protected timeout() {
+		def timeout() {
 			""
 		}
 	}

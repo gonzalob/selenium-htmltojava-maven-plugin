@@ -3,7 +3,7 @@ package dridco.seleniumhtmltojava.commands
 class AddSelectionTest extends AbstractCommandTest {
 
 	@Override
-	def protected htmlInstructions() {
+	def htmlInstructions() {
 		"""
 <tr>
         <td>addSelection</td>
@@ -14,7 +14,7 @@ class AddSelectionTest extends AbstractCommandTest {
 	}
 
 	@Override
-	def protected expectedResult() {
+	def expectedResult() {
 		'selenium.addSelection("id=anId", "label=Foo");'
 	}
 }

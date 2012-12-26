@@ -3,7 +3,7 @@ package dridco.seleniumhtmltojava.commands
 class SetTimeoutTest extends AbstractCommandTest {
 
 	@Override
-	def protected htmlInstructions() {
+	def htmlInstructions() {
 		"""
 <tr>
         <td>setTimeout</td>
@@ -14,7 +14,7 @@ class SetTimeoutTest extends AbstractCommandTest {
 	}
 
 	@Override
-	def protected expectedResult() {
+	def expectedResult() {
 		'selenium.setTimeout("100000");'
 	}
 }

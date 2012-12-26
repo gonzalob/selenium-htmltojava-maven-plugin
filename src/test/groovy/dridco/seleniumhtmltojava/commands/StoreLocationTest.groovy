@@ -3,7 +3,7 @@ package dridco.seleniumhtmltojava.commands
 class StoreLocationTest extends AbstractCommandTest {
 
 	@Override
-	def protected htmlInstructions() {
+	def htmlInstructions() {
 		"""
 <tr>
         <td>storeLocation</td>
@@ -14,7 +14,7 @@ class StoreLocationTest extends AbstractCommandTest {
 	}
 
 	@Override
-	def protected expectedResult() {
+	def expectedResult() {
 		'storage.put("URL", selenium.getLocation());'
 	}
 }

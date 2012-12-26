@@ -3,7 +3,7 @@ package dridco.seleniumhtmltojava.commands
 class TypeTest extends AbstractCommandTest {
 
 	@Override
-	def protected htmlInstructions() {
+	def htmlInstructions() {
 		"""
 <tr>
 		<td>type</td>
@@ -14,7 +14,7 @@ class TypeTest extends AbstractCommandTest {
 	}
 
 	@Override
-	def protected expectedResult() {
+	def expectedResult() {
 		'selenium.type("id=email", "foo@bar.com");'
 	}
 }

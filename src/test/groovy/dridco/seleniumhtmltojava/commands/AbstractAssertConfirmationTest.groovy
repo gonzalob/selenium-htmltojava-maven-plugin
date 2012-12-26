@@ -7,7 +7,7 @@ abstract class AbstractAssertConfirmationTest extends AbstractCommandTest {
 	def abstract parsed()
 
 	@Override
-	def protected htmlInstructions() {
+	def htmlInstructions() {
 		"""
 <tr>
         <td>assertConfirmation</td>
@@ -18,7 +18,7 @@ abstract class AbstractAssertConfirmationTest extends AbstractCommandTest {
 	}
 
 	@Override
-	def protected expectedResult() {
+	def expectedResult() {
 		"""assertEquals(\"assertConfirmation(\\\"${parsed()}\\\", \\\"\\\")\", unescapeJava("${parsed()}"), selenium.getConfirmation());"""
 	}
 }

@@ -3,7 +3,7 @@ package dridco.seleniumhtmltojava.commands
 class RefreshAndWaitTest extends AbstractCommandTest {
 
 	@Override
-	def protected htmlInstructions() {
+	def htmlInstructions() {
 		"""
 <tr>
 	<td>refreshAndWait</td>
@@ -14,7 +14,7 @@ class RefreshAndWaitTest extends AbstractCommandTest {
 	}
 
 	@Override
-	def protected expectedResult() {
+	def expectedResult() {
 		'selenium.refresh();waitForPageToLoad("30000");'
 	}
 }

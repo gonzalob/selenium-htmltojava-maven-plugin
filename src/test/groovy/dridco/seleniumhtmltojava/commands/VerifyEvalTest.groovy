@@ -3,7 +3,7 @@ package dridco.seleniumhtmltojava.commands
 class VerifyEvalTest extends AbstractCommandTest {
 
 	@Override
-	def protected htmlInstructions() {
+	def htmlInstructions() {
 		"""
 <tr>
         <td>verifyEval</td>
@@ -14,7 +14,7 @@ class VerifyEvalTest extends AbstractCommandTest {
 	}
 
 	@Override
-	def protected expectedResult() {
+	def expectedResult() {
 		"assertTrue(\"verifyEval(\\\"\'\" + storage.get(\"something\") + \"\'.replace(\'foo\','').trim()\\\", \\\"\" + storage.get(\"other thing\") + \"\\\")\", selenium.getEval(\"\'\" + storage.get(\"something\") + \"\'.replace(\'foo\','').trim()\").matches(java.util.regex.Pattern.quote(\"\" + storage.get(\"other thing\") + \"\")));"
 	}
 }

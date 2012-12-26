@@ -3,7 +3,7 @@ package dridco.seleniumhtmltojava.commands
 class EchoTest extends AbstractCommandTest {
 
 	@Override
-	def protected htmlInstructions() {
+	def htmlInstructions() {
 		"""
 <tr>
 		<td>echo</td>
@@ -14,7 +14,7 @@ class EchoTest extends AbstractCommandTest {
 	}
 
 	@Override
-	def protected expectedResult() {
+	def expectedResult() {
 		"echo "
 	}
 }

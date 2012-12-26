@@ -4,7 +4,7 @@ class DeleteAllVisibleCookiesTest extends AbstractCommandTest {
 
 
 	@Override
-	def protected htmlInstructions() {
+	def htmlInstructions() {
 		"""
 <tr>
 		<td>deleteAllVisibleCookies</td>
@@ -15,7 +15,7 @@ class DeleteAllVisibleCookiesTest extends AbstractCommandTest {
 	}
 
 	@Override
-	def protected expectedResult() {
+	def expectedResult() {
 		'selenium.deleteAllVisibleCookies();'
 	}
 }

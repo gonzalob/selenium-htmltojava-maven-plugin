@@ -3,7 +3,7 @@ package dridco.seleniumhtmltojava.commands
 class StoreHtmlSourceTest extends AbstractCommandTest {
 
 	@Override
-	def protected htmlInstructions() {
+	def htmlInstructions() {
 		"""
 <tr>
 	<td>storeHtmlSource</td>
@@ -14,7 +14,7 @@ class StoreHtmlSourceTest extends AbstractCommandTest {
 	}
 
 	@Override
-	def protected expectedResult() {
+	def expectedResult() {
 		"storage.put(\"aVariable\", escapeJavaScript(selenium.getHtmlSource()));"
 	}
 }

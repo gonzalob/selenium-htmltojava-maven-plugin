@@ -3,7 +3,7 @@ package dridco.seleniumhtmltojava.commands
 class RefreshTest extends AbstractCommandTest {
 
 	@Override
-	def protected htmlInstructions() {
+	def htmlInstructions() {
 		"""
 <tr>
 	<td>refresh</td>
@@ -14,7 +14,7 @@ class RefreshTest extends AbstractCommandTest {
 	}
 
 	@Override
-	def protected expectedResult() {
+	def expectedResult() {
 		'selenium.refresh();'
 	}
 }

@@ -3,7 +3,7 @@ package dridco.seleniumhtmltojava.commands
 class VerifyValueTest extends AbstractCommandTest {
 
 	@Override
-	def protected htmlInstructions() {
+	def htmlInstructions() {
 		"""
 <tr>
         <td>verifyValue</td>
@@ -14,7 +14,7 @@ class VerifyValueTest extends AbstractCommandTest {
 	}
 
 	@Override
-	def protected expectedResult() {
+	def expectedResult() {
 		'assertThat(\"verifyValue(\\\"//input[@id=\'someId\']\\\", \\\"" + storage.get("value") + "\\\")\", selenium.getValue("//input[@id=\'someId\']"), containsString("" + storage.get("value") + ""));'
 	}
 }

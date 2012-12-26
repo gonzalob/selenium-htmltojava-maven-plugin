@@ -3,7 +3,7 @@ package dridco.seleniumhtmltojava.commands
 class StoreTest extends AbstractCommandTest {
 
 	@Override
-	def protected htmlInstructions() {
+	def htmlInstructions() {
 		"""
 <tr>
         <td>store</td>
@@ -14,7 +14,7 @@ class StoreTest extends AbstractCommandTest {
 	}
 
 	@Override
-	def protected expectedResult() {
+	def expectedResult() {
 		'storage.put("hardcoded", "123456");'
 	}
 }

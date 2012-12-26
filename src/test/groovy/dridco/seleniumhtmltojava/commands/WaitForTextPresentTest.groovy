@@ -3,8 +3,8 @@ package dridco.seleniumhtmltojava.commands
 class WaitForTextPresentTest extends AbstractCommandTest {
 
 	@Override
-	protected Object htmlInstructions() {
-		return """
+	def htmlInstructions() {
+		"""
 <tr>
         <td>waitForTextPresent</td>
         <td>a text.</td>
@@ -14,8 +14,7 @@ class WaitForTextPresentTest extends AbstractCommandTest {
 	}
 
 	@Override
-	protected Object expectedResult() {
-		return 'waitForTextPresent("a text.", "30000");';
+	def expectedResult() {
+		'waitForTextPresent("a text.", "30000");';
 	}
-
 }

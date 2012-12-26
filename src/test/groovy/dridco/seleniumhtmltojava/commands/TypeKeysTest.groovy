@@ -3,7 +3,7 @@ package dridco.seleniumhtmltojava.commands
 class TypeKeysTest extends AbstractCommandTest {
 
 	@Override
-	def protected htmlInstructions() {
+	def htmlInstructions() {
 		"""
 <tr>
         <td>typeKeys</td>
@@ -14,7 +14,7 @@ class TypeKeysTest extends AbstractCommandTest {
 	}
 
 	@Override
-	def protected expectedResult() {
+	def expectedResult() {
 		'selenium.typeKeys("id=t", "12");'
 	}
 }

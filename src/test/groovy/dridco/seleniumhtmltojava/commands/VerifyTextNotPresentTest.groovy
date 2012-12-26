@@ -3,7 +3,7 @@ package dridco.seleniumhtmltojava.commands
 class VerifyTextNotPresentTest extends AbstractCommandTest {
 
 	@Override
-	def protected htmlInstructions() {
+	def htmlInstructions() {
 		"""
 <tr>
 		<td>verifyTextNotPresent</td>
@@ -14,7 +14,7 @@ class VerifyTextNotPresentTest extends AbstractCommandTest {
 	}
 
 	@Override
-	def protected expectedResult() {
+	def expectedResult() {
 		"assertFalse(\"verifyTextNotPresent(\\\"Some Text\\\", \\\"\\\")\", selenium.isTextPresent(\"Some Text\"));"
 	}
 }

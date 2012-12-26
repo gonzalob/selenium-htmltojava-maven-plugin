@@ -3,7 +3,7 @@ package dridco.seleniumhtmltojava.commands
 class WaitForElementPresentTest extends AbstractCommandTest {
 
 	@Override
-	def protected htmlInstructions() {
+	def htmlInstructions() {
 		"""
 <tr>
     <td>waitForElementPresent</td>
@@ -14,7 +14,7 @@ class WaitForElementPresentTest extends AbstractCommandTest {
 	}
 
 	@Override
-	def protected expectedResult() {
+	def expectedResult() {
 		"waitForElementPresent(\"an_element_id\", \"30000\");"
 	}
 }

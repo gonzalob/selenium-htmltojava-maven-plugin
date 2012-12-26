@@ -3,7 +3,7 @@ package dridco.seleniumhtmltojava.commands
 class ClickAndWaitTest extends AbstractCommandTest {
 
 	@Override
-	def protected htmlInstructions() {
+	def htmlInstructions() {
 		"""
 <tr>
         <td>clickAndWait</td>
@@ -14,7 +14,7 @@ class ClickAndWaitTest extends AbstractCommandTest {
 	}
 
 	@Override
-	def protected expectedResult() {
+	def expectedResult() {
 		'selenium.click("link=Some link");waitForPageToLoad("30000");'
 	}
 }

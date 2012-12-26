@@ -3,7 +3,7 @@ package dridco.seleniumhtmltojava.commands
 class SetSpeedTest extends AbstractCommandTest {
 
 	@Override
-	def protected htmlInstructions() {
+	def htmlInstructions() {
 		"""
 <tr>
         <td>setSpeed</td>
@@ -14,7 +14,7 @@ class SetSpeedTest extends AbstractCommandTest {
 	}
 
 	@Override
-	def protected expectedResult() {
+	def expectedResult() {
 		'selenium.setSpeed("50");'
 	}
 }

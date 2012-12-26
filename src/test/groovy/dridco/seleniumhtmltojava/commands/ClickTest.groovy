@@ -3,7 +3,7 @@ package dridco.seleniumhtmltojava.commands
 class ClickTest  extends AbstractCommandTest {
 
 	@Override
-	def protected htmlInstructions() {
+	def htmlInstructions() {
 		"""
 <tr>
 		<td>click</td>
@@ -14,7 +14,7 @@ class ClickTest  extends AbstractCommandTest {
 	}
 
 	@Override
-	def protected expectedResult() {
+	def expectedResult() {
 		'selenium.click("id=\\"an_input\\"");'
 	}
 }

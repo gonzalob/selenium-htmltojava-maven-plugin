@@ -7,7 +7,7 @@ import static org.junit.Assert.*
 class WaitForEditableTest extends AbstractCommandTest {
 
 	@Override
-	def protected htmlInstructions() {
+	def htmlInstructions() {
 		"""
 <tr>
         <td>waitForEditable</td>
@@ -18,7 +18,7 @@ class WaitForEditableTest extends AbstractCommandTest {
 	}
 
 	@Override
-	def protected expectedResult() {
+	def expectedResult() {
 		"""waitForEditable("//input[@id='sample']", "30000");"""
 	}
 }

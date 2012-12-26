@@ -5,17 +5,17 @@ import org.apache.commons.lang.StringEscapeUtils;
 class VerifyTextWithLineBreakTest extends AbstractVerifyTextTest {
 
 	@Override
-	def protected target() {
+	def target() {
 		"css=div.a_class > span"
 	}
 
 	@Override
-	def protected text() {
+	def text() {
 		"Something!&lt;br /&gt; Else!"
 	}
 
 	@Override
-	def protected expectedResult() {
+	def expectedResult() {
 		"assertThat(\"verifyText(\\\"css=div.a_class > span\\\", \\\"Something!<br /> Else!\\\")\", selenium.getText(\"css=div.a_class > span\"), containsString(\"Something!\n Else!\"));"
 	}
 }

@@ -3,7 +3,7 @@ package dridco.seleniumhtmltojava.commands
 class StoreText extends AbstractCommandTest {
 
 	@Override
-	protected Object htmlInstructions() {
+	def htmlInstructions() {
 		"""
 <tr>
         <td>storeText</td>
@@ -14,7 +14,7 @@ class StoreText extends AbstractCommandTest {
 	}
 
 	@Override
-	protected Object expectedResult() {
+	def expectedResult() {
 		'storage.put("storedText", selenium.getText("//div[@class=\'filter\'][1]/a[@class=\'f\'][1]"));'
 	}
 }

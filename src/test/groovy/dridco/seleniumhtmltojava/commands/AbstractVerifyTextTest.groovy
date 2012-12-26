@@ -3,7 +3,7 @@ package dridco.seleniumhtmltojava.commands
 abstract class AbstractVerifyTextTest extends AbstractCommandTest {
 
 	@Override
-	def protected htmlInstructions() {
+	def htmlInstructions() {
 		"""
 <tr>
 	<td>verifyText</td>

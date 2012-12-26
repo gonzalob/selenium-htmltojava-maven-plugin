@@ -3,7 +3,7 @@ package dridco.seleniumhtmltojava.commands
 class StoreEvalTest extends AbstractCommandTest {
 
 	@Override
-	def protected htmlInstructions() {
+	def htmlInstructions() {
 		"""
 <tr>
 		<td>storeEval</td>
@@ -14,7 +14,7 @@ class StoreEvalTest extends AbstractCommandTest {
 	}
 
 	@Override
-	def protected expectedResult() {
+	def expectedResult() {
 		'storage.put("aString", selenium.getEval("var a = \\"\\";"));'
 	}
 }

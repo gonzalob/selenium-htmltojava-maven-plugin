@@ -3,7 +3,7 @@ package dridco.seleniumhtmltojava.commands
 class VerifyTitleTest extends AbstractCommandTest {
 
 	@Override
-	def protected htmlInstructions() {
+	def htmlInstructions() {
 		"""
 <tr>
         <td>verifyTitle</td>
@@ -14,7 +14,7 @@ class VerifyTitleTest extends AbstractCommandTest {
 	}
 
 	@Override
-	def protected expectedResult() {
+	def expectedResult() {
 		'assertThat(\"verifyTitle(\\\"The Title\\\", \\\"\\\")\", selenium.getTitle(), containsString("The Title"));'
 	}
 }

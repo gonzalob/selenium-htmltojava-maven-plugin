@@ -3,7 +3,7 @@ package dridco.seleniumhtmltojava.commands
 class RemoveSelectionTest extends AbstractCommandTest {
 
 	@Override
-	def protected htmlInstructions() {
+	def htmlInstructions() {
 		"""
 <tr>
         <td>removeSelection</td>
@@ -14,7 +14,7 @@ class RemoveSelectionTest extends AbstractCommandTest {
 	}
 
 	@Override
-	def protected expectedResult() {
+	def expectedResult() {
 		'selenium.removeSelection("id=sel", "label=123");'
 	}
 }

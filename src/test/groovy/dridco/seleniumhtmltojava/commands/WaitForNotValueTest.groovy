@@ -5,8 +5,8 @@ import static org.junit.Assert.*;
 class WaitForNotValueTest extends AbstractCommandTest {
 
 	@Override
-	def protected htmlInstructions() {
-		return """
+	def htmlInstructions() {
+		"""
 <tr>
         <td>waitForNotValue</td>
         <td>id="foo"</td>
@@ -16,8 +16,8 @@ class WaitForNotValueTest extends AbstractCommandTest {
 	}
 
 	@Override
-	def protected expectedResult() {
-		return "waitForNotValue(\"id=\\\"foo\\\"\", \"10\");";
+	def expectedResult() {
+		"waitForNotValue(\"id=\\\"foo\\\"\", \"10\");";
 	}
 
 }

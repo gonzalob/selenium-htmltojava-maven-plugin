@@ -3,7 +3,7 @@ package dridco.seleniumhtmltojava.commands
 class SelectFrameTest extends AbstractCommandTest {
 
 	@Override
-	def protected htmlInstructions() {
+	def htmlInstructions() {
 		"""
 <tr>
         <td>selectFrame</td>
@@ -14,7 +14,7 @@ class SelectFrameTest extends AbstractCommandTest {
 	}
 
 	@Override
-	def protected expectedResult() {
+	def expectedResult() {
 		'selenium.selectFrame("relative=up");'
 	}
 }

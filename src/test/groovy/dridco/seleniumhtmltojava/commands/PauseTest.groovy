@@ -3,7 +3,7 @@ package dridco.seleniumhtmltojava.commands
 class PauseTest extends AbstractCommandTest{
 
 	@Override
-	def protected htmlInstructions() {
+	def htmlInstructions() {
 		"""
 <tr>
 		<td>pause</td>
@@ -14,7 +14,7 @@ class PauseTest extends AbstractCommandTest{
 	}
 
 	@Override
-	def protected expectedResult() {
+	def expectedResult() {
 		'pause(2000);'
 	}
 }

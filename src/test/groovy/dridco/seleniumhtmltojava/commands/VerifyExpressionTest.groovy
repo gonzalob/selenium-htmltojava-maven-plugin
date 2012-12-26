@@ -3,7 +3,7 @@ package dridco.seleniumhtmltojava.commands
 class VerifyExpressionTest extends AbstractCommandTest {
 
 	@Override
-	def protected htmlInstructions() {
+	def htmlInstructions() {
 		"""
 <tr>
         <td>verifyExpression</td>
@@ -14,7 +14,7 @@ class VerifyExpressionTest extends AbstractCommandTest {
 	}
 
 	@Override
-	def protected expectedResult() {
+	def expectedResult() {
 		'assertThat(\"verifyExpression(\\\"" + storage.get("source") + "\\\", \\\"" + storage.get("target") + "\\\")\", selenium.getExpression("" + storage.get("source") + ""), containsString("" + storage.get("target") + ""));'
 	}
 }

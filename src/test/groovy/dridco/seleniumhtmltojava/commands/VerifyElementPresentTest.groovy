@@ -3,7 +3,7 @@ package dridco.seleniumhtmltojava.commands
 class VerifyElementPresentTest extends AbstractCommandTest {
 
 	@Override
-	def protected htmlInstructions() {
+	def htmlInstructions() {
 		"""
 <tr>
 		<td>verifyElementPresent</td>
@@ -14,7 +14,7 @@ class VerifyElementPresentTest extends AbstractCommandTest {
 	}
 
 	@Override
-	def protected expectedResult() {
+	def expectedResult() {
 		"assertTrue(\"verifyElementPresent(\\\"//select[@id=\'an_id\']\\\", \\\"\\\")\", selenium.isElementPresent(\"//select[@id=\'an_id\']\"));"
 	}
 }
