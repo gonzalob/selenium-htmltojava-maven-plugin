@@ -3,6 +3,7 @@ package dridco.seleniumhtmltojava;
 import static dridco.seleniumhtmltojava.TestVariables.SELENIUM;
 import static dridco.seleniumhtmltojava.TestVariables.STORAGE;
 import static java.lang.String.format;
+import static org.apache.commons.lang.StringUtils.EMPTY;
 import static org.apache.commons.lang.StringUtils.isNotEmpty;
 import static org.apache.commons.logging.LogFactory.getLog;
 
@@ -16,6 +17,13 @@ enum Commands {
 		public String doBuild(final String locator, final String eventName) {
 			return format("%s.fireEvent(\"%s\", \"%s\");", SELENIUM, locator,
 					eventName);
+		}
+	},
+	waitForVisible {
+		@Override
+		public String doBuild(String target, String value) {
+			warnIfUnusedValueIsNotEmpty(value);
+			return format("waitForVisible(\"%s\", \"%s\");", target, resolveTimeout(EMPTY));
 		}
 	},
 	open {

@@ -1,6 +1,7 @@
 # Change log for selenium-htmltojava-maven-plugin #
 
 * current development version
+ - Support for waitForVisible
  - Support for verifyVisible and verifyNotVisible
  - Temporary override timeout before open when a forced timeout is specified
  - Support the verifySelectedLabel command, with exact match only

@@ -49,7 +49,6 @@ public enum Functions {
 		}
 	},
 	waitForNotValue {
-
 		@Override
 		public String render() {
 			return functionDeclaration(new FunctionParameter[] {
@@ -58,8 +57,13 @@ public enum Functions {
 					new WaitForNotValueFunctionBody());
 		}
 	},
+	waitForVisible {
+		@Override
+		public String render() {
+			return waitForSomething(new WaitForVisibleFunctionCallback());
+		}
+	},
 	open {
-
 		@Override
 		public String render() {
 			return functionDeclaration(new FunctionParameter[] {
