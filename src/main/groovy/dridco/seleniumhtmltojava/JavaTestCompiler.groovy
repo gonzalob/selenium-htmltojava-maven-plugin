@@ -84,6 +84,6 @@ private void log(String event) { if(verbose) { logger.info("Test " + getClass().
 		for (Functions function : Functions.values()) {
 			functions.append function.render() 
 		}
-		return functions
+		functions
 	}
 }

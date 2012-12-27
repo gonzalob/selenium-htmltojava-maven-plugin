@@ -19,7 +19,7 @@ final class SeleniumBuilder {
 	}
 
 	public String build(final String base) {
-		return String.format(
+		String.format(
 		"new com.thoughtworks.selenium.DefaultSelenium(\"%s\", %d, \"*%s\", \"%s\");",
 		serverHost, serverPort, browser, base ?: baseUrl)
 	}
