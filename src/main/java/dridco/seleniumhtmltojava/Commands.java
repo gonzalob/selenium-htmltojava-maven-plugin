@@ -63,6 +63,13 @@ enum Commands {
 			return format("assertTrue(\"%s\", %s.isVisible(\"%s\"));", message(locator, unused), SELENIUM, locator);
 		}
 	},
+	verifyNotEditable {
+		@Override
+		public String doBuild(String locator, String unused) {
+			warnIfUnusedValueIsNotEmpty(unused);
+			return format("assertFalse(\"%s\", %s.isEditable(\"%s\"));", message(locator, unused), SELENIUM, locator);
+		}
+	},
 	verifyNotVisible {
 		@Override
 		public String doBuild(String locator, String unused) {
