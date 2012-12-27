@@ -117,7 +117,7 @@ enum Commands {
 		}
 
 		private String escape(final String s) {
-			return s.replaceAll("<br */?>", "\n");
+			return s.replaceAll("<br */?>", "\\\\n");
 		}
 	},
 	verifyValue {
