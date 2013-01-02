@@ -1,6 +1,7 @@
 # Change log for selenium-htmltojava-maven-plugin #
 
 * current development version
+ - Support for verifyEditable
 * v1.0.4
  - Support for verifyNotEditable
  - Support for waitForVisible
