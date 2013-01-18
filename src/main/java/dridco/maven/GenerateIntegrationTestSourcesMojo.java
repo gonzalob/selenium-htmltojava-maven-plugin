@@ -7,7 +7,6 @@ import static org.apache.commons.lang.StringUtils.remove;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -100,6 +99,10 @@ public class GenerateIntegrationTestSourcesMojo extends AbstractMojo {
 	 * @parameter expression="${htmltojava.verbose}" default-value="false"
 	 */
 	private Boolean verbose;
+	/**
+	 * @parameter expression="${htmltojava.failfast} default-value="false"
+	 */
+	private Boolean failFast;
 	
 	private JavaTestCompiler compiler;
 
@@ -167,42 +170,40 @@ public class GenerateIntegrationTestSourcesMojo extends AbstractMojo {
 	}
 
 	private boolean mustBeCompiled(File location) {
-		return !(isNotEmpty(excludedFilesPattern) //
-		&& location.getName().matches(excludedFilesPattern));
+		return !(isNotEmpty(excludedFilesPattern) && location.getName().matches(excludedFilesPattern));
 	}
 
 	private void compile(File location) throws MojoExecutionException {
 		String name = location.getName();
 		try {
-			String html = IOUtils.toString(new FileInputStream(location),
-					htmlTestsEncoding);
-			String pkg = remove(location.getParentFile().getAbsolutePath(),
-					htmlTestsLocation.getAbsolutePath());
+			String html = IOUtils.toString(new FileInputStream(location), htmlTestsEncoding);
+			String pkg = remove(location.getParentFile().getAbsolutePath(), htmlTestsLocation.getAbsolutePath());
 			getLog().info("Compiling from source " + name);
 			String java = compiler.compile(html, name, pkg);
-			String targetName = new TestCaseName(name, testClassesSuffix)
-					.normalize() + ".java";
+			String targetName = new TestCaseName(name, testClassesSuffix).normalize() + ".java";
 			File targetPath = new File(javaTestsLocation + pkg);
 			File targetFile = new File(targetPath, targetName);
 			if (!(targetPath.exists() || targetPath.mkdirs())) {
 				throw new IOException("Could not create required directory " + targetPath);
 			}
-			IOUtils.write(java, new FileOutputStream(targetFile),
-					javaTestsEnconding);
+			IOUtils.write(java, new FileOutputStream(targetFile), javaTestsEnconding);
 			compiledTests++;
-		} catch (FileNotFoundException e) {
-			throw wrapIOException(e);
 		} catch (IOException e) {
-			throw wrapIOException(e);
+			logOrThrow(name, wrapInMojoException(e, "Could not open source file"));
 		} catch (Exception e) {
-			getLog().warn("Cound not compile " + name, e);
+			logOrThrow(name, wrapInMojoException(e, "Unexpected failure trying to compile a test case"));
 		}
 	}
 
-	private MojoExecutionException wrapIOException(Throwable e) {
-		return new MojoExecutionException("Could not open source file", e);
+	private MojoExecutionException wrapInMojoException(Exception cause, String message) {
+		return new MojoExecutionException(message, cause);
 	}
-
+	
+	private void logOrThrow(String currentTestCaseName, MojoExecutionException e) throws MojoExecutionException {
+		getLog().warn("Cound not compile " + currentTestCaseName, e);
+		if(failFast) { throw e; }
+	}
+	
 	private void addTestSourceDirectory() {
 		project.addTestCompileSourceRoot(javaTestsLocation);
 	}

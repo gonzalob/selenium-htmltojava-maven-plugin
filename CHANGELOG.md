@@ -1,6 +1,7 @@
 # Change log for selenium-htmltojava-maven-plugin #
 
 * current development version
+ - Support for failing fast if a test cannot be compiled from its html source
  - Support for verifyEditable
 * v1.0.4
  - Support for verifyNotEditable
