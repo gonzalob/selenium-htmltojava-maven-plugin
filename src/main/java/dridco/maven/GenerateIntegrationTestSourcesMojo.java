@@ -19,7 +19,6 @@ import org.apache.maven.project.MavenProject;
 import dridco.seleniumhtmltojava.Globals;
 import dridco.seleniumhtmltojava.JavaTestCompiler;
 import dridco.seleniumhtmltojava.SeleniumBuilder;
-import dridco.seleniumhtmltojava.SupportedBrowsers;
 import dridco.seleniumhtmltojava.TestCaseName;
 
 /**
@@ -55,7 +54,7 @@ public class GenerateIntegrationTestSourcesMojo extends AbstractMojo {
 	 */
 	private Integer seleniumServerPort;
 	/**
-	 * @parameter expression="${htmltojava.browser}" default-value="firefox"
+	 * @parameter expression="${htmltojava.browser}" default-value="*firefox"
 	 */
 	private String seleniumServerBrowser;
 	/**
@@ -140,7 +139,7 @@ public class GenerateIntegrationTestSourcesMojo extends AbstractMojo {
 		SeleniumBuilder seleniumBuilder = new SeleniumBuilder( //
 				seleniumServerHost, //
 				seleniumServerPort, //
-				SupportedBrowsers.valueOf(seleniumServerBrowser), //
+				seleniumServerBrowser, //
 				seleniumServerBaseUrl);
 		compiler = new JavaTestCompiler(seleniumBuilder, testClassesSuffix);
 	}

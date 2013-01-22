@@ -5,7 +5,7 @@ public class SeleniumBuilderFixture {
 	static final SeleniumBuilder BUILDER = new SeleniumBuilder( //
 	"localhost", //
 	4444, //
-	SupportedBrowsers.firefox, //
+	"*firefox", //
 	"http://www.demotores.com" //
 	)
 
