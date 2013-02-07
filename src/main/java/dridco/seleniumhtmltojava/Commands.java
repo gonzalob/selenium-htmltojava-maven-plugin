@@ -1,5 +1,6 @@
 package dridco.seleniumhtmltojava;
 
+import static dridco.seleniumhtmltojava.TestVariables.LOGGER;
 import static dridco.seleniumhtmltojava.TestVariables.SELENIUM;
 import static dridco.seleniumhtmltojava.TestVariables.STORAGE;
 import static java.lang.String.format;
@@ -348,7 +349,7 @@ enum Commands {
 		@Override
 		public String doBuild(final String target, final String value) {
 			warnIfUnusedValueIsNotEmpty(value);
-			return format("/* echo %s */", target);
+			return format("%s.info(\"%s\");", LOGGER, target);
 		}
 	},
 	storeAttribute {

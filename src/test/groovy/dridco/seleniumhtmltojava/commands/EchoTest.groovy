@@ -15,6 +15,6 @@ class EchoTest extends AbstractCommandTest {
 
 	@Override
 	def expectedResult() {
-		"echo "
+		"logger.info(\"\" + storage.get(\"FechaFinalizacionScript\") + \"\");"
 	}
 }

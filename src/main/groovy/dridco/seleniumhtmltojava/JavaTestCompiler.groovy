@@ -63,7 +63,7 @@ import static org.junit.matchers.JUnitMatchers.*;
 import static org.apache.commons.lang.StringEscapeUtils.*;
 // generated with https://github.com/gonzalob/selenium-htmltojava-maven-plugin
 public class ${resolvedName} {
-private final java.util.logging.Logger logger = java.util.logging.Logger.getLogger("${resolvedName}");
+private final java.util.logging.Logger ${TestVariables.LOGGER} = java.util.logging.Logger.getLogger("${resolvedName}");
 private final com.thoughtworks.selenium.Selenium ${TestVariables.SELENIUM};
 private final java.util.Map<String, String> ${TestVariables.STORAGE} = new java.util.HashMap<String, String>();
 private final boolean verbose;
