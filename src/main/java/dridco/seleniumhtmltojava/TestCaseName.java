@@ -1,26 +1,17 @@
 package dridco.seleniumhtmltojava;
 
-import static org.apache.commons.lang.StringUtils.EMPTY;
+import static dridco.seleniumhtmltojava.NormalizeJavaComponentName.from;
 
 public class TestCaseName {
 
 	private final String name;
 
 	public TestCaseName(String source, String testClassesSuffix) {
-		name = toSafeName(source) + testClassesSuffix;
+		name = from(source).removeNonAlpha().prefixWithUnderscore()
+				.addSuffix(testClassesSuffix).get();
 	}
 
 	public String normalize() {
 		return name;
 	}
-
-	private String toSafeName(String aName) {
-		// underscore to avoid problems with names starting with numbers
-		return '_' + toCamelCase(aName);
-	}
-
-	private String toCamelCase(String aName) {
-		return aName.replaceAll("([^a-zA-Z0-9])*", EMPTY);
-	}
-
 }

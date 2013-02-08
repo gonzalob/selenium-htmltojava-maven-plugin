@@ -18,6 +18,7 @@ import org.apache.maven.project.MavenProject;
 
 import dridco.seleniumhtmltojava.Globals;
 import dridco.seleniumhtmltojava.JavaTestCompiler;
+import dridco.seleniumhtmltojava.PackageName;
 import dridco.seleniumhtmltojava.SeleniumBuilder;
 import dridco.seleniumhtmltojava.TestCaseName;
 
@@ -176,11 +177,11 @@ public class GenerateIntegrationTestSourcesMojo extends AbstractMojo {
 		String name = location.getName();
 		try {
 			String html = IOUtils.toString(new FileInputStream(location), htmlTestsEncoding);
-			String pkg = remove(location.getParentFile().getAbsolutePath(), htmlTestsLocation.getAbsolutePath());
+			String pkg = new PackageName(remove(location.getParentFile().getAbsolutePath(), htmlTestsLocation.getAbsolutePath())).normalize();
 			getLog().info("Compiling from source " + name);
 			String java = compiler.compile(html, name, pkg);
 			String targetName = new TestCaseName(name, testClassesSuffix).normalize() + ".java";
-			File targetPath = new File(javaTestsLocation + pkg);
+			File targetPath = new File(javaTestsLocation + "/" + pkg);
 			File targetFile = new File(targetPath, targetName);
 			if (!(targetPath.exists() || targetPath.mkdirs())) {
 				throw new IOException("Could not create required directory " + targetPath);
