@@ -77,26 +77,31 @@ public enum Functions {
 	protected String waitForSomething(final WaitForFunctionCallback callback) {
 		final String targetArgumentName = "element";
 		final String valueArgumentName = "timeout";
+		final String waitCondition = callback.waitCondition(targetArgumentName, valueArgumentName);
 		return functionDeclaration(new FunctionParameter[] {
 				new FunctionParameter(targetArgumentName, String.class),
 				new FunctionParameter(valueArgumentName, String.class) },
-				new FunctionBody() {
+				createWaitForFunctionBody(waitCondition));
+	}
 
-					public String render() {
-						return format(
-								"int millis = Integer.valueOf(timeout);"
-										+ "if(" + Globals.forcedTimeout() + " > millis) { millis = " + Globals.forcedTimeout() + "; }"
-										+ "final int millisBetweenAttempts = 500;"
-										+ "int remainingAttempts = millis / millisBetweenAttempts;"
-										+ "boolean success = false;"
-										+ "while (remainingAttempts > 0) {"
-										+ "if(%s) { success = true; break; }"
-										+ "else { remainingAttempts--; try { Thread.sleep(millisBetweenAttempts); } catch (InterruptedException e) { fail(e.getMessage()); } }"
-										+ "}"
-										+ "assertTrue(success);", //
-								callback.waitCondition(targetArgumentName, valueArgumentName));
-					}
-				});
+	private FunctionBody createWaitForFunctionBody(final String waitCondition) {
+		return new FunctionBody() {
+
+			public String render() {
+				return format(
+						"int millis = Integer.valueOf(timeout);"
+								+ "if(" + Globals.forcedTimeout() + " > millis) { millis = " + Globals.forcedTimeout() + "; }"
+								+ "final int millisBetweenAttempts = 500;"
+								+ "int remainingAttempts = millis / millisBetweenAttempts;"
+								+ "boolean success = false;"
+								+ "while (remainingAttempts > 0) {"
+								+ "if(%s) { success = true; break; }"
+								+ "else { remainingAttempts--; try { Thread.sleep(millisBetweenAttempts); } catch (InterruptedException e) { fail(e.getMessage()); } }"
+								+ "}"
+								+ "assertTrue(success);", //
+						waitCondition);
+			}
+		};
 	}
 
 	protected String functionDeclaration(FunctionParameter[] parameters,
