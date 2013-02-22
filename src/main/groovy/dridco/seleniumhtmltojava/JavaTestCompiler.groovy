@@ -4,19 +4,19 @@ import static org.apache.commons.lang.StringUtils.EMPTY
 
 public class JavaTestCompiler {
 
-	private static final String DEFAULT_TESTNAME_SUFFIX = "ITCase"
+	private static final DEFAULT_TESTNAME_SUFFIX = "ITCase"
 
-	private final SeleniumBuilder seleniumBuilder
+	private final seleniumBuilder
 
-	private final def testNameSuffix
+	private final testNameSuffix
 
-	public JavaTestCompiler(SeleniumBuilder aBuilder) {
-		this(aBuilder, DEFAULT_TESTNAME_SUFFIX)
+	public JavaTestCompiler(builder) {
+		this(builder, DEFAULT_TESTNAME_SUFFIX)
 	}
 
-	public JavaTestCompiler(SeleniumBuilder aBuilder, String aSuffix) {
-		seleniumBuilder = aBuilder
-		testNameSuffix = aSuffix
+	public JavaTestCompiler(builder, String suffix) {
+		seleniumBuilder = builder
+		testNameSuffix = suffix
 	}
 
 	String compile(testSource, fileName, testPackage = EMPTY) {

@@ -2,7 +2,7 @@ package dridco.seleniumhtmltojava
 
 public class SeleniumBuilderFixture {
 
-	static final SeleniumBuilder BUILDER = new SeleniumBuilder( //
+	static final DefaultSeleniumBuilder BUILDER = new DefaultSeleniumBuilder( //
 	"localhost", //
 	4444, //
 	"*firefox", //

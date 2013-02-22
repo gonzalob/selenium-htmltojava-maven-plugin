@@ -19,7 +19,7 @@ import org.apache.maven.project.MavenProject;
 import dridco.seleniumhtmltojava.Globals;
 import dridco.seleniumhtmltojava.JavaTestCompiler;
 import dridco.seleniumhtmltojava.PackageName;
-import dridco.seleniumhtmltojava.SeleniumBuilder;
+import dridco.seleniumhtmltojava.DefaultSeleniumBuilder;
 import dridco.seleniumhtmltojava.TestCaseName;
 
 /**
@@ -137,7 +137,7 @@ public class GenerateIntegrationTestSourcesMojo extends AbstractMojo {
 	}
 
 	private void initializeCompiler() {
-		SeleniumBuilder seleniumBuilder = new SeleniumBuilder( //
+		DefaultSeleniumBuilder seleniumBuilder = new DefaultSeleniumBuilder( //
 				seleniumServerHost, //
 				seleniumServerPort, //
 				seleniumServerBrowser, //
