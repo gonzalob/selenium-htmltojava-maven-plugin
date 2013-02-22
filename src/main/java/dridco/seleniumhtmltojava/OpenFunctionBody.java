@@ -11,6 +11,7 @@ public class OpenFunctionBody implements FunctionBody {
 		return "if(" + Globals.forcedTimeout() + " > 0) {"
 				// https://groups.google.com/forum/?fromgroups=#!topic/selenium-users/PmByblFSfJc
 				+ "String currentTimeout = selenium.getEval(\"selenium.defaultTimeout\");"
+				+ "if(\"\".equals(currentTimeout)) { currentTimeout = \"30000\"; }"
 				+ TestVariables.SELENIUM + ".setTimeout(\"" + Globals.forcedTimeout() + "\");"
 				+ "try {"
 				+ "long start = System.currentTimeMillis();"
