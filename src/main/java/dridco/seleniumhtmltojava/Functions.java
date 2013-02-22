@@ -81,27 +81,7 @@ public enum Functions {
 		return functionDeclaration(new FunctionParameter[] {
 				new FunctionParameter(targetArgumentName, String.class),
 				new FunctionParameter(valueArgumentName, String.class) },
-				createWaitForFunctionBody(waitCondition));
-	}
-
-	private FunctionBody createWaitForFunctionBody(final String waitCondition) {
-		return new FunctionBody() {
-
-			public String render() {
-				return format(
-						"int millis = Integer.valueOf(timeout);"
-								+ "if(" + Globals.forcedTimeout() + " > millis) { millis = " + Globals.forcedTimeout() + "; }"
-								+ "final int millisBetweenAttempts = 500;"
-								+ "int remainingAttempts = millis / millisBetweenAttempts;"
-								+ "boolean success = false;"
-								+ "while (remainingAttempts > 0) {"
-								+ "if(%s) { success = true; break; }"
-								+ "else { remainingAttempts--; try { Thread.sleep(millisBetweenAttempts); } catch (InterruptedException e) { fail(e.getMessage()); } }"
-								+ "}"
-								+ "assertTrue(success);", //
-						waitCondition);
-			}
-		};
+				new WaitForFunctionBody(waitCondition));
 	}
 
 	protected String functionDeclaration(FunctionParameter[] parameters,
@@ -113,6 +93,32 @@ public enum Functions {
 		return format("private void %s(%s) {%s}", name(), parametersDeclaration, functionBody);
 	}
 
+	private static final class WaitForFunctionBody implements FunctionBody {
+
+		private Object waitCondition;
+
+		public WaitForFunctionBody(Object waitCondition) {
+			this.waitCondition = waitCondition;
+		}
+
+		@Override
+		public String render() {
+			return format(
+				"int millis = Integer.valueOf(timeout);"
+						+ "if(" + Globals.forcedTimeout() + " > millis) { millis = " + Globals.forcedTimeout() + "; }"
+						+ "final int millisBetweenAttempts = 500;"
+						+ "int remainingAttempts = millis / millisBetweenAttempts;"
+						+ "boolean success = false;"
+						+ "while (remainingAttempts > 0) {"
+						+ "if(%s) { success = true; break; }"
+						+ "else { remainingAttempts--; try { Thread.sleep(millisBetweenAttempts); } catch (InterruptedException e) { fail(e.getMessage()); } }"
+						+ "}"
+						+ "assertTrue(success);", //
+						waitCondition);
+		}
+		
+	}
+	
 	private static final class ParametersForDeclaration implements Transformer<FunctionParameter, String> {
 		
 		public String transform(FunctionParameter input) { return input.renderForDeclaration(); }
