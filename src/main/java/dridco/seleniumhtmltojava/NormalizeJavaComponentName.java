@@ -2,7 +2,7 @@ package dridco.seleniumhtmltojava;
 
 import static org.apache.commons.lang.StringUtils.EMPTY;
 
-public class NormalizeJavaComponentName {
+public final class NormalizeJavaComponentName {
 
 	public static NormalizeJavaComponentName from(String source) {
 		return new NormalizeJavaComponentName(source);
