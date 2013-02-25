@@ -12,8 +12,8 @@ final class DefaultSeleniumBuilder implements SeleniumBuilder {
 
 	def build(base) {
 		String.format(
-				"new com.thoughtworks.selenium.DefaultSelenium(\"%s\", %s, \"%s\", \"%s\")",
-				serverHost, serverPort, browser, base ?: baseUrl)
+				"%s = new com.thoughtworks.selenium.DefaultSelenium(\"%s\", %s, \"%s\", \"%s\")",
+				TestVariables.SELENIUM, serverHost, serverPort, browser, base ?: baseUrl)
 	}
 
 	def start() {

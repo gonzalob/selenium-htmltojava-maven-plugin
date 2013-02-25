@@ -10,8 +10,8 @@ class RemoteWebDriverBackedSeleniumBuilder implements SeleniumBuilder {
 	def browser
 	def baseUrl
 
-	def capabilities = [:]
-	def preferences = [:]
+	Map capabilities = [:]
+	Map preferences = [:]
 
 	def CAPABILITIES_MAP_NAME = "capabilities"
 	def PROFILE_NAME = "profile"
@@ -25,7 +25,7 @@ class RemoteWebDriverBackedSeleniumBuilder implements SeleniumBuilder {
 org.openqa.selenium.firefox.FirefoxProfile ${PROFILE_NAME} = new org.openqa.selenium.firefox.FirefoxProfile();${profilePreferences}
 java.util.HashMap ${CAPABILITIES_MAP_NAME} = new java.util.HashMap(); ${CAPABILITIES_MAP_NAME}.put("firefox_profile", ${PROFILE_NAME});${renderedCapabilities}
 org.openqa.selenium.remote.DesiredCapabilities firefox = org.openqa.selenium.remote.DesiredCapabilities.firefox(); org.openqa.selenium.remote.DesiredCapabilities custom = new org.openqa.selenium.remote.DesiredCapabilities(${CAPABILITIES_MAP_NAME}); custom.merge(firefox);
-new org.openqa.selenium.WebDriverBackedSelenium(new org.openqa.selenium.remote.RemoteWebDriver(new java.net.URL("http://${serverHost}:${serverPort}/wd/hub"), custom), "${base ?: baseUrl}")""".toString()
+${TestVariables.SELENIUM} = new org.openqa.selenium.WebDriverBackedSelenium(new org.openqa.selenium.remote.RemoteWebDriver(new java.net.URL("http://${serverHost}:${serverPort}/wd/hub"), custom), "${base ?: baseUrl}")""".toString()
 	}
 
 	def start() {

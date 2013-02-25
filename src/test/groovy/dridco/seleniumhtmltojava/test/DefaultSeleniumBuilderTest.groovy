@@ -13,7 +13,7 @@ class DefaultSeleniumBuilderTest {
 	public void rendersTheBuilderWithExpectedParameters() {
 		def tested = new DefaultSeleniumBuilder("localhost", 4444, "*firefox", "http://localhost")
 		assertEquals(
-				"new com.thoughtworks.selenium.DefaultSelenium(\"localhost\", 4444, \"*firefox\", \"http://localhost\")",
+				"selenium = new com.thoughtworks.selenium.DefaultSelenium(\"localhost\", 4444, \"*firefox\", \"http://localhost\")",
 				tested.build(EMPTY))
 	}
 

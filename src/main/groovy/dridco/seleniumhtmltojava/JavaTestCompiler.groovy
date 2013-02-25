@@ -66,7 +66,7 @@ private final java.util.logging.Logger ${TestVariables.LOGGER} = java.util.loggi
 private final com.thoughtworks.selenium.Selenium ${TestVariables.SELENIUM};
 private final java.util.Map<String, String> ${TestVariables.STORAGE} = new java.util.HashMap<String, String>();
 private final boolean verbose;
-public ${resolvedName}() { try { ${TestVariables.SELENIUM} = ${seleniumBuilder.build(base)}; verbose = ${Globals.verbose()}; } catch(RuntimeException e) { throw e; } catch(Exception e) { throw new RuntimeException(e); } }
+public ${resolvedName}() { try { ${seleniumBuilder.build(base)}; verbose = ${Globals.verbose()}; } catch(RuntimeException e) { throw e; } catch(Exception e) { throw new RuntimeException(e); } }
 @org.junit.Before public void setUp() { logStart(); prepareSeleniumSession(); }
 @org.junit.After public void tearDown() { closeSeleniumSession(); logEnd(); } 
 private void prepareSeleniumSession() { ${seleniumBuilder.start()}; ${TestVariables.SELENIUM}.setSpeed("${Globals.speed()}"); ${TestVariables.SELENIUM}.setTimeout("${Globals.timeout()}"); }
