@@ -19,7 +19,7 @@ import org.apache.maven.project.MavenProject;
 import dridco.seleniumhtmltojava.Globals;
 import dridco.seleniumhtmltojava.JavaTestCompiler;
 import dridco.seleniumhtmltojava.PackageName;
-import dridco.seleniumhtmltojava.DefaultSeleniumBuilder;
+import dridco.seleniumhtmltojava.SeleniumBuilder;
 import dridco.seleniumhtmltojava.TestCaseName;
 
 /**
@@ -46,23 +46,6 @@ public class GenerateIntegrationTestSourcesMojo extends AbstractMojo {
 	 * @readonly
 	 */
 	private MavenProject project;
-	/**
-	 * @parameter expression="${htmltojava.host}" default-value="localhost"
-	 */
-	private String seleniumServerHost;
-	/**
-	 * @parameter expression="${htmltojava.port}" default-value="4444"
-	 */
-	private Integer seleniumServerPort;
-	/**
-	 * @parameter expression="${htmltojava.browser}" default-value="*firefox"
-	 */
-	private String seleniumServerBrowser;
-	/**
-	 * @parameter
-	 * @required
-	 */
-	private String seleniumServerBaseUrl;
 	/**
 	 * @parameter default-value="ITCase"
 	 */
@@ -103,7 +86,18 @@ public class GenerateIntegrationTestSourcesMojo extends AbstractMojo {
 	 * @parameter expression="${htmltojava.failfast} default-value="false"
 	 */
 	private Boolean failFast;
-	
+	/**
+	 * Selenium Builder to use. Implemented out of the box:
+	 * <li>{@link dridco.seleniumhtmltojava.DefaultSeleniumBuilder} (old but tested)</li>
+	 * <li>{@link dridco.seleniumhtmltojava.RemoteWebDriverBackedSeleniumBuilder} (new, experimental)</li>
+	 * The actual type must be specified with the {@code implementation} attribute, as explained 
+	 * <a href=http://maven.apache.org/guides/mini/guide-configuring-plugins.html#Mapping_Complex_Objects>here</a>
+	 * 
+	 * @parameter
+	 * @required
+	 */
+	private SeleniumBuilder builder;
+
 	private JavaTestCompiler compiler;
 
 	// these variables make the execution of this plugin non-threadsafe
@@ -123,7 +117,8 @@ public class GenerateIntegrationTestSourcesMojo extends AbstractMojo {
 	}
 
 	private void initializeGlobals() {
-		Globals.define(timeoutForPageLoad, speed, forcedTimeout, testTimeout, verbose);
+		Globals.define(timeoutForPageLoad, speed, forcedTimeout, testTimeout,
+				verbose);
 	}
 
 	private void reportMetrics() {
@@ -137,12 +132,7 @@ public class GenerateIntegrationTestSourcesMojo extends AbstractMojo {
 	}
 
 	private void initializeCompiler() {
-		DefaultSeleniumBuilder seleniumBuilder = new DefaultSeleniumBuilder( //
-				seleniumServerHost, //
-				seleniumServerPort, //
-				seleniumServerBrowser, //
-				seleniumServerBaseUrl);
-		compiler = new JavaTestCompiler(seleniumBuilder, testClassesSuffix);
+		compiler = new JavaTestCompiler(builder, testClassesSuffix);
 	}
 
 	private void generateSources() throws MojoExecutionException {
@@ -170,40 +160,55 @@ public class GenerateIntegrationTestSourcesMojo extends AbstractMojo {
 	}
 
 	private boolean mustBeCompiled(File location) {
-		return !(isNotEmpty(excludedFilesPattern) && location.getName().matches(excludedFilesPattern));
+		return !(isNotEmpty(excludedFilesPattern) && location.getName()
+				.matches(excludedFilesPattern));
 	}
 
 	private void compile(File location) throws MojoExecutionException {
 		String name = location.getName();
 		try {
-			String html = IOUtils.toString(new FileInputStream(location), htmlTestsEncoding);
-			String pkg = new PackageName(remove(location.getParentFile().getAbsolutePath(), htmlTestsLocation.getAbsolutePath())).normalize();
+			String html = IOUtils.toString(new FileInputStream(location),
+					htmlTestsEncoding);
+			String pkg = new PackageName(remove(location.getParentFile()
+					.getAbsolutePath(), htmlTestsLocation.getAbsolutePath()))
+					.normalize();
 			getLog().info("Compiling from source " + name);
 			String java = compiler.compile(html, name, pkg);
-			String targetName = new TestCaseName(name, testClassesSuffix).normalize() + ".java";
+			String targetName = new TestCaseName(name, testClassesSuffix)
+					.normalize() + ".java";
 			File targetPath = new File(javaTestsLocation + "/" + pkg);
 			File targetFile = new File(targetPath, targetName);
 			if (!(targetPath.exists() || targetPath.mkdirs())) {
-				throw new IOException("Could not create required directory " + targetPath);
+				throw new IOException("Could not create required directory "
+						+ targetPath);
 			}
-			IOUtils.write(java, new FileOutputStream(targetFile), javaTestsEnconding);
+			IOUtils.write(java, new FileOutputStream(targetFile),
+					javaTestsEnconding);
 			compiledTests++;
 		} catch (IOException e) {
-			logOrThrow(name, wrapInMojoException(e, "Could not open source file"));
+			logOrThrow(name,
+					wrapInMojoException(e, "Could not open source file"));
 		} catch (Exception e) {
-			logOrThrow(name, wrapInMojoException(e, "Unexpected failure trying to compile a test case"));
+			logOrThrow(
+					name,
+					wrapInMojoException(e,
+							"Unexpected failure trying to compile a test case"));
 		}
 	}
 
-	private MojoExecutionException wrapInMojoException(Exception cause, String message) {
+	private MojoExecutionException wrapInMojoException(Exception cause,
+			String message) {
 		return new MojoExecutionException(message, cause);
 	}
-	
-	private void logOrThrow(String currentTestCaseName, MojoExecutionException e) throws MojoExecutionException {
+
+	private void logOrThrow(String currentTestCaseName, MojoExecutionException e)
+			throws MojoExecutionException {
 		getLog().warn("Cound not compile " + currentTestCaseName, e);
-		if(failFast) { throw e; }
+		if (failFast) {
+			throw e;
+		}
 	}
-	
+
 	private void addTestSourceDirectory() {
 		project.addTestCompileSourceRoot(javaTestsLocation);
 	}

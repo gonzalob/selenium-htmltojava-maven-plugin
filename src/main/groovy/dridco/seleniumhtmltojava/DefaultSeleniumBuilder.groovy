@@ -1,22 +1,22 @@
 package dridco.seleniumhtmltojava
 
-final class DefaultSeleniumBuilder {
+import groovy.transform.TupleConstructor
 
-	final serverHost
-	final serverPort
-	final browser
-	final baseUrl
+@TupleConstructor
+final class DefaultSeleniumBuilder implements SeleniumBuilder {
 
-	DefaultSeleniumBuilder(host, port, browser, base) {
-		serverHost = host
-		serverPort = port
-		this.browser = browser
-		baseUrl = base
+	def serverHost
+	def serverPort
+	def browser
+	def baseUrl
+
+	def build(base) {
+		String.format(
+				"new com.thoughtworks.selenium.DefaultSelenium(\"%s\", %s, \"%s\", \"%s\")",
+				serverHost, serverPort, browser, base ?: baseUrl)
 	}
 
-	public String build(final String base) {
-		String.format(
-				"new com.thoughtworks.selenium.DefaultSelenium(\"%s\", %d, \"%s\", \"%s\");",
-				serverHost, serverPort, browser, base ?: baseUrl)
+	def start() {
+		TestVariables.SELENIUM + ".start()"
 	}
 }
