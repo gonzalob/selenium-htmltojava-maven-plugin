@@ -1,15 +1,15 @@
 # Change log for selenium-htmltojava-maven-plugin #
 
-* current development version
+* v1.0.5
 > **WARNING**: configuration for this version is not backwards compatible. Please see the 
 > *builder* setting as it is mandatory and new. To keep the old behavior, you need the 
 > following snippet:
 
         <builder implementation="dridco.seleniumhtmltojava.DefaultSeleniumBuilder">
             <serverHost>localhost</serverHost>
-	    <serverPort>4444</serverPort>
-	    <browser>*firefox</browser>
-	    <baseUrl>http://your-domain.com</baseUrl>
+            <serverPort>4444</serverPort>
+            <browser>*firefox</browser>
+            <baseUrl>http://your-domain.com</baseUrl>
         </builder>
 
  - Support for selecting Selenium RC or WebDriver backends.
