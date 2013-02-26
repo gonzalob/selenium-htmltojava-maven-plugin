@@ -469,12 +469,10 @@ enum Commands {
 
 	/**
 	 * Each implementation should be printing Java lines of code, considering
-	 * the existence of the
-	 * {@link dridco.seleniumhtmltojava.TestVariables#SELENIUM} and
-	 * {@link dridco.seleniumhtmltojava.TestVariables#STORAGE} variables, and
-	 * every method in the {@link org.junit.Assert},
-	 * {@link org.apache.commons.lang.StringEscapeUtils} and
-	 * {@link org.junit.matchers.JUnitMatchers} classes. There's also every
+	 * the existence of all variables defined in
+	 * {@link dridco.seleniumhtmltojava.TestVariables}, and every method in the 
+	 * {@link org.junit.Assert}, {@link org.apache.commons.lang.StringEscapeUtils} 
+	 * and {@link org.junit.matchers.JUnitMatchers} classes. There's also every
 	 * function defined in the {@link dridco.seleniumhtmltojava.Functions}
 	 * enumeration
 	 */
