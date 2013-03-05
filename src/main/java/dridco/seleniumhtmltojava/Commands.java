@@ -118,7 +118,7 @@ enum Commands {
 						value.substring(regularExpressionPrefix.length()));
 			} else {
 				built = format(
-						"assertThat(\"%s\", %s.getText(\"%s\"), containsString(\"%s\"));",
+						"assertThat(\"%s\", %s.getText(\"%s\").toLowerCase(), containsString((\"%s\").toLowerCase()));",
 						message(target, value), SELENIUM, target, escape(value));
 			}
 			return built;

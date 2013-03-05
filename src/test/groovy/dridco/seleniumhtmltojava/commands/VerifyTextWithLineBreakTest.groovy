@@ -16,6 +16,6 @@ class VerifyTextWithLineBreakTest extends AbstractVerifyTextTest {
 
 	@Override
 	def expectedResult() {
-		"assertThat(\"verifyText(\\\"css=div.a_class > span\\\", \\\"Something!<br /> Else!\\\")\", selenium.getText(\"css=div.a_class > span\"), containsString(\"Something!\\n Else!\"));"
+		"assertThat(\"verifyText(\\\"css=div.a_class > span\\\", \\\"Something!<br /> Else!\\\")\", selenium.getText(\"css=div.a_class > span\").toLowerCase(), containsString((\"Something!\\n Else!\").toLowerCase()));"
 	}
 }

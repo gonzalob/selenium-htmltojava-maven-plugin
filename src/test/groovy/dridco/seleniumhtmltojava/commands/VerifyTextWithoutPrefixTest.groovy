@@ -14,6 +14,6 @@ class VerifyTextWithoutPrefixTest extends AbstractVerifyTextTest {
 
 	@Override
 	def expectedResult() {
-		"assertThat(\"verifyText(\\\"//div[@id='foo']/h1[1]\\\", \\\"Verifying \" + storage.get(\"Some\") + \" \" + storage.get(\"Text\") + \"\\\")\", selenium.getText(\"//div[@id=\'foo\']/h1[1]\"), containsString(\"Verifying \" + storage.get(\"Some\") + \" \" + storage.get(\"Text\") + \"\"));"
+		"assertThat(\"verifyText(\\\"//div[@id='foo']/h1[1]\\\", \\\"Verifying \" + storage.get(\"Some\") + \" \" + storage.get(\"Text\") + \"\\\")\", selenium.getText(\"//div[@id=\'foo\']/h1[1]\").toLowerCase(), containsString((\"Verifying \" + storage.get(\"Some\") + \" \" + storage.get(\"Text\") + \"\").toLowerCase()));"
 	}
 }
