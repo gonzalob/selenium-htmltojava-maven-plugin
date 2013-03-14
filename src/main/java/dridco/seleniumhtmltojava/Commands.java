@@ -355,7 +355,7 @@ enum Commands {
 	storeAttribute {
 		@Override
 		public String doBuild(final String target, final String value) {
-			return format("%s.put(\"%s\", selenium.getValue(\"%s\"));",
+			return format("%s.put(\"%s\", selenium.getAttribute(\"%s\"));",
 					STORAGE, value, target);
 		}
 	},

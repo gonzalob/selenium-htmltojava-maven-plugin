@@ -15,6 +15,6 @@ class StoreAttributeTest extends AbstractCommandTest {
 
 	@Override
 	def expectedResult() {
-		'storage.put("identifier", selenium.getValue("//div[@id=\'foo\']"));'
+		'storage.put("identifier", selenium.getAttribute("//div[@id=\'foo\']"));'
 	}
 }
