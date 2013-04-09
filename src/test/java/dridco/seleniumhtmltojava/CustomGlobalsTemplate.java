@@ -1,4 +1,4 @@
-package dridco.seleniumhtmltojava.test;
+package dridco.seleniumhtmltojava;
 
 import dridco.seleniumhtmltojava.Globals;
 

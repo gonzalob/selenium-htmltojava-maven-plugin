@@ -2,6 +2,8 @@ package dridco.seleniumhtmltojava
 
 import static org.junit.Assert.assertEquals
 
+import org.hamcrest.Matchers
+import org.junit.Assert
 import org.junit.Test
 
 class RemoteWebDriverBackedSeleniumBuilderTest {
@@ -13,7 +15,7 @@ org.openqa.selenium.firefox.FirefoxProfile profile = new org.openqa.selenium.fir
 java.util.HashMap capabilities = new java.util.HashMap(); capabilities.put("firefox_profile", profile);
 org.openqa.selenium.remote.DesiredCapabilities firefox = org.openqa.selenium.remote.DesiredCapabilities.firefox(); org.openqa.selenium.remote.DesiredCapabilities custom = new org.openqa.selenium.remote.DesiredCapabilities(capabilities); custom.merge(firefox);
 org.openqa.selenium.remote.RemoteWebDriver driver = new org.openqa.selenium.remote.RemoteWebDriver(new java.net.URL("http://localhost:4444/wd/hub"), custom);
-driver.manage().timeouts().implicitlyWait(30000, java.util.concurrent.TimeUnit.MILLISECONDS);
+driver.manage().timeouts().implicitlyWait(-1, java.util.concurrent.TimeUnit.MILLISECONDS);
 selenium = new org.openqa.selenium.WebDriverBackedSelenium(driver, "localhost")"""
 		assertEquals expected, tested.build()
 	}
@@ -26,7 +28,7 @@ org.openqa.selenium.firefox.FirefoxProfile profile = new org.openqa.selenium.fir
 java.util.HashMap capabilities = new java.util.HashMap(); capabilities.put("firefox_profile", profile);capabilities.put("boolean", true);
 org.openqa.selenium.remote.DesiredCapabilities firefox = org.openqa.selenium.remote.DesiredCapabilities.firefox(); org.openqa.selenium.remote.DesiredCapabilities custom = new org.openqa.selenium.remote.DesiredCapabilities(capabilities); custom.merge(firefox);
 org.openqa.selenium.remote.RemoteWebDriver driver = new org.openqa.selenium.remote.RemoteWebDriver(new java.net.URL("http://localhost:4444/wd/hub"), custom);
-driver.manage().timeouts().implicitlyWait(30000, java.util.concurrent.TimeUnit.MILLISECONDS);
+driver.manage().timeouts().implicitlyWait(-1, java.util.concurrent.TimeUnit.MILLISECONDS);
 selenium = new org.openqa.selenium.WebDriverBackedSelenium(driver, "localhost")"""
 		assertEquals expected, tested.build()
 	}
@@ -41,7 +43,7 @@ org.openqa.selenium.firefox.FirefoxProfile profile = new org.openqa.selenium.fir
 java.util.HashMap capabilities = new java.util.HashMap(); capabilities.put("firefox_profile", profile);
 org.openqa.selenium.remote.DesiredCapabilities firefox = org.openqa.selenium.remote.DesiredCapabilities.firefox(); org.openqa.selenium.remote.DesiredCapabilities custom = new org.openqa.selenium.remote.DesiredCapabilities(capabilities); custom.merge(firefox);
 org.openqa.selenium.remote.RemoteWebDriver driver = new org.openqa.selenium.remote.RemoteWebDriver(new java.net.URL("http://localhost:4444/wd/hub"), custom);
-driver.manage().timeouts().implicitlyWait(30000, java.util.concurrent.TimeUnit.MILLISECONDS);
+driver.manage().timeouts().implicitlyWait(-1, java.util.concurrent.TimeUnit.MILLISECONDS);
 selenium = new org.openqa.selenium.WebDriverBackedSelenium(driver, "localhost")"""
 		assertEquals expected, tested.build()
 	}
@@ -49,5 +51,29 @@ selenium = new org.openqa.selenium.WebDriverBackedSelenium(driver, "localhost")"
 	@Test void startIsNoOp() {
 		def WHATEVER
 		assertEquals "", new RemoteWebDriverBackedSeleniumBuilder(WHATEVER, WHATEVER, WHATEVER, WHATEVER).start()
+	}
+	
+	@Test
+	void rendersDefinedTimeout() {
+		def forcedTimeout = 300000
+		def template = new CustomGlobalsTemplate()
+		template.with {
+			setForcedTimeout(forcedTimeout)
+			execute(new CustomGlobalsCallback() {
+
+				@Override
+				public void execute() {
+					def tested = new RemoteWebDriverBackedSeleniumBuilder("localhost", 4444, "firefox", "localhost")
+					def expected = """
+org.openqa.selenium.firefox.FirefoxProfile profile = new org.openqa.selenium.firefox.FirefoxProfile();
+java.util.HashMap capabilities = new java.util.HashMap(); capabilities.put("firefox_profile", profile);
+org.openqa.selenium.remote.DesiredCapabilities firefox = org.openqa.selenium.remote.DesiredCapabilities.firefox(); org.openqa.selenium.remote.DesiredCapabilities custom = new org.openqa.selenium.remote.DesiredCapabilities(capabilities); custom.merge(firefox);
+org.openqa.selenium.remote.RemoteWebDriver driver = new org.openqa.selenium.remote.RemoteWebDriver(new java.net.URL("http://localhost:4444/wd/hub"), custom);
+driver.manage().timeouts().implicitlyWait(300000, java.util.concurrent.TimeUnit.MILLISECONDS);
+selenium = new org.openqa.selenium.WebDriverBackedSelenium(driver, "localhost")"""
+					assertEquals expected, tested.build()
+				}
+			})
+		}
 	}
 }
