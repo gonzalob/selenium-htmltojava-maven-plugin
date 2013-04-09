@@ -25,7 +25,9 @@ class RemoteWebDriverBackedSeleniumBuilder implements SeleniumBuilder {
 org.openqa.selenium.firefox.FirefoxProfile ${PROFILE_NAME} = new org.openqa.selenium.firefox.FirefoxProfile();${profilePreferences}
 java.util.HashMap ${CAPABILITIES_MAP_NAME} = new java.util.HashMap(); ${CAPABILITIES_MAP_NAME}.put("firefox_profile", ${PROFILE_NAME});${renderedCapabilities}
 org.openqa.selenium.remote.DesiredCapabilities firefox = org.openqa.selenium.remote.DesiredCapabilities.firefox(); org.openqa.selenium.remote.DesiredCapabilities custom = new org.openqa.selenium.remote.DesiredCapabilities(${CAPABILITIES_MAP_NAME}); custom.merge(firefox);
-${TestVariables.SELENIUM} = new org.openqa.selenium.WebDriverBackedSelenium(new org.openqa.selenium.remote.RemoteWebDriver(new java.net.URL("http://${serverHost}:${serverPort}/wd/hub"), custom), "${base ?: baseUrl}")""".toString()
+org.openqa.selenium.remote.RemoteWebDriver driver = new org.openqa.selenium.remote.RemoteWebDriver(new java.net.URL("http://${serverHost}:${serverPort}/wd/hub"), custom);
+driver.manage().timeouts().implicitlyWait(${dridco.seleniumhtmltojava.Globals.timeout()}, java.util.concurrent.TimeUnit.MILLISECONDS);
+${TestVariables.SELENIUM} = new org.openqa.selenium.WebDriverBackedSelenium(driver, "${base ?: baseUrl}")""".toString()
 	}
 
 	def start() {
