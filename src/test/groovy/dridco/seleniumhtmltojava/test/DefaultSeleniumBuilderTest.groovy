@@ -9,6 +9,8 @@ import dridco.seleniumhtmltojava.DefaultSeleniumBuilder
 
 class DefaultSeleniumBuilderTest {
 
+	def WHATEVER
+
 	@Test
 	public void rendersTheBuilderWithExpectedParameters() {
 		def tested = new DefaultSeleniumBuilder("localhost", 4444, "*firefox", "http://localhost")
@@ -19,8 +21,11 @@ class DefaultSeleniumBuilderTest {
 
 	@Test
 	public void rendersTheStartInstruction() {
-		def WHATEVER
 		assertEquals("selenium.start();selenium.setSpeed(\"0\");selenium.setTimeout(\"30000\");", new DefaultSeleniumBuilder(WHATEVER,
 				WHATEVER, WHATEVER, WHATEVER).start())
+	}
+
+	@Test void declaresNoVariables() {
+		assertEquals EMPTY, new DefaultSeleniumBuilder(WHATEVER, WHATEVER, WHATEVER, WHATEVER).instanceVariables()
 	}
 }

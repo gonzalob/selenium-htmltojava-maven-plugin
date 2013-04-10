@@ -40,6 +40,7 @@ private final java.util.logging.Logger logger = java.util.logging.Logger.getLogg
 private final com.thoughtworks.selenium.Selenium selenium;
 private final java.util.Map<String, String> storage = new java.util.HashMap<String, String>();
 private final boolean verbose;
+
 public _TheCasesTitleITCase() { try { selenium = new com.thoughtworks.selenium.DefaultSelenium("localhost", 4444, "*firefox", "http://sample-host/"); verbose = false; } catch(RuntimeException e) { throw e; } catch(Exception e) { throw new RuntimeException(e); } }
 @org.junit.Before public void setUp() { logStart(); prepareSeleniumSession(); }
 @org.junit.After public void tearDown() { closeSeleniumSession(); logEnd(); } 
@@ -69,6 +70,7 @@ private final java.util.logging.Logger logger = java.util.logging.Logger.getLogg
 private final com.thoughtworks.selenium.Selenium selenium;
 private final java.util.Map<String, String> storage = new java.util.HashMap<String, String>();
 private final boolean verbose;
+
 public _TheCasesTitleITCase() { try { selenium = new com.thoughtworks.selenium.DefaultSelenium("localhost", 4444, "*firefox", "http://sample-host/"); verbose = false; } catch(RuntimeException e) { throw e; } catch(Exception e) { throw new RuntimeException(e); } }
 @org.junit.Before public void setUp() { logStart(); prepareSeleniumSession(); }
 @org.junit.After public void tearDown() { closeSeleniumSession(); logEnd(); } 

@@ -27,7 +27,7 @@ class RemoteWebDriverBackedSeleniumBuilder implements SeleniumBuilder {
 org.openqa.selenium.firefox.FirefoxProfile ${PROFILE_NAME} = new org.openqa.selenium.firefox.FirefoxProfile();${profilePreferences}
 java.util.HashMap ${CAPABILITIES_MAP_NAME} = new java.util.HashMap(); ${CAPABILITIES_MAP_NAME}.put("firefox_profile", ${PROFILE_NAME});${renderedCapabilities}
 org.openqa.selenium.remote.DesiredCapabilities firefox = org.openqa.selenium.remote.DesiredCapabilities.firefox(); org.openqa.selenium.remote.DesiredCapabilities custom = new org.openqa.selenium.remote.DesiredCapabilities(${CAPABILITIES_MAP_NAME}); custom.merge(firefox);
-org.openqa.selenium.remote.RemoteWebDriver ${DRIVER_VAR_NAME} = new org.openqa.selenium.remote.RemoteWebDriver(new java.net.URL("http://${serverHost}:${serverPort}/wd/hub"), custom);
+${DRIVER_VAR_NAME} = new org.openqa.selenium.remote.RemoteWebDriver(new java.net.URL("http://${serverHost}:${serverPort}/wd/hub"), custom);
 ${TestVariables.SELENIUM} = new org.openqa.selenium.WebDriverBackedSelenium(driver, "${base ?: baseUrl}")""".toString()
 	}
 
@@ -37,5 +37,10 @@ ${TestVariables.SELENIUM} = new org.openqa.selenium.WebDriverBackedSelenium(driv
 			SeleniumFunctionCall.setTimeout(Globals.timeout()),
 			"""${DRIVER_VAR_NAME}.manage().timeouts().implicitlyWait(${Globals.forcedTimeout()}, java.util.concurrent.TimeUnit.MILLISECONDS);"""
 		].collect { it.toString() }.join()
+	}
+
+	@Override
+	def instanceVariables() {
+		"org.openqa.selenium.WebDriver ${DRIVER_VAR_NAME};".toString()
 	}
 }

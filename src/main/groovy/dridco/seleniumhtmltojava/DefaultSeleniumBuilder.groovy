@@ -22,4 +22,9 @@ final class DefaultSeleniumBuilder implements SeleniumBuilder {
 			SeleniumFunctionCall.setTimeout(Globals.timeout()),
 		].collect { it.toString() }.join()
 	}
+
+	@Override
+	def instanceVariables() {
+		"" // noop
+	}
 }
