@@ -1,6 +1,6 @@
 package dridco.seleniumhtmltojava.commands
 
-class StoreText extends AbstractCommandTest {
+class StoreTextTest extends AbstractCommandTest {
 
 	@Override
 	def htmlInstructions() {
