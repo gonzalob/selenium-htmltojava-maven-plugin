@@ -43,7 +43,7 @@ private final boolean verbose;
 public _TheCasesTitleITCase() { try { selenium = new com.thoughtworks.selenium.DefaultSelenium("localhost", 4444, "*firefox", "http://sample-host/"); verbose = false; } catch(RuntimeException e) { throw e; } catch(Exception e) { throw new RuntimeException(e); } }
 @org.junit.Before public void setUp() { logStart(); prepareSeleniumSession(); }
 @org.junit.After public void tearDown() { closeSeleniumSession(); logEnd(); } 
-private void prepareSeleniumSession() { selenium.start(); selenium.setSpeed("0"); selenium.setTimeout("30000"); }
+private void prepareSeleniumSession() { selenium.start();selenium.setSpeed("0");selenium.setTimeout("30000"); }
 private void closeSeleniumSession() { selenium.stop(); }
 private void logStart() { log("started"); }
 private void logEnd() { log("ended"); }
@@ -72,7 +72,7 @@ private final boolean verbose;
 public _TheCasesTitleITCase() { try { selenium = new com.thoughtworks.selenium.DefaultSelenium("localhost", 4444, "*firefox", "http://sample-host/"); verbose = false; } catch(RuntimeException e) { throw e; } catch(Exception e) { throw new RuntimeException(e); } }
 @org.junit.Before public void setUp() { logStart(); prepareSeleniumSession(); }
 @org.junit.After public void tearDown() { closeSeleniumSession(); logEnd(); } 
-private void prepareSeleniumSession() { selenium.start(); selenium.setSpeed("0"); selenium.setTimeout("30000"); }
+private void prepareSeleniumSession() { selenium.start();selenium.setSpeed("0");selenium.setTimeout("30000"); }
 private void closeSeleniumSession() { selenium.stop(); }
 private void logStart() { log("started"); }
 private void logEnd() { log("ended"); }

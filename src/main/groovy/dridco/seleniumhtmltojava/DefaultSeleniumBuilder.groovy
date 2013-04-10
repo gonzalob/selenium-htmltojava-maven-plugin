@@ -11,12 +11,15 @@ final class DefaultSeleniumBuilder implements SeleniumBuilder {
 	def baseUrl
 
 	def build(base) {
-		String.format(
-				"%s = new com.thoughtworks.selenium.DefaultSelenium(\"%s\", %s, \"%s\", \"%s\")",
+		String.format("%s = new com.thoughtworks.selenium.DefaultSelenium(\"%s\", %s, \"%s\", \"%s\")",
 				TestVariables.SELENIUM, serverHost, serverPort, browser, base ?: baseUrl)
 	}
 
 	def start() {
-		TestVariables.SELENIUM + ".start()"
+		[
+			SeleniumFunctionCall.start(),
+			SeleniumFunctionCall.setSpeed(Globals.speed()),
+			SeleniumFunctionCall.setTimeout(Globals.timeout()),
+		].collect { it.toString() }.join()
 	}
 }

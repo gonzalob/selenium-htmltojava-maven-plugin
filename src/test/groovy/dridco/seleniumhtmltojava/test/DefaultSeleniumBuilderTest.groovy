@@ -20,7 +20,7 @@ class DefaultSeleniumBuilderTest {
 	@Test
 	public void rendersTheStartInstruction() {
 		def WHATEVER
-		assertEquals("selenium.start()", new DefaultSeleniumBuilder(WHATEVER,
+		assertEquals("selenium.start();selenium.setSpeed(\"0\");selenium.setTimeout(\"30000\");", new DefaultSeleniumBuilder(WHATEVER,
 				WHATEVER, WHATEVER, WHATEVER).start())
 	}
 }

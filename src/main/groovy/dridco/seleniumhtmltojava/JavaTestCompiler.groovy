@@ -69,7 +69,7 @@ private final boolean verbose;
 public ${resolvedName}() { try { ${seleniumBuilder.build(base)}; verbose = ${Globals.verbose()}; } catch(RuntimeException e) { throw e; } catch(Exception e) { throw new RuntimeException(e); } }
 @org.junit.Before public void setUp() { logStart(); prepareSeleniumSession(); }
 @org.junit.After public void tearDown() { closeSeleniumSession(); logEnd(); } 
-private void prepareSeleniumSession() { ${seleniumBuilder.start()}; ${TestVariables.SELENIUM}.setSpeed("${Globals.speed()}"); ${TestVariables.SELENIUM}.setTimeout("${Globals.timeout()}"); }
+private void prepareSeleniumSession() { ${seleniumBuilder.start()} }
 private void closeSeleniumSession() { ${TestVariables.SELENIUM}.stop(); }
 private void logStart() { log("started"); }
 private void logEnd() { log("ended"); }

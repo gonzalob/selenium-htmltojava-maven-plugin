@@ -1,6 +1,6 @@
 package dridco.seleniumhtmltojava
 
-import groovy.transform.TupleConstructor;
+import groovy.transform.TupleConstructor
 
 @TupleConstructor
 class RemoteWebDriverBackedSeleniumBuilder implements SeleniumBuilder {
@@ -16,6 +16,8 @@ class RemoteWebDriverBackedSeleniumBuilder implements SeleniumBuilder {
 	def CAPABILITIES_MAP_NAME = "capabilities"
 	def PROFILE_NAME = "profile"
 
+	def DRIVER_VAR_NAME = "driver"
+
 	def build(base) {
 		def renderedCapabilities = ""
 		def profilePreferences = ""
@@ -25,12 +27,15 @@ class RemoteWebDriverBackedSeleniumBuilder implements SeleniumBuilder {
 org.openqa.selenium.firefox.FirefoxProfile ${PROFILE_NAME} = new org.openqa.selenium.firefox.FirefoxProfile();${profilePreferences}
 java.util.HashMap ${CAPABILITIES_MAP_NAME} = new java.util.HashMap(); ${CAPABILITIES_MAP_NAME}.put("firefox_profile", ${PROFILE_NAME});${renderedCapabilities}
 org.openqa.selenium.remote.DesiredCapabilities firefox = org.openqa.selenium.remote.DesiredCapabilities.firefox(); org.openqa.selenium.remote.DesiredCapabilities custom = new org.openqa.selenium.remote.DesiredCapabilities(${CAPABILITIES_MAP_NAME}); custom.merge(firefox);
-org.openqa.selenium.remote.RemoteWebDriver driver = new org.openqa.selenium.remote.RemoteWebDriver(new java.net.URL("http://${serverHost}:${serverPort}/wd/hub"), custom);
-driver.manage().timeouts().implicitlyWait(${dridco.seleniumhtmltojava.Globals.forcedTimeout()}, java.util.concurrent.TimeUnit.MILLISECONDS);
+org.openqa.selenium.remote.RemoteWebDriver ${DRIVER_VAR_NAME} = new org.openqa.selenium.remote.RemoteWebDriver(new java.net.URL("http://${serverHost}:${serverPort}/wd/hub"), custom);
 ${TestVariables.SELENIUM} = new org.openqa.selenium.WebDriverBackedSelenium(driver, "${base ?: baseUrl}")""".toString()
 	}
 
 	def start() {
-		"" // this is a noop for WebDriverBackedSelenium
+		[
+			SeleniumFunctionCall.setSpeed(Globals.speed()),
+			SeleniumFunctionCall.setTimeout(Globals.timeout()),
+			"""${DRIVER_VAR_NAME}.manage().timeouts().implicitlyWait(${Globals.forcedTimeout()}, java.util.concurrent.TimeUnit.MILLISECONDS);"""
+		].collect { it.toString() }.join()
 	}
 }
