@@ -1,8 +1,10 @@
 package dridco.seleniumhtmltojava;
 
+import static dridco.seleniumhtmltojava.TestVariables.SELENIUM;
 import static java.lang.String.format;
 import static java.util.Arrays.asList;
 import static org.apache.commons.collections15.CollectionUtils.collect;
+import static org.apache.commons.lang.StringUtils.EMPTY;
 import static org.apache.commons.lang.StringUtils.join;
 
 import org.apache.commons.collections15.Transformer;
@@ -70,13 +72,26 @@ public enum Functions {
 					new FunctionParameter(OpenFunctionBody.URL_PARAMETER, String.class) },
 					new OpenFunctionBody());
 		}
+	},
+	waitForSelectedLabel {
+		@Override
+		public String render() {
+			String selectLocator = "selectLocator";
+			String pattern = "pattern";
+			Object condition = format("%s.equals(%s.getSelectedLabel(%s))", pattern, SELENIUM, selectLocator);
+			WaitForFunctionBody body = new WaitForFunctionBody(condition).withTimeout(Globals.timeout());
+			return functionDeclaration(new FunctionParameter[] {
+					new FunctionParameter(selectLocator, String.class),
+					new FunctionParameter(pattern, String.class) },
+					body);
+		}
 	};
 
 	public abstract String render();
 
 	protected String waitForSomething(final WaitForFunctionCallback callback) {
 		final String targetArgumentName = "element";
-		final String valueArgumentName = "timeout";
+		final String valueArgumentName = WaitForFunctionBody.TIMEOUT_PARAMETER;
 		final String waitCondition = callback.waitCondition(targetArgumentName, valueArgumentName);
 		return functionDeclaration(new FunctionParameter[] {
 				new FunctionParameter(targetArgumentName, String.class),
@@ -95,16 +110,32 @@ public enum Functions {
 
 	private static final class WaitForFunctionBody implements FunctionBody {
 
+		private static final String TIMEOUT_PARAMETER = "timeout";
+		
 		private Object waitCondition;
+
+		private String timeoutInitialization ;
 
 		public WaitForFunctionBody(Object waitCondition) {
 			this.waitCondition = waitCondition;
+			timeoutInitialization = EMPTY;
+		}
+
+		/**
+		 * Initializes the {@value #TIMEOUT_PARAMETER} variable with the specified value<br>
+		 * Keep in mind that functions using the body rendered by objects after this call cannot 
+		 * expect to receive a {@value #TIMEOUT_PARAMETER} argument, as the compiler will complain.
+		 */
+		public WaitForFunctionBody withTimeout(Object timeout) {
+			timeoutInitialization = String.format("String %s = \"%s\";", TIMEOUT_PARAMETER, timeout); 
+			return this;
 		}
 
 		@Override
 		public String render() {
 			return format(
-				"int millis = Integer.valueOf(timeout);"
+				"" + timeoutInitialization 
+						+ "int millis = Integer.valueOf(" + TIMEOUT_PARAMETER + ");"
 						+ "if(" + Globals.forcedTimeout() + " > millis) { millis = " + Globals.forcedTimeout() + "; }"
 						+ "final int millisBetweenAttempts = 500;"
 						+ "int remainingAttempts = millis / millisBetweenAttempts;"

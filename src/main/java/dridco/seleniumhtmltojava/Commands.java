@@ -393,6 +393,14 @@ enum Commands {
 		}
 
 	},
+	waitForSelectedLabel {
+
+		@Override
+		public String doBuild(String selectLocator, String pattern) {
+			return format("waitForSelectedLabel(\"%s\", \"%s\");", selectLocator, pattern);
+		}
+		
+	},
 	waitForElementPresent {
 		@Override
 		public String doBuild(final String target, final String timeout) {
