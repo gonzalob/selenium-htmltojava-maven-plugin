@@ -1,4 +1,4 @@
-# selenium-htmltojava-maven-plugin #
+ # selenium-htmltojava-maven-plugin #
 
 Using [Selenium IDE](http://seleniumhq.org/projects/ide/) to automate web 
 testing is really easy. It's not so easy, though, to automate execution of 
@@ -63,3 +63,6 @@ that do the same.
 This class is hardly complete. It is enough so far for the scripts written by 
 the teams I'm currently working with, but they keep learning commands and the 
 list is only getting bigger.
+
+# License #
+This software is licensed under the [http://www.gnu.org/licenses/gpl-2.0.html](GPLv2).
