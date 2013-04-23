@@ -65,4 +65,4 @@ the teams I'm currently working with, but they keep learning commands and the
 list is only getting bigger.
 
 # License #
-This software is licensed under the [http://www.gnu.org/licenses/gpl-2.0.html](GPLv2).
+This software is licensed under the [GPLv2](http://www.gnu.org/licenses/gpl-2.0.html).
