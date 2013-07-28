@@ -1,4 +1,4 @@
- # selenium-htmltojava-maven-plugin #
+# selenium-htmltojava-maven-plugin #
 
 Using [Selenium IDE](http://seleniumhq.org/projects/ide/) to automate web 
 testing is really easy. It's not so easy, though, to automate execution of 
