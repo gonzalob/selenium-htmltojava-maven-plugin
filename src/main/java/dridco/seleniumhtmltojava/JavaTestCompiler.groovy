@@ -40,13 +40,13 @@ public class JavaTestCompiler {
 			it.td[1].each {
 				if(it instanceof Node) {
 					value += " \\n " // so far, i've only encountered br's when not strings. KISS
-				} else value += it
+				} else { value += it }
 			}
 			def additional = it.td[2].text()
 			def command
 			try {
 				command = Commands.valueOf(commandName)
-			} catch(e) {
+			} catch( e ) {
 				command = Commands.__unknown__
 				value = commandName
 			}
@@ -79,7 +79,7 @@ private void log(String event) { if(verbose) { logger.info("Test " + getClass().
 @org.junit.Test(timeout = ${Globals.testTimeout()}L) public void testMethod() {${commands}}}""".toString()
 	}
 
-	private String functions() {
+	private static String functions() {
 		StringBuilder functions = new StringBuilder()
 		for (Functions function : Functions.values()) {
 			functions.append function.render() 
