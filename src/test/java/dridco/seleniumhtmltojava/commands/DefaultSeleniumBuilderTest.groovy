@@ -1,4 +1,4 @@
-package dridco.seleniumhtmltojava.test
+package dridco.seleniumhtmltojava.commands
 
 import static org.apache.commons.lang.StringUtils.EMPTY
 import static org.junit.Assert.assertEquals

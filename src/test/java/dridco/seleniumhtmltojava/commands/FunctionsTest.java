@@ -1,8 +1,10 @@
-package dridco.seleniumhtmltojava;
+package dridco.seleniumhtmltojava.commands;
 
 import org.junit.Assert;
 import org.junit.Test;
 
+import dridco.seleniumhtmltojava.CustomGlobalsCallback;
+import dridco.seleniumhtmltojava.CustomGlobalsTemplate;
 import dridco.seleniumhtmltojava.Functions;
 
 public class FunctionsTest {

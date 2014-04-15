@@ -1,4 +1,4 @@
-package dridco.seleniumhtmltojava.test
+package dridco.seleniumhtmltojava.commands
 
 import static org.hamcrest.Matchers.*
 import static org.junit.Assert.*
