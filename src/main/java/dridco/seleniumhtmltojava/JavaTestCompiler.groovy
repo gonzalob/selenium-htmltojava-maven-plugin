@@ -23,9 +23,12 @@ public class JavaTestCompiler {
 		def resolvedPackage = new TestCaseName(testPackage ?: "integration_tests", EMPTY).normalize()
 
 		def parser = new XmlParser()
-		/* disabled dtd validation, these xmls are supposed to be built by an automated tool, 
-		 added to the fact that the dtd for xhtml1 takes forever to download */
-		parser.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false)
+		parser.with {
+			setFeature "http://apache.org/xml/features/disallow-doctype-decl"          , false
+			/* disabled dtd validation, these xmls are supposed to be built by an automated tool, 
+			   added to the fact that the dtd for xhtml1 takes forever to download */
+			setFeature "http://apache.org/xml/features/nonvalidating/load-external-dtd", false
+		}
 		def html = parser.parseText(testSource)
 		def steps = html.body.table.tbody.tr
 		def candidateBase = html.head.link.find { it.'@rel'.equals('selenium.base') }
