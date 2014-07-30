@@ -64,5 +64,12 @@ This class is hardly complete. It is enough so far for the scripts written by
 the teams I'm currently working with, but they keep learning commands and the 
 list is only getting bigger.
 
+# Project Links #
+
+ * [Github Project](http://bit.ly/1u0UvyL)
+ * [Continuous Integration](http://bit.ly/1nUixvD) ![Build Status](http://ciarq.dridco.com/jenkins/buildStatus/icon?job=Selenium HTML to jUnit)
+ * [Quality Management](http://bit.ly/1s3YvPC)
+
 # License #
 This software is licensed under the [GPLv2](http://www.gnu.org/licenses/gpl-2.0.html).
+

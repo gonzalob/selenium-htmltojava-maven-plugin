@@ -185,7 +185,7 @@
 	</dependencyManagement>
 	<ciManagement>
 		<system>jenkins</system>
-		<url>http://ciarq.dridco.com/jenkins</url>
+		<url>http://ciarq.dridco.com/jenkins/job/Selenium%20HTML%20to%20jUnit/</url>
 	</ciManagement>
 	<issueManagement>
 		<system>github</system>
@@ -196,15 +196,4 @@
 		<developerConnection>scm:git:ssh://git@github.com/gonzalob/selenium-htmltojava-maven-plugin.git</developerConnection>
 		<url>https://github.com/gonzalob/selenium-htmltojava-maven-plugin</url>
 	</scm>
-	<!-- these repositories are not public -->
-	<distributionManagement>
-		<repository>
-			<id>dridco.release</id>
-			<url>http://repos.vdc.dridco.com/nexus/content/repositories/releases</url>
-		</repository>
-		<snapshotRepository>
-			<id>dridco.snapshot</id>
-			<url>http://repos.vdc.dridco.com/nexus/content/repositories/snapshots</url>
-		</snapshotRepository>
-	</distributionManagement>
 </project>
