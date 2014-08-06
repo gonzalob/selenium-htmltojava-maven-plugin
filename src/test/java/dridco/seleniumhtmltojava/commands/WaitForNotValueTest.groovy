@@ -1,6 +1,6 @@
-package dridco.seleniumhtmltojava.commands;
+package dridco.seleniumhtmltojava.commands
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.*
 
 class WaitForNotValueTest extends AbstractCommandTest {
 
@@ -12,12 +12,12 @@ class WaitForNotValueTest extends AbstractCommandTest {
         <td>id="foo"</td>
         <td>10</td>
 </tr>
-""";
+"""
 	}
 
 	@Override
 	def expectedResult() {
-		"waitForNotValue(\"id=\\\"foo\\\"\", \"10\");";
+		"waitForNotValue(\"id=\\\"foo\\\"\", \"10\");"
 	}
 
 }

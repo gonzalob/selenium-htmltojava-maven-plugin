@@ -424,7 +424,7 @@ enum Commands {
 		}
 
 	},
-	waitForEditable() {
+	waitForEditable {
 		@Override
 		public String doBuild(final String target, final String timeout) {
 			warnIfUnusedValueIsNotEmpty(timeout);
@@ -433,7 +433,7 @@ enum Commands {
 		}
 
 	},
-	waitForTextPresent() {
+	waitForTextPresent {
 		@Override
 		public String doBuild(final String target, final String timeout) {
 			warnIfUnusedValueIsNotEmpty(timeout);
@@ -442,14 +442,14 @@ enum Commands {
 		}
 
 	},
-	waitForNotValue() {
+	waitForNotValue {
 		@Override
 		public String doBuild(final String target, final String value) {
 			return format("waitForNotValue(\"%s\", \"%s\");", target, value);
 		}
 
 	},
-	check() {
+	check {
 		@Override
 		public String doBuild(String locator, String unused) {
 			warnIfUnusedValueIsNotEmpty(unused);
