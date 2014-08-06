@@ -65,6 +65,13 @@ public enum Functions {
 			return waitForSomething(new WaitForVisibleFunctionCallback());
 		}
 	},
+	waitForNotVisible {
+
+		@Override
+		public String render() {
+			return waitForSomething(new NotFunctionBody(new WaitForVisibleFunctionCallback()));
+		}
+	},
 	open {
 		@Override
 		public String render() {

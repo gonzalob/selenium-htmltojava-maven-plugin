@@ -456,6 +456,15 @@ enum Commands {
 			return format("%s.check(\"%s\");", SELENIUM, locator);
 		}
 	},
+	waitForNotVisible {
+
+		@Override
+		public String doBuild(String target, String unused) {
+			warnIfUnusedValueIsNotEmpty(unused);
+			return format("waitForNotVisible(\"%s\", \"%s\");", target, Globals.timeout());
+		}
+		
+	},
 	__unknown__ {
 		@Override
 		public String doBuild(final String target, final String value) {
