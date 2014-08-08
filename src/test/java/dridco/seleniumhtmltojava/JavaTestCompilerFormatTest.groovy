@@ -1,11 +1,10 @@
-package dridco.seleniumhtmltojava.commands
+package dridco.seleniumhtmltojava
 
 import static org.junit.Assert.assertEquals
 
 import org.junit.Test
 
 import dridco.seleniumhtmltojava.JavaTestCompiler
-import dridco.seleniumhtmltojava.SeleniumBuilderFixture
 
 class JavaTestCompilerFormatTest {
 
