@@ -21,9 +21,9 @@ abstract class AbstractCommandTest {
 	@Test void canCompile() {
 		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler()
 		JavaFileObject file = new JavaSourceFromString("_SomeTestITCase", compileInstructions())
-		CompilationTask task = compiler.getTask(null, null, null, ["-d", "target"], null, Arrays.asList(file))
+		CompilationTask task = compiler.getTask null, null, null, ["-d", "target"], null, Arrays.asList(file)
 
-		Assert.assertTrue(task.call())
+		assertTrue task.call()
 	}
 
 	def compileInstructions() {
