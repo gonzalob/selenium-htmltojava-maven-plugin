@@ -1,17 +1,16 @@
 package dridco.seleniumhtmltojava.commands
 
-import static org.hamcrest.Matchers.*
-import static org.junit.Assert.*
-
-import org.apache.commons.io.output.NullWriter;
-import org.junit.rules.TestName
-
 import dridco.seleniumhtmltojava.JavaTestCompiler
 import dridco.seleniumhtmltojava.SeleniumBuilderFixture
 
-public class ScriptBuilder {
+class ScriptBuilder {
 
 	def private DEFAULT_TEST_NAME = "SomeTest"
+
+	@Override
+	def getProperty(String propertyName) {
+		getProperties()[propertyName]
+	}
 
 	def commands = []
 	def testName = DEFAULT_TEST_NAME

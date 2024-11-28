@@ -18,6 +18,11 @@ class RemoteWebDriverBackedSeleniumBuilder implements SeleniumBuilder {
 
 	def DRIVER_VAR_NAME = "driver"
 
+	@Override
+	def getProperty(String propertyName) {
+		getProperties()[propertyName]
+	}
+
 	def build(base) {
 		def renderedCapabilities = ""
 		def profilePreferences = ""

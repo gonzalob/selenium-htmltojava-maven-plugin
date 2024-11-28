@@ -3,11 +3,10 @@ package dridco.seleniumhtmltojava;
 import static dridco.seleniumhtmltojava.TestVariables.SELENIUM;
 import static java.lang.String.format;
 import static java.util.Arrays.asList;
-import static org.apache.commons.collections15.CollectionUtils.collect;
+import static org.apache.commons.collections4.CollectionUtils.collect;
 import static org.apache.commons.lang.StringUtils.EMPTY;
 import static org.apache.commons.lang.StringUtils.join;
-
-import org.apache.commons.collections15.Transformer;
+import org.apache.commons.collections4.Transformer;
 
 /**
  * An enumeration of functions available for commands to invoke

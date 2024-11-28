@@ -12,7 +12,7 @@ class AssertConfirmationWithSpacesAroundLineBreakTest extends AbstractAssertConf
 		buildString("\\\\n")
 	}
 
-	def private buildString(def lineBreak) {
+	private static buildString(def lineBreak) {
 		"A line " + lineBreak + " Another line"
 	}
 }
